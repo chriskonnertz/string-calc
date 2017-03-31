@@ -46,7 +46,7 @@ class StringCalc {
 	 */
 	protected function tokenize($term)
 	{
-        $inputStream = new InputStream($term);
+        $inputStream = new InputStream($term, $this->stringHelper);
 
 		$tokenizer = new Tokenizer($inputStream, $this->stringHelper);
 
