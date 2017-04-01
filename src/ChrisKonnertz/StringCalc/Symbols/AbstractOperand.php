@@ -2,8 +2,8 @@
 
 /**
  * This class is the base class for all symbols that are of the type "(binary) operand".
- * Typically the textual representation of an operand consists of a single char that is not
- * a letter. However, you can use letters as well and use more than just one character.
+ * The textual representation of an operand consists of a single char that is not a letter.
+ * It is worth noting that a operand has the same power as a function with two parameters.
  * Operands are always binary. To mimic a unary operator you might want to create a function
  * that accepts one parameter.
  */

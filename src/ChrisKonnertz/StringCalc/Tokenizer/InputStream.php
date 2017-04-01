@@ -8,10 +8,10 @@ class InputStream
     /**
      * @var string
      */
-    protected $term;
+    protected $input;
 
     /**
-     * Current position in the term
+     * Current position in the input
      *
      * @var int
      */
@@ -23,15 +23,15 @@ class InputStream
     protected $stringHelper;
 
     /**
-     * @param string       $term
+     * @param string       $input
      * @param StringHelper $stringHelper
      */
-    public function __construct($term, StringHelper $stringHelper)
+    public function __construct($input, StringHelper $stringHelper)
     {
         // Dependency: string helper must be assigned before setTerm() is called!
         $this->stringHelper = $stringHelper;
 
-        $this->setTerm($term);
+        $this->setInput($input);
     }
 
     /**
@@ -42,7 +42,7 @@ class InputStream
      */
     public function readNext()
     {
-        $this->$index++;
+        $this->index++;
 
         return $this->readCurrent();
     }
@@ -53,7 +53,7 @@ class InputStream
     public function readCurrent()
     {
         if ($this->hasCurrent()) {
-            $char = $term[$this->index];
+            $char = $this->input[$this->index];
         } else {
             $char = null;
         }
@@ -66,7 +66,7 @@ class InputStream
      */
     public function hasCurrent()
     {
-        return ($this->index < strlen($this->term));
+        return ($this->index < strlen($this->input));
     }
 
     /**
@@ -78,21 +78,21 @@ class InputStream
     }
 
     /**
-     * @param string $term
+     * @param string $input
      */
-    public function setTerm($term)
+    public function setInput($input)
     {
-        $this->stringHelper->validate($term);
+        $this->stringHelper->validate($input);
 
-        $this->term = $term;
+        $this->input = $input;
     }
 
     /**
      * @return string
      */
-    public function getTerm()
+    public function getInput()
     {
-        return $this->term;
+        return $this->input;
     }
 
     /**

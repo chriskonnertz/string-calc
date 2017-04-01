@@ -17,12 +17,12 @@ abstract class AbstractFunction extends Symbol
     /**
      * This method is called when the function is executed. A function can have 0-n arguments.
      * The concrete number is specified in self::NUMBER_OF_ARGUMENTS.
-     * The $arugments array has excatly the number of expected arguments.
+     * The $arguments array has exactly the number of expected arguments.
      * If the function is noted with a different number of parameters in the term,
      * an exception will be thrown and the function will not be called.
      * The items of the $arguments array will always be of type int or float. They will never be null.
      * They keys will be integers starting at 0 and representing the positions of the arguments
-     * in asecnding order.
+     * in ascending order.
      * Overwrite this method in the concrete operand class.
      * If this class does NOT return a value of type int or float,
      * an exception will be thrown.

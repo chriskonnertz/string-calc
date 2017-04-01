@@ -1,7 +1,5 @@
 <?php namespace ChrisKonnertz\StringCalc\Tokenizer;
 
-use Tokenizer\Tokenizer;
-
 class Tokenizer
 {
 
@@ -137,7 +135,7 @@ class Tokenizer
      */
     protected function readOperator()
     {
-        return $this->readWord($self::OPERATORS);
+        return $this->readWord(self::OPERATORS);
     }
 
     /**

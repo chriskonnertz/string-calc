@@ -35,18 +35,24 @@ abstract class Symbol
      *
      * @param string $textualRepresentation
      * @return void
+     * @throws \Exception
      */
     public function addTextualRepresentation($textualRepresentation)
     {
         $this->stringHelper->validate($textualRepresentation);
 
         if (in_array($textualRepresentation, $this->textualRepresentations)) {
-            throw new 
+            throw new \Exception('Error: Cannot add a textual representation twice');
         }
 
         $this->textualRepresentations[] = $textualRepresentation;
     }
 
+    /**
+     * Getter for the textual representations of the symbol
+     *
+     * @return string[]
+     */
     public function getTextualRepresentations()
     {
         return $this->textualRepresentations;

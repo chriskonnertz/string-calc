@@ -2,7 +2,7 @@
 
 /**
  * This class is the base class for all symbols that are of the type "constant".
- * We recommend to use names as textual represenations for this type of symbol.
+ * We recommend to use names as textual representations for this type of symbol.
  * Please take note of the fact that the precision of PHP float constants
  * (for example M_PI) is based on the "precision" directive in php.ini,
  * which defaults to 14.

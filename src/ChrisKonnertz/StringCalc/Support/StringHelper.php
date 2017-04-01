@@ -10,6 +10,7 @@ class StringHelper
      * Returns true if a string contains any multibyte characters.
      *
      * @param string $str
+     * @return bool
      */
     public function containsMultibyteChar($str)
     {
@@ -33,16 +34,16 @@ class StringHelper
      */
     public function validate($str)
     {
-        if ($term === null) {
+        if ($str === null) {
             throw new \InvalidArgumentException('Error: Variable must not be null.');
         }
-        if (! is_string($term)) {
+        if (! is_string($str)) {
             throw new \InvalidArgumentException('Error: Variable must be of type string.');
         }
-        if ($term === '') {
+        if ($str === '') {
             throw new \InvalidArgumentException('Error: Variable must not be empty.');
         }
-        if ($this->containsMultibyteChar($term)) {
+        if ($this->containsMultibyteChar($str)) {
             throw new \InvalidArgumentException('Error: Variable must not contain any multibyte characters.');
         }
     }
