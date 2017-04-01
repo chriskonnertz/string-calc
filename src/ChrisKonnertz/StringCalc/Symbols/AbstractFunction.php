@@ -4,7 +4,8 @@
  * This class is the base class for all symbols that are of the type "function".
  * Typically the textual representation of a function consists of two or more letters.
  */
-abstract class AbstractFunction extends Symbol {
+abstract class AbstractFunction extends Symbol
+{
 
     /**
      * An integer >= 0 that specifies how many arguments the
@@ -12,9 +13,9 @@ abstract class AbstractFunction extends Symbol {
      * const int
      */
     const NUMBER_OF_ARGUMENTS = 0;
-    
+
     /**
-     * This method is called when the function is executed. A function can have 0-n arguments. 
+     * This method is called when the function is executed. A function can have 0-n arguments.
      * The concrete number is specified in self::NUMBER_OF_ARGUMENTS.
      * The $arugments array has excatly the number of expected arguments.
      * If the function is noted with a different number of parameters in the term,
@@ -23,9 +24,9 @@ abstract class AbstractFunction extends Symbol {
      * They keys will be integers starting at 0 and representing the positions of the arguments
      * in asecnding order.
      * Overwrite this method in the concrete operand class.
-     * If this class does NOT return a value of type int or float, 
+     * If this class does NOT return a value of type int or float,
      * an exception will be thrown.
-     * 
+     *
      * @param  (int|float)[] $arguments
      * @return int|float
      */

@@ -5,11 +5,13 @@ use \Support\StringHelper;
 /**
  * A term is built of symbols: numbers/constants, variables, brackets, operands and functions
  */
-abstract class Symbol {
+abstract class Symbol
+{
 
     /**
      * Array with the textual representations (1-n) of the symbol. Example: ['/', ':']
      * The textual representations are case-insensitive.
+     *
      * @var string[]
      */
     protected $textualRepresentations;
@@ -30,8 +32,8 @@ abstract class Symbol {
     /**
      * Create a textual representation for the symbol at runtime.
      * All characters are allowed except digits and '.'.
-     * 
-     * @param string $textualRepresentation 
+     *
+     * @param string $textualRepresentation
      * @return void
      */
     public function addTextualRepresentation($textualRepresentation)
@@ -49,5 +51,5 @@ abstract class Symbol {
     {
         return $this->textualRepresentations;
     }
-    
+
 }

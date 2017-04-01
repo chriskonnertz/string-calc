@@ -3,7 +3,8 @@
 /**
  * PHP M_PI constant
  */
-abstract class PiConstant extends Symbol {
+abstract class PiConstant extends Symbol
+{
 
     protected $textualRepresentations = ['pi'];
 
