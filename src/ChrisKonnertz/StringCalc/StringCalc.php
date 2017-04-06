@@ -4,6 +4,8 @@ use ChrisKonnertz\StringCalc\Exceptions\NotFoundException;
 use ChrisKonnertz\StringCalc\Container\Container;
 use ChrisKonnertz\StringCalc\Container\ContainerInterface;
 use ChrisKonnertz\StringCalc\Container\ServiceProviderRegistry;
+use ChrisKonnertz\StringCalc\Support\StringHelperInterface;
+use ChrisKonnertz\StringCalc\Tokenizer\InputStreamInterface;
 use ChrisKonnertz\StringCalc\Tokenizer\Tokenizer;
 
 class StringCalc
@@ -51,9 +53,14 @@ class StringCalc
      */
     protected function tokenize($term)
     {
-        $inputStream = $this->container->get('stringcalc_inputstream');
+        /** @var StringHelperInterface $stringHelper */
+        $stringHelper = $this->container->get('stringcalc_stringhelper');
 
-        $tokenizer = new Tokenizer($inputStream, $this->stringHelper);
+        /** @var InputStreamInterface $inputStream */
+        $inputStream = $this->container->get('stringcalc_inputstream');
+        $inputStream->setInput($term);
+
+        $tokenizer = new Tokenizer($inputStream, $stringHelper);
 
         $tokens = $tokenizer->tokenize();
 
@@ -61,7 +68,8 @@ class StringCalc
     }
 
     /**
-     * Settern for the container
+     * Setter for the container
+     *
      * @param ContainerInterface $container
      */
     public function setContainer(ContainerInterface $container)

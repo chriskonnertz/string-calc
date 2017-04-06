@@ -1,4 +1,6 @@
-<?php namespace ChrisKonnertz\StringCalc\Symbols;
+<?php
+
+namespace ChrisKonnertz\StringCalc\Symbols;
 
 /**
  * This class is the base class for all symbols that are of the type "constant".
@@ -7,7 +9,7 @@
  * (for example M_PI) is based on the "precision" directive in php.ini,
  * which defaults to 14.
  */
-abstract class AbstractConstant extends Symbol
+abstract class AbstractConstant extends AbstractSymbol
 {
 
     /**
@@ -16,9 +18,9 @@ abstract class AbstractConstant extends Symbol
      * Usually mathematical constants are not integers, however,
      * you are allowed to use an integer in this context.
      *
-     * @const int|float
+     * @var int|float
      */
-    const VALUE = 0;
+    protected $value = 0;
 
     /**
      * Typically the value of the constant should be stored in self::VALUE.
@@ -29,7 +31,7 @@ abstract class AbstractConstant extends Symbol
      */
     public function getValue()
     {
-        return self::VALUE;
+        return $this->value;
     }
 
 }

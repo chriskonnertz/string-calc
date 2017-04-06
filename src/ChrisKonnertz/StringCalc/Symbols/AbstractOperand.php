@@ -1,4 +1,6 @@
-<?php namespace ChrisKonnertz\StringCalc\Symbols;
+<?php
+
+namespace ChrisKonnertz\StringCalc\Symbols;
 
 /**
  * This class is the base class for all symbols that are of the type "(binary) operand".
@@ -7,7 +9,7 @@
  * Operands are always binary. To mimic a unary operator you might want to create a function
  * that accepts one parameter.
  */
-abstract class AbstractOperand extends Symbol
+abstract class AbstractOperand extends AbstractSymbol
 {
 
     /**

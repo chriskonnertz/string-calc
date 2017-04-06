@@ -1,4 +1,6 @@
-<?php namespace ChrisKonnertz\StringCalc\Symbols;
+<?php
+
+namespace ChrisKonnertz\StringCalc\Symbols;
 
 /**
  * This class is the class that represents symbols of type "number".
@@ -7,7 +9,7 @@
  * a textual representation of numbers (numbers always consist of digits
  * and may include a single dot).
  */
-final class Number extends Symbol
+final class AbstractNumber extends AbstractSymbol
 {
 
 }

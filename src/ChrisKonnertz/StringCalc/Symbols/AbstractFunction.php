@@ -1,10 +1,12 @@
-<?php namespace ChrisKonnertz\StringCalc\Symbols;
+<?php
+
+namespace ChrisKonnertz\StringCalc\Symbols;
 
 /**
  * This class is the base class for all symbols that are of the type "function".
  * Typically the textual representation of a function consists of two or more letters.
  */
-abstract class AbstractFunction extends Symbol
+abstract class AbstractFunction extends AbstractSymbol
 {
 
     /**

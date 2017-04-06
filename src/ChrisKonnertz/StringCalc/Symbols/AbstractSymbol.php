@@ -1,11 +1,13 @@
-<?php namespace ChrisKonnertz\StringCalc\Symbols;
+<?php
+
+namespace ChrisKonnertz\StringCalc\Symbols;
 
 use ChrisKonnertz\StringCalc\Support\StringHelperInterface;
 
 /**
  * A term is built of symbols: numbers/constants, variables, brackets, operands and functions
  */
-abstract class Symbol
+abstract class AbstractSymbol
 {
 
     /**

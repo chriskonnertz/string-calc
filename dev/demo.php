@@ -13,7 +13,7 @@
 <head>
 	<meta charset="utf-8">
 	<title>StringCalc Demo</title>
-	<style src="https://cdn.jsdelivr.net/framy/latest/css/framy.min.css"></style>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/framy/latest/css/framy.min.css">
 </head>
 <body>
 	<form method="POST">

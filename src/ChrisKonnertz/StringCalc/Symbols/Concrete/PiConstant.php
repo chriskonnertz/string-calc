@@ -1,4 +1,6 @@
-<?php namespace ChrisKonnertz\StringCalc\Symbols\Concrete;
+<?php
+
+namespace ChrisKonnertz\StringCalc\Symbols\Concrete;
 
 use ChrisKonnertz\StringCalc\Symbols\AbstractConstant;
 
@@ -16,6 +18,6 @@ abstract class PiConstant extends AbstractConstant
     /**
      * @inheritdoc
      */
-    const VALUE = M_PI;
+    protected $value = M_PI;
 
 }

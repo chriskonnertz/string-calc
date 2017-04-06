@@ -1,4 +1,6 @@
-<?php namespace ChrisKonnertz\StringCalc\Symbols\Concrete;
+<?php
+
+namespace ChrisKonnertz\StringCalc\Symbols\Concrete;
 
 use ChrisKonnertz\StringCalc\Symbols\AbstractOperand;
 

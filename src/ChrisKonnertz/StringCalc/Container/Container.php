@@ -44,7 +44,9 @@ class Container implements ContainerInterface
         }
 
         foreach ($serviceProviders as $serviceProvider) {
-            if (! is_a($serviceProvider, AbstractServiceProvider::class)) {
+            // Since $serviceProvider only contains the name of the string and therefore not an object,
+            // we have to set $allow_string to true, ofcourse.
+            if (! is_a($serviceProvider, AbstractServiceProvider::class, true)) {
                 throw new ContainerException('Error: Invalid value for entry in service providers array.');
             }
         }
@@ -76,15 +78,9 @@ class Container implements ContainerInterface
 
         try {
             // The name of the service provider class is stored, try to create an object from it
-            $reflectionClass = new \ReflectionClass($serviceProvider);
-        } catch (\ReflectionException $exception) {
-            throw new ContainerException('Error: Could not find class to create service provider.');
-        }
-
-        try {
             /** @var AbstractServiceProvider $serviceProvider */
-            $serviceProvider = $reflectionClass->newInstance();
-        } catch (\ReflectionException $exception) {
+            $serviceProvider = new $serviceProvider($serviceName, $this);
+        } catch (\Exception $exception) {
             throw new ContainerException('Error: Could not create service provider via reflection.');
         }
 
@@ -106,7 +102,7 @@ class Container implements ContainerInterface
             }
         }
 
-        if ($object === null or ! is_object($object)) {
+        if (! is_object($object)) {
             throw new ContainerException('Error: Service provider did not provide a valid service.');
         }
 
