@@ -1,14 +1,16 @@
 <?php namespace ChrisKonnertz\StringCalc\Tokenizer;
 
-use ChrisKonnertz\StringCalc\Support\StringHelper;
+use ChrisKonnertz\StringCalc\Support\StringHelperInterface;
 
-class InputStream
+class InputStream implements InputStreamInterface
 {
 
     /**
+     * This class operates on this string
+     *
      * @var string
      */
-    protected $input;
+    protected $input = '';
 
     /**
      * Current position in the input
@@ -18,20 +20,17 @@ class InputStream
     protected $index = 0;
 
     /**
-     * @var StringHelper
+     * @var StringHelperInterface
      */
     protected $stringHelper;
 
     /**
-     * @param string       $input
-     * @param StringHelper $stringHelper
+     * @param StringHelperInterface $stringHelper
      */
-    public function __construct($input, StringHelper $stringHelper)
+    public function __construct(StringHelperInterface $stringHelper)
     {
-        // Dependency: string helper must be assigned before setTerm() is called!
+        // Dependency: string helper must be assigned before setInput() is called!
         $this->stringHelper = $stringHelper;
-
-        $this->setInput($input);
     }
 
     /**
@@ -48,6 +47,8 @@ class InputStream
     }
 
     /**
+     * Returns the current character.
+     *
      * @return string|null
      */
     public function readCurrent()
@@ -62,6 +63,8 @@ class InputStream
     }
 
     /**
+     * Returns true if there is a character at the current position
+     *
      * @return bool
      */
     public function hasCurrent()
@@ -70,6 +73,8 @@ class InputStream
     }
 
     /**
+     * Resets the cursor to the beginning of the string.
+     *
      * @return void
      */
     public function reset()
@@ -78,6 +83,8 @@ class InputStream
     }
 
     /**
+     * Setter for the input string
+     *
      * @param string $input
      */
     public function setInput($input)
@@ -88,6 +95,8 @@ class InputStream
     }
 
     /**
+     * Getter for the input string
+     *
      * @return string
      */
     public function getInput()
@@ -96,6 +105,8 @@ class InputStream
     }
 
     /**
+     * Getter for the cursor position
+     *
      * @return int
      */
     public function getIndex()

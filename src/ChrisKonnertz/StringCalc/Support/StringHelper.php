@@ -3,7 +3,7 @@
 /**
  * This class contains some methods that help dealing with strings.
  */
-class StringHelper
+class StringHelper implements StringHelperInterface
 {
 
     /**

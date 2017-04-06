@@ -1,6 +1,6 @@
 <?php namespace ChrisKonnertz\StringCalc\Symbols;
 
-use \Support\StringHelper;
+use ChrisKonnertz\StringCalc\Support\StringHelperInterface;
 
 /**
  * A term is built of symbols: numbers/constants, variables, brackets, operands and functions
@@ -17,14 +17,15 @@ abstract class Symbol
     protected $textualRepresentations;
 
     /**
-     * @var StringHelper
+     * @var StringHelperInterface
      */
     protected $stringHelper;
 
     /**
-     * @param StringHelper $stringHelper
+     * @param StringHelperInterface $stringHelper
      */
-    final public function __construct(StringHelper $stringHelper)
+
+    final public function __construct(StringHelperInterface $stringHelper)
     {
         $this->stringHelper = $stringHelper;
     }

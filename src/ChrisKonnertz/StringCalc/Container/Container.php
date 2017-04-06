@@ -130,6 +130,7 @@ class Container implements ContainerInterface
      *
      * @param string                  $serviceName
      * @param AbstractServiceProvider $serviceProvider
+     * @return void
      */
     public function add($serviceName, AbstractServiceProvider $serviceProvider)
     {

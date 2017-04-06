@@ -1,9 +1,9 @@
 <?php namespace ChrisKonnertz\StringCalc;
 
 use ChrisKonnertz\StringCalc\Exceptions\NotFoundException;
-use ChrisKonnertz\StringCalc\Services\Container;
-use ChrisKonnertz\StringCalc\Services\ContainerInterface;
-use ChrisKonnertz\StringCalc\Services\ServiceProviderRegistry;
+use ChrisKonnertz\StringCalc\Container\Container;
+use ChrisKonnertz\StringCalc\Container\ContainerInterface;
+use ChrisKonnertz\StringCalc\Container\ServiceProviderRegistry;
 use ChrisKonnertz\StringCalc\Tokenizer\Tokenizer;
 
 class StringCalc
@@ -14,7 +14,7 @@ class StringCalc
      *
      * @const string
      */
-    const VERSION = '0.0.2';
+    const VERSION = '0.0.3';
 
     /**
      * The service container
@@ -51,7 +51,7 @@ class StringCalc
      */
     protected function tokenize($term)
     {
-        $inputStream = new InputStream($term, $this->stringHelper);
+        $inputStream = $this->container->get('stringcalc_inputstream');
 
         $tokenizer = new Tokenizer($inputStream, $this->stringHelper);
 

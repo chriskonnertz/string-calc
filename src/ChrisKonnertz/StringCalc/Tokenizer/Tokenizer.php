@@ -1,23 +1,25 @@
 <?php namespace ChrisKonnertz\StringCalc\Tokenizer;
 
+use ChrisKonnertz\StringCalc\Support\StringHelperInterface;
+
 class Tokenizer
 {
 
     /**
-     * @var StreamInput
+     * @var InputStreamInterface
      */
     protected $streamInput;
 
     /**
-     * @var StringHelper
+     * @var StringHelperInterface
      */
     protected $stringHelper;
 
     /**
-     * @param StreamInput  $streamInput
-     * @param StringHelper $stringHelper
+     * @param InputStreamInterface  $streamInput
+     * @param StringHelperInterface $stringHelper
      */
-    public function __construct(StreamInput $streamInput, StringHelper $stringHelper)
+    public function __construct(InputStreamInterface $streamInput, StringHelperInterface $stringHelper)
     {
         $this->stringHelper = $stringHelper;
 
