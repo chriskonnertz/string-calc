@@ -4,6 +4,14 @@ namespace ChrisKonnertz\StringCalc\Tokenizer;
 
 use ChrisKonnertz\StringCalc\Support\StringHelperInterface;
 
+/**
+ * This class operates on the lowest level on an input stream.
+ * It can read an input stream (in this case a string). Call
+ * the readCurrent() method to read the input at the current
+ * position.
+ *
+ * @package ChrisKonnertz\StringCalc\Tokenizer
+ */
 class InputStream implements InputStreamInterface
 {
 
@@ -27,11 +35,12 @@ class InputStream implements InputStreamInterface
     protected $stringHelper;
 
     /**
+     * InputStream constructor.
+     *
      * @param StringHelperInterface $stringHelper
      */
     public function __construct(StringHelperInterface $stringHelper)
     {
-        // Dependency: string helper must be assigned before setInput() is called!
         $this->stringHelper = $stringHelper;
     }
 

@@ -4,6 +4,7 @@ namespace ChrisKonnertz\StringCalc\Tokenizer;
 
 use ChrisKonnertz\StringCalc\Support\StringHelperInterface;
 
+// FIXME This class is broken and needs to be re-implemented.
 class Tokenizer
 {
 
@@ -59,7 +60,7 @@ class Tokenizer
             if ($word === '') {
                 throw new \exception('Error: Word must not be empty.');
             }
-            if ($this->stringHelper->containsMultibyte($word)) {
+            if ($this->stringHelper->containsMultibyteChar($word)) {
                 throw new \exception('Error: Word contains multibyte characters.');
             }
             if (trim($word) === '') {
@@ -112,6 +113,7 @@ class Tokenizer
      * Reads a word. Will throw an exception if the attempt to read the word fails.
      *
      * @param string[] $word Array with words. A word must not be null or empty!
+     * @return string
      */
     protected function readWord(array $words)
     {
@@ -136,6 +138,7 @@ class Tokenizer
 
     /**
      * @var string|null $operator
+     * @return string
      */
     protected function readOperator()
     {
@@ -146,6 +149,7 @@ class Tokenizer
      * Note: A null char is not seen as whitespace.
      *
      * @var string|null $char
+     * @return bool
      */
     protected function isWhitepace($char)
     {
@@ -155,6 +159,7 @@ class Tokenizer
     /**
      *
      * @var string|null $char
+     * @return bool
      */
     protected function isOperator($char)
     {
