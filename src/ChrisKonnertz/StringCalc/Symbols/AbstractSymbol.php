@@ -5,7 +5,11 @@ namespace ChrisKonnertz\StringCalc\Symbols;
 use ChrisKonnertz\StringCalc\Support\StringHelperInterface;
 
 /**
- * A term is built of symbols: numbers/constants, variables, brackets, operands and functions
+ * A term is built of symbols: numbers/constants, variables, brackets, operands and functions.
+ * - This is the abstract base class of all symbols.
+ * - It is extended by a limited number of abstract classes that represent the different
+ * types of symbols
+ * - These classes are then extended by concrete classes that represent concrete symbols
  */
 abstract class AbstractSymbol
 {
@@ -27,7 +31,7 @@ abstract class AbstractSymbol
      * @param StringHelperInterface $stringHelper
      */
 
-    final public function __construct(StringHelperInterface $stringHelper)
+    public function __construct(StringHelperInterface $stringHelper)
     {
         $this->stringHelper = $stringHelper;
     }

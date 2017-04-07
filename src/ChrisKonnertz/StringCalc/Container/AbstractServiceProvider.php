@@ -4,8 +4,15 @@ namespace ChrisKonnertz\StringCalc\Container;
 
 use ChrisKonnertz\StringCalc\Exceptions\ContainerException;
 
+/**
+ * A service provider returns a service object. In particular it creates
+ * the service object by caring for its dependencies.
+ *
+ * @package ChrisKonnertz\StringCalc\Container
+ */
 abstract class AbstractServiceProvider
 {
+
     /**
      * The name of the service that pointed to this service provider.
      *
@@ -51,6 +58,11 @@ abstract class AbstractServiceProvider
     }
 
     /**
+     * This method returns another service. This way the provider
+     * can satisfy the dependencies of the service it wants to provide.
+     * WARNING: The current implementation is vulnerable to cycles
+     * (infinite loops)! TODO: Try to solve this issue.
+     *
      * @param $serviceName
      * @return mixed
      * @throws ContainerException
