@@ -1,4 +1,6 @@
-<?php namespace ChrisKonnertz\StringCalc\Tokenizer;
+<?php
+
+namespace ChrisKonnertz\StringCalc\Tokenizer;
 
 use ChrisKonnertz\StringCalc\Support\StringHelperInterface;
 

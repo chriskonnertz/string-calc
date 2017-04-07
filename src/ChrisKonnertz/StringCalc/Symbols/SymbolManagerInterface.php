@@ -1,8 +1,6 @@
 <?php
 
-namespace ChrisKonnertz\StringCalc;
-
-use ChrisKonnertz\StringCalc\Symbols\AbstractSymbol;
+namespace ChrisKonnertz\StringCalc\Symbols;
 
 /**
  * This is an interface for the SymbolManager class.

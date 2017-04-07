@@ -1,7 +1,6 @@
-<?php namespace ChrisKonnertz\StringCalc;
+<?php
 
-use ChrisKonnertz\StringCalc\Symbols\AbstractSymbol;
-use ChrisKonnertz\StringCalc\Symbols\SymbolRegistry;
+namespace ChrisKonnertz\StringCalc\Symbols;
 
 /**
  * The symbol manager manages an array with all symbol objects.

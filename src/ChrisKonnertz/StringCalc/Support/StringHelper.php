@@ -1,4 +1,6 @@
-<?php namespace ChrisKonnertz\StringCalc\Support;
+<?php
+
+namespace ChrisKonnertz\StringCalc\Support;
 
 /**
  * This class contains some methods that help dealing with strings.

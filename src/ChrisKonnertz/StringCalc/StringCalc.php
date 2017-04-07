@@ -1,4 +1,6 @@
-<?php namespace ChrisKonnertz\StringCalc;
+<?php
+
+namespace ChrisKonnertz\StringCalc;
 
 use ChrisKonnertz\StringCalc\Exceptions\NotFoundException;
 use ChrisKonnertz\StringCalc\Container\Container;
@@ -6,6 +8,7 @@ use ChrisKonnertz\StringCalc\Container\ContainerInterface;
 use ChrisKonnertz\StringCalc\Container\ServiceProviderRegistry;
 use ChrisKonnertz\StringCalc\Support\StringHelperInterface;
 use ChrisKonnertz\StringCalc\Symbols\AbstractSymbol;
+use ChrisKonnertz\StringCalc\Symbols\SymbolManagerInterface;
 use ChrisKonnertz\StringCalc\Tokenizer\InputStreamInterface;
 use ChrisKonnertz\StringCalc\Tokenizer\Tokenizer;
 
