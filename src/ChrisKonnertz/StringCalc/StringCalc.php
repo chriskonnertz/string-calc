@@ -70,6 +70,8 @@ class StringCalc
     }
 
     /**
+     * Calculates a term and returns the result
+     *
      * @param string $term
      * @return float|int
      * @throws NotFoundException
