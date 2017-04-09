@@ -10,7 +10,7 @@ class AdditionOperand extends AbstractOperand
     /**
      * @inheritdoc
      */
-    protected $identifier = ['+'];
+    protected $identifiers = ['+'];
 
     /**
      * @inheritdoc

@@ -10,7 +10,7 @@ class MultiplicationOperand extends AbstractOperand
     /**
      * @inheritdoc
      */
-    protected $identifier = ['*'];
+    protected $identifiers = ['*'];
 
     /**
      * @inheritdoc

@@ -13,7 +13,7 @@ class AbsFunction extends AbstractFunction
     /**
      * @inheritdoc
      */
-    protected $identifier = ['abs'];
+    protected $identifiers = ['abs'];
 
     /**
      * @inheritdoc

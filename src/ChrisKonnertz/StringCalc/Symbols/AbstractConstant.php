@@ -39,7 +39,7 @@ abstract class AbstractConstant extends AbstractSymbol
     /**
      * @inheritdoc
      */
-    protected function validateIdentifier($identifier)
+    protected function validateIdentifierMore($identifier)
     {
         // TODO test this:
         // Use regular expression to ensure the identifier consists only of letters

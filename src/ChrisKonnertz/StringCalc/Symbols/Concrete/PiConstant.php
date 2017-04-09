@@ -7,13 +7,13 @@ use ChrisKonnertz\StringCalc\Symbols\AbstractConstant;
 /**
  * PHP M_PI constant
  */
-abstract class PiConstant extends AbstractConstant
+class PiConstant extends AbstractConstant
 {
 
     /**
      * @inheritdoc
      */
-    protected $identifier = ['pi'];
+    protected $identifiers = ['pi'];
 
     /**
      * @inheritdoc

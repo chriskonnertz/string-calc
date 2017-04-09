@@ -10,7 +10,7 @@ class SubtractionOperand extends AbstractOperand
     /**
      * @inheritdoc
      */
-    protected $identifier = ['+'];
+    protected $identifiers = ['+'];
 
     /**
      * @inheritdoc

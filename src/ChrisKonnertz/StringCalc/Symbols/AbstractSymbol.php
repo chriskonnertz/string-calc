@@ -18,7 +18,9 @@ abstract class AbstractSymbol
     /**
      * Array with the 1-n unique identifiers (the textual
      * representation of a symbol) of the symbol. Example: ['/', ':']
-     * The identifiers are case-insensitive.
+     * Attention: The identifiers are case-sensitive, however,
+     * valid identifiers in a term are always written in lower-case.
+     * Therefore identifiers always have to be written in lower-case!
      *
      * @var string[]
      */
@@ -33,38 +35,44 @@ abstract class AbstractSymbol
      * AbstractSymbol constructor.
      *
      * @param StringHelperInterface $stringHelper
+     * @throws InvalidIdentifierException
      */
     public function __construct(StringHelperInterface $stringHelper)
     {
         $this->stringHelper = $stringHelper;
+
+        foreach ($this->identifiers as $identifier) {
+            $this->validateIdentifier($identifier);
+        }
     }
 
     /**
-     * Validate the identifier. This method is meant to be overwritten by
-     * the abstract subclasses (such as AbstractOperand) if they need
-     * specialised validation.
+     * Create a new identifier for the symbol at runtime. All characters
+     * are allowed except digits and '.'.
      *
      * @param string $identifier
      * @return void
      * @throws InvalidIdentifierException
      */
-    protected function validateIdentifier($identifier)
+    public function addIdentifier($identifier)
     {
-        // Implement this method in a subclass. If the validations fails,
-        // throw an InvalidIdentifierException exception.
+        $this->validateIdentifier($identifier);
+
+        $this->identifiers[] = $identifier;
     }
 
     /**
-     * Create a new identifier for the symbol at runtime. All characters
-     * are allowed except digits and '.'. This method is declared as final,
-     * because the validation that is done here is essential and the risk
-     * of its integrity being corrupted by a subclass is too high.
+     * Validate a given identifier. Throws an exception if the identifier
+     * is invalid.
+     * This method is declared as final, because the validation that is
+     * done here is essential and the risk of its integrity being
+     * corrupted by a subclass is too high.
      *
      * @param string $identifier
      * @return void
-     * @throws \Exception
+     * @throws InvalidIdentifierException
      */
-    final public function addIdentifier($identifier)
+    final protected function validateIdentifier($identifier)
     {
         $this->stringHelper->validate($identifier);
 
@@ -77,13 +85,33 @@ abstract class AbstractSymbol
             throw new InvalidIdentifierException('Error: Identifier cannot contain any digits.');
         }
 
-        $this->validateIdentifier($identifier);
+        // Ensure identifiers are written in lower-case.
+        foreach ($this->identifiers as $identifier) {
+            if (strtolower($identifier) !== $identifier) {
+                throw new InvalidIdentifierException('Error: Identifier is not written in lower-case.');
+            }
+        }
 
         if (in_array($identifier, $this->identifiers)) {
             throw new InvalidIdentifierException('Error: Cannot add an identifier twice');
         }
 
-        $this->identifiers[] = $identifier;
+        $this->validateIdentifier($identifier);
+    }
+
+    /**
+     * Validate the identifier even more than with validateIdentifier().
+     * This method is meant to be overwritten by the abstract subclasses
+     * (such as AbstractOperand) if they need specialised validation.
+     *
+     * @param string $identifier
+     * @return void
+     * @throws InvalidIdentifierException
+     */
+    protected function validateIdentifierMore($identifier)
+    {
+        // Implement this method in a subclass. If the validations fails,
+        // throw an InvalidIdentifierException exception.
     }
 
     /**
