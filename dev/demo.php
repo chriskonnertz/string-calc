@@ -6,6 +6,8 @@
 
 	spl_autoload_register('miniAutoloader');
 
+    $term = isset($_POST['term']) ? $_POST['term'] : null;
+
 ?>
 
 <!DOCTYPE html>
@@ -18,13 +20,11 @@
 <body>
 	<form method="POST">
 		Term:
-		<input id="term" name="term" type="text" value="1+1">
+		<input id="term" name="term" type="text" value="<?php echo $term !== null ? $term : '1+(2+3)' ?>">
 		<input type="submit" value="Calc">
 	</form>
 
 	<?php
-
-		$term = isset($_POST['term']) ? $_POST['term'] : null;
 
 		if ($term) {
 			$stringCalc = new ChrisKonnertz\StringCalc\StringCalc();
