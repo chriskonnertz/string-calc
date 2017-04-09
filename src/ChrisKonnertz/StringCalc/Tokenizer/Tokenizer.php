@@ -4,14 +4,12 @@ namespace ChrisKonnertz\StringCalc\Tokenizer;
 
 use ChrisKonnertz\StringCalc\Exceptions\NotFoundException;
 use ChrisKonnertz\StringCalc\Support\StringHelperInterface;
-use ChrisKonnertz\StringCalc\Symbols\Concrete\Number;
-use ChrisKonnertz\StringCalc\Symbols\SymbolContainerInterface;
 
 /**
  * "Tokenization is the process of demarcating and possibly classifying
  * sections of a string of input characters" (Source: Wikipedia)
  * The tokenizer operates on the string term and tries to split it into
- * parts (these are the symbols of the term or the tokens).
+ * parts (these are the symbols of the term / the tokens).
  * The tokenizer is not very smart, it does not really care for grammar.
  *
  * @package ChrisKonnertz\StringCalc\Tokenizer
@@ -25,11 +23,6 @@ class Tokenizer
     protected $inputStream;
 
     /**
-     * @var SymbolContainerInterface
-     */
-    protected $symbolContainer;
-
-    /**
      * @var StringHelperInterface
      */
     protected $stringHelper;
@@ -38,20 +31,16 @@ class Tokenizer
      * Tokenizer constructor.
      *
      * @param InputStreamInterface     $inputStream
-     * @param SymbolContainerInterface $symbolContainer
      * @param StringHelperInterface    $stringHelper
      */
     public function __construct(
         InputStreamInterface $inputStream,
-        SymbolContainerInterface $symbolContainer,
         StringHelperInterface $stringHelper
     )
     {
         $this->stringHelper = $stringHelper;
 
         $this->inputStream = $inputStream;
-
-        $this->symbolContainer = $symbolContainer;
     }
 
     /**
@@ -91,39 +80,23 @@ class Tokenizer
         }
 
         if ($this->isLetter($char)) {
-            $stringToken = $this->readWord();
-
-            $identifier = $stringToken;
-            $value = $stringToken;
-            $symbol = $this->symbolContainer->find($identifier);
-
-            if ($symbol === null) {
-                throw new NotFoundException('Error: Found unknown or invalid identifier.');
-            }
+            $value = $this->readWord();
+            $type = Token::TYPE_WORD;
         } elseif ($this->isDigit($char) or $this->isPeriod($char)) {
-            $stringToken = $this->readNumber();
-
-            $identifier = $stringToken;
-            $value = $stringToken;
-            $symbol = $this->symbolContainer->findSubtype(Number::class)[0];
+            $value = $this->readNumber();
 
             // Convert string to int or float (depending on the type of the number)
             // Attention: The fractional part of a PHP float can only have a limited length.
             // If the number has a longer fractional part, it will be cut.
             $value = 0 + $value;
+
+            $type = Token::TYPE_NUMBER;
         } else {
-            $stringToken = $this->readSpecialChar();
-
-            $identifier = $stringToken;
-            $value = $stringToken;
-            $symbol = $this->symbolContainer->find($identifier);
-
-            if ($symbol === null) {
-                throw new NotFoundException('Error: Found unknown or invalid identifier.');
-            }
+            $value = $this->readSpecialChar();
+            $type = Token::TYPE_CHARACTER;
         }
 
-        $token = new Token($value, $symbol, $identifier, $this->inputStream->getPosition());
+        $token = new Token($value, $type, $this->inputStream->getPosition());
 
         return $token;
     }

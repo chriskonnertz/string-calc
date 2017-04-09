@@ -27,7 +27,7 @@ class StringCalc
      *
      * @const string
      */
-    const VERSION = '0.1.0';
+    const VERSION = '0.2.0';
 
     /**
      * The service container
@@ -112,14 +112,11 @@ class StringCalc
         $inputStream = $this->container->get('stringcalc_inputstream');
         $inputStream->setInput($term);
 
-        /** @var SymbolContainerInterface $symbolContainer */
-        $symbolContainer = $this->container->get('stringcalc_symbolcontainer');
-
         /** @var StringHelperInterface $stringHelper */
         $stringHelper = $this->container->get('stringcalc_stringhelper');
 
         // TODO use tokenizer service?
-        $tokenizer = new Tokenizer($inputStream, $symbolContainer, $stringHelper);
+        $tokenizer = new Tokenizer($inputStream, $stringHelper);
 
         $tokens = $tokenizer->tokenize();
 
@@ -134,8 +131,11 @@ class StringCalc
      */
     protected function parse(array $tokens)
     {
+        /** @var SymbolContainerInterface $symbolContainer */
+        $symbolContainer = $this->container->get('stringcalc_symbolcontainer');
+
         // TODO use parser service?
-        $parser = new Parser();
+        $parser = new Parser($symbolContainer);
 
         $nodes = $parser->parse($tokens);
 

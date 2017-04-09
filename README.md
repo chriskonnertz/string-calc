@@ -4,7 +4,7 @@ This library is in a very early state (pre-alpha) and does not work at the momen
 
 ## Numbers
 
-Numbers in a term always consist of digits and may include one dot. Good examples:
+Numbers in a term always consist of digits and may include one period. Good examples:
 
 ```
 0
@@ -16,13 +16,13 @@ Numbers in a term always consist of digits and may include one dot. Good example
 Bad examples:
 
 ```
-0.1.2
-2.2e3
-7E-10
+0.1.2 // Two periods
+2.2e3 // "e" will work in PHP code but not in a term
+7E-10 // "E" will work in PHP code but not in a term
 ```
 
-From the tokenizer's point of view, numbers in a term are always positive. This means that the tokenizer will split the 
-term `-1` in two parts: `-` and `1`. 
+Just for your information: From the tokenizer's point of view, numbers in a term are always positive. 
+This means that the tokenizer will split the term `-1` in two parts: `-` and `1`. 
 
-> Attention: The fractional part of a PHP float can only have a limited length. If the number has a longer 
-fractional part, it will be cut.
+> Attention: The fractional part of a PHP float can only have a limited length. If a number in a term has a longer 
+fractional part, the fractional part will be cut somewhere.
