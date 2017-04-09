@@ -4,7 +4,6 @@ This library is in a very early state (pre-alpha) and does not work at the momen
 
 TODO / Missing: 
 * Multiple parameters for functions. This is very important bu completely missing yet!
-* Minus operator can be unary 
 * Grammar checking
 * Actual calculation
 * Create FunctionSymbolNode node type?

@@ -56,8 +56,12 @@ class ArrayNode extends AbstractNode
         foreach ($this->nodes as $index => $node) {
             if (is_a($node, SymbolNode::class)) {
                 /** @var $node SymbolNode */
-                if (is_a($node->getSymbol(), AbstractOperator::class)) {
+                $symbol = $node->getSymbol();
+                if (is_a($symbol, AbstractOperator::class)) {
+                    $unary = constant(AbstractOperator::class.'::OPERATES_UNARY');
+                    $binary = constant(AbstractOperator::class.'::OPERATES_BINARY');
 
+                    throw new \Exception('NOT YET IMPLEMENTED, PLEASE IMPLEMENT ME!'); // TODO FIXME implement this!
                 }
             }
         }

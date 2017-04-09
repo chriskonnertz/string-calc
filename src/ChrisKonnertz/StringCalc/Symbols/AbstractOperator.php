@@ -28,13 +28,13 @@ abstract class AbstractOperator extends AbstractSymbol
      * But some can operate on one operand (number).
      * Notice: Operators can be unary AND binary (but this is a rare case)
      */
-    const UNARY = false;
+    const OPERATES_UNARY = false;
 
     /**
      * Usually operators are binary, they operate on two operands (numbers).
      * Notice: Operators can be unary AND binary (but this is a rare case)
      */
-    const BINARY = true;
+    const OPERATES_BINARY = true;
 
     /**
      * This method is called when the operator has to execute a binary operation on two numbers.
