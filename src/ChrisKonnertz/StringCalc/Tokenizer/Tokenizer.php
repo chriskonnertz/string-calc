@@ -3,6 +3,7 @@
 namespace ChrisKonnertz\StringCalc\Tokenizer;
 
 use ChrisKonnertz\StringCalc\Support\StringHelperInterface;
+use ChrisKonnertz\StringCalc\Symbols\SymbolContainerInterface;
 
 // FIXME This class is broken and needs to be re-implemented.
 class Tokenizer
@@ -11,7 +12,12 @@ class Tokenizer
     /**
      * @var InputStreamInterface
      */
-    protected $streamInput;
+    protected $inputStream;
+
+    /**
+     * @var SymbolContainerInterface
+     */
+    protected $symbolContainer;
 
     /**
      * @var StringHelperInterface
@@ -19,151 +25,213 @@ class Tokenizer
     protected $stringHelper;
 
     /**
-     * @param InputStreamInterface  $streamInput
-     * @param StringHelperInterface $stringHelper
+     * @param InputStreamInterface     $inputStream
+     * @param SymbolContainerInterface $symbolContainer
+     * @param StringHelperInterface    $stringHelper
      */
-    public function __construct(InputStreamInterface $streamInput, StringHelperInterface $stringHelper)
+    public function __construct(
+        InputStreamInterface $inputStream,
+        SymbolContainerInterface $symbolContainer,
+        StringHelperInterface $stringHelper
+    )
     {
         $this->stringHelper = $stringHelper;
 
-        $this->streamInput = $streamInput;
+        $this->inputStream = $inputStream;
 
-        $this->allWords = $this->buildAllWords();
+        $this->symbolContainer = $symbolContainer;
     }
 
     /**
-     * @return string[]
-     */
-    protected function buildAllWords()
-    {
-        $words = [];
-
-        $this->validateWords(self::OPERATORS);
-
-        return $words;
-    }
-
-    /**
-     * TODO reimplement
+     * Tokenize the term. Returns an array with the tokens.
      *
-     * @param string[] $symbols
-     */
-    protected function validateSymbols(array $symbols)
-    {
-        foreach ($words as $key => $word) {
-            if ($word === null) {
-                throw new \exception('Error: Word must not be null.');
-            }
-            if (! is_string($word)) {
-                throw new \exception('Error: Word must be a string.');
-            }
-            if ($word === '') {
-                throw new \exception('Error: Word must not be empty.');
-            }
-            if ($this->stringHelper->containsMultibyteChar($word)) {
-                throw new \exception('Error: Word contains multibyte characters.');
-            }
-            if (trim($word) === '') {
-                throw new \exception('Error: Word must not consist only of whitespace.');
-            }
-        }
-
-        if (count(array_unique($words)) < count($words)) {
-            throw new \exception('Error: Word array must not contain duplicate words.');
-        }
-    }
-
-    /**
      * @return array
      */
     public function tokenize()
     {
-        $this->streamInput->reset();
+        $this->inputStream->reset();
+
+        $tokens = [];
+
+        while($token = $this->readToken()) {
+            $tokens[] = $token;
+        }
+
+        return $tokens;
     }
 
+    /**
+     * Reads a token.
+     *
+     * @return string
+     */
     protected function readToken()
     {
-        $streamInput = $this->streamInput;
+        $inputStream = $this->inputStream;
 
         $this->stepOverWhitespace();
 
-        $char = $streamInput->readCurrent();
+        $char = $inputStream->readCurrent();
 
         if ($char === null) {
             return null;
         }
 
-        if ($this->isWordChar($char)) {
-            $this->readWord();
+        if ($this->isLetter($char)) {
+            $stringToken = $this->readWord();
+        } elseif ($this->isDigit($char) or $this->isPeriod($char)) {
+            $stringToken = $this->readNumber();
+        } else {
+            $stringToken = $this->readSpecialChar();
         }
+
+        return $stringToken;
+    }
+
+    /**
+     * Returns true, if a given character is a letter (a-z and A-Z).
+     *
+     * @param string $char A single character
+     * @return bool
+     */
+    protected function isLetter($char)
+    {
+        if ($char === null) {
+            return false;
+        }
+
+        // Notice: ord(null) will return 0.
+        // ord() does not work with utf-8 characters.
+        $ascii = ord($char);
+
+        // ASCII codes: 65 = 'A', 90 = 'Z', 97 = 'a', 122 = 'z'
+        return (($ascii >= 65 and $ascii <= 90) or ($ascii >= 97 and $ascii <= 122));
+    }
+
+    /**
+     * Returns true, if a given character is a digit (0-9).
+     *
+     * @param string|null $char A single character
+     * @return bool
+     */
+    protected function isDigit($char)
+    {
+        if ($char === null) {
+            return false;
+        }
+
+        // Notice: ord(null) will return 0.
+        // ord() does not work with utf-8 characters.
+        $ascii = ord($char);
+
+        // ASCII codes: 48 = '0', 57 = '9'
+        return ($ascii >= 48 and $ascii <= 57);
+    }
+
+    /**
+     * Returns true, if a given character is a period ('.').
+     *
+     * @param string|null $char A single character
+     * @return bool
+     */
+    protected function isPeriod($char)
+    {
+        return ($char == '.');
+    }
+
+    /**
+     * Returns true, if a given character is whitespace.
+     * Notice: A null char is not seen as whitespace.
+     *
+     * @var string|null $char
+     * @return bool
+     */
+    protected function isWhitespace($char)
+    {
+        return in_array($char, ["\t", "\n"]);
     }
 
     /**
      * Moves the pointer to the next char that is not whitespace.
      * Might be a null char, might not move the pointer at all.
+     *
+     * @return void
      */
     protected function stepOverWhitespace()
     {
-        while ($this->isWhitepace($this->streamInput->readCurrent())) {
-            $this->streamInput->readNext();
+        while ($this->isWhitespace($this->inputStream->readCurrent())) {
+            $this->inputStream->readNext();
         }
     }
 
     /**
-     * Reads a word. Will throw an exception if the attempt to read the word fails.
+     * Reads a word. Assumes that the cursor of the input stream
+     * currently is positioned at the beginning of a word.
      *
-     * @param string[] $word Array with words. A word must not be null or empty!
      * @return string
      */
-    protected function readWord(array $words)
+    protected function readWord()
     {
         $word = '';
 
         // Try to read the word
         while (($char = $this->inputStream->readCurrent()) !== null) {
-            $word .= $char;
-
-            if (in_array($word, $words, true)) {
-                return $word;
+            if ($this->isDigit($char)) {
+                $word .= $char;
+            } else {
+                break;
             }
-        }
-
-        if ($word === '') {
-            // TODO This is a very important exception so add more details to the msg!
-            throw new \UnexpectedValueException('Syntax error: Current word is not in list of available words.');
         }
 
         return $word;
     }
 
     /**
-     * @var string|null $operator
+     * Reads a number (as a string). Assumes that the cursor
+     * of the input stream currently is positioned at the
+     * beginning of a number.
+     *
+     * @return string
+     * @throws \Exception
+     */
+    protected function readNumber()
+    {
+        $number = '';
+        $foundPeriod = false;
+
+        // Try to read the number.
+        // Notice: It does not matter if the number only consists of a single period
+        // or if it ends with a period.
+        while (($char = $this->inputStream->readCurrent()) !== null) {
+            if ($this->isPeriod($char) or $this->isDigit($char)) {
+                if ($this->isDigit($char)) {
+                    if ($foundPeriod) {
+                        throw new \Exception('Error: Number cannot have more than one period');
+                    }
+
+                    $foundPeriod = true;
+                }
+
+                $number .= $char;
+            } else {
+                break;
+            }
+        }
+
+        return $number;
+    }
+
+    /**
+     * Reads a single special char. Assumes that the cursor of the input stream
+     * currently is positioned at a special char.
+     *
      * @return string
      */
-    protected function readOperator()
+    protected function readSpecialChar()
     {
-        return $this->readWord(self::OPERATORS);
-    }
+        $char = $this->inputStream->readCurrent();
 
-    /**
-     * Note: A null char is not seen as whitespace.
-     *
-     * @var string|null $char
-     * @return bool
-     */
-    protected function isWhitepace($char)
-    {
-        return in_array($char, ["\t", "\n"]);
-    }
-
-    /**
-     *
-     * @var string|null $char
-     * @return bool
-     */
-    protected function isOperator($char)
-    {
-        return in_array($char, ['+', '-', '*', '/']);
+        return $char;
     }
 
 }
