@@ -49,9 +49,9 @@ class Parser
      */
     public function parse(array $tokens)
     {
-        $nodes = $this->detectSymbols($tokens);
+        $symbolNodes = $this->detectSymbols($tokens);
 
-        $nodes = $this->createTree($nodes);
+        $nodes = $this->createTree($symbolNodes);
 
         // TODO implement missing stuff
 
@@ -59,15 +59,15 @@ class Parser
     }
 
     /**
-     * Creates nodes from tokens. Nodes belong to a particular symbol.
+     * Creates a flat array of symbol nodes from tokens.
      *
      * @param Token[] $tokens
-     * @return Node[]
+     * @return SymbolNode[]
      * @throws \Exception
      */
     protected function detectSymbols(array $tokens)
     {
-        $nodes = [];
+        $symbolNodes = [];
 
         $expectingOpeningBracket = false; // True if we expect an opening bracket (after a function name)
         $openBracketCounter = 0;
@@ -123,9 +123,9 @@ class Parser
                 $expectingOpeningBracket = false;
             }
 
-            $node = new Node($token, $symbol);
+            $symbolNode = new SymbolNode($token, $symbol);
 
-            $nodes[] = $node;
+            $symbolNodes[] = $symbolNode;
         }
 
         // Make sure the term does not end with the name of a function but without an opening bracket
@@ -142,19 +142,19 @@ class Parser
             );
         }
 
-        return $nodes;
+        return $symbolNodes;
     }
 
     /**
-     * Expects a flat array of nodes and (if possible) transforms
+     * Expects a flat array of symbol nodes and (if possible) transforms
      * it to a tree of nodes.
      *
-     * @param Node[] $nodes
+     * @param SymbolNode[] $symbolNodes
      * @return array
      */
-    protected function createTree(array $nodes)
+    protected function createTree(array $symbolNodes)
     {
-        $tree = $this->createTreeByBrackets($nodes);
+        $tree = $this->createTreeByBrackets($symbolNodes);
 
         // TODO implement missing stuff
 
@@ -162,33 +162,33 @@ class Parser
     }
 
     /**
-     * Expects a flat array of nodes and (if possible) transforms
+     * Expects a flat array of symbol nodes and (if possible) transforms
      * it to a tree of nodes. Only cares for brackets.
      * Attention: Expects valid brackets!
      * Check the brackets before you call this method.
      *
-     * @param Node[] $nodes
-     * @return array
+     * @param SymbolNode[] $symbolNodes
+     * @return AbstractNode[]
      * @throws ParserException
      */
-    protected function createTreeByBrackets(array $nodes)
+    protected function createTreeByBrackets(array $symbolNodes)
     {
         $tree = [];
-        $nodesInBrackets = []; // Nodes inside level0-brackets
+        $nodesInBrackets = []; // Symbol nodes inside level0-brackets
         $openBracketCounter = 0;
 
-        foreach ($nodes as $index => $node) {
-            if (! is_a($node, Node::class)) {
+        foreach ($symbolNodes as $index => $symbolNode) {
+            if (! is_a($symbolNode, SymbolNode::class)) {
                 throw new ParserException('Error: Expected node, got something else.');
             }
 
-            if (is_a($node->getSymbol(), AbstractOpeningBracket::class)) {
+            if (is_a($symbolNode->getSymbol(), AbstractOpeningBracket::class)) {
                 $openBracketCounter++;
 
                 if ($openBracketCounter > 1) {
-                    $nodesInBrackets[] = $node;
+                    $nodesInBrackets[] = $symbolNode;
                 }
-            } elseif (is_a($node->getSymbol(), AbstractClosingBracket::class)) {
+            } elseif (is_a($symbolNode->getSymbol(), AbstractClosingBracket::class)) {
                 $openBracketCounter--;
 
                 // Found a closing bracket on level 0
@@ -197,20 +197,29 @@ class Parser
 
                     // Subtree can be empty for example if the term looks like this: "()"
                     if (sizeof($subTree) > 0) {
-                        $tree[] = $subTree;
+                        $tree[] = new ArrayNode($subTree);
                     }
                 } else {
-                    $nodesInBrackets[] = $node;
+                    $nodesInBrackets[] = $symbolNode;
                 }
             } else {
                 if ($openBracketCounter == 0) {
-                    $tree[] = $node;
+                    $tree[] = $symbolNode;
                 } else {
-                    $nodesInBrackets[] = $node;
+                    $nodesInBrackets[] = $symbolNode;
                 }
             }
         }
 
+        return $tree;
+    }
+
+    /**
+     * @param AbstractNode[] $tree The tree consists of Node elements and arrays (of Node elements and arrays of ...)
+     * @return AbstractNode[]
+     */
+    protected function orderTreeByPrecedence(array $tree)
+    {
         return $tree;
     }
 

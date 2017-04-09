@@ -11,7 +11,7 @@ use ChrisKonnertz\StringCalc\Tokenizer\Token;
  *
  * @package ChrisKonnertz\StringCalc\Parser
  */
-class Node
+class SymbolNode extends AbstractNode
 {
 
     /**
