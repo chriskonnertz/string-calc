@@ -6,10 +6,12 @@ use ChrisKonnertz\StringCalc\Exceptions\NotFoundException;
 use ChrisKonnertz\StringCalc\Container\Container;
 use ChrisKonnertz\StringCalc\Container\ContainerInterface;
 use ChrisKonnertz\StringCalc\Container\ServiceProviderRegistry;
+use ChrisKonnertz\StringCalc\Parser\Parser;
 use ChrisKonnertz\StringCalc\Support\StringHelperInterface;
 use ChrisKonnertz\StringCalc\Symbols\AbstractSymbol;
 use ChrisKonnertz\StringCalc\Symbols\SymbolContainerInterface;
 use ChrisKonnertz\StringCalc\Tokenizer\InputStreamInterface;
+use ChrisKonnertz\StringCalc\Tokenizer\Token;
 use ChrisKonnertz\StringCalc\Tokenizer\Tokenizer;
 
 /**
@@ -70,7 +72,8 @@ class StringCalc
     }
 
     /**
-     * Calculates a term and returns the result
+     * Calculates a term and returns the result.
+     * Will return 0 if there is nothing to calculate.
      *
      * @param string $term
      * @return float|int
@@ -80,15 +83,26 @@ class StringCalc
     {
         $stringHelper = $this->container->get('stringcalc_stringhelper');
         $stringHelper->validate($term);
-
         $term = strtolower($term);
 
         $tokens = $this->tokenize($term);
+        if (sizeof($tokens) == 0) {
+            return 0;
+        }
 
-        // TODO parse etc, return result...
+        $nodes = $this->parse($tokens);
+        if (sizeof($nodes) == 0) {
+            return 0;
+        }
+
+        $result = $this->calculateNodes($nodes);
+
+        return $result;
     }
 
     /**
+     * Tokenize the term. Returns an array with the tokens.
+     *
      * @param string $term
      * @return array
      */
@@ -110,6 +124,36 @@ class StringCalc
         $tokens = $tokenizer->tokenize();
 
         return $tokens;
+    }
+
+    /**
+     * Parses an array with tokens. Returns an array of nodes.
+     *
+     * @param Token[] $tokens
+     * @return array
+     */
+    protected function parse(array $tokens)
+    {
+        // TODO use tokenizer service?
+        $parser = new Parser();
+
+        $nodes = $parser->parse($tokens);
+
+        return $nodes;
+    }
+
+    /**
+     * This method actually calculates the results of every sub-terms
+     * in the abstract syntax tree (which consists of nodes).
+     * it can call itself recursively.
+     *
+     * @param array $nodes
+     * @return int|float
+     */
+    protected function calculateNodes(array $nodes)
+    {
+        // TODO implement
+        return 0;
     }
 
     /**

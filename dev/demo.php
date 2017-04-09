@@ -29,7 +29,7 @@
 		if ($term) {
 			$stringCalc = new ChrisKonnertz\StringCalc\StringCalc();
 
-			$result = $stringCalc->calculate('1+1');
+			$result = $stringCalc->calculate($term);
 
 			var_dump($result);
 		}
