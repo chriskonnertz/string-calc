@@ -7,6 +7,7 @@ use ChrisKonnertz\StringCalc\Symbols\Concrete\AdditionOperand;
 use ChrisKonnertz\StringCalc\Symbols\Concrete\ClosingBracket;
 use ChrisKonnertz\StringCalc\Symbols\Concrete\DivisionOperand;
 use ChrisKonnertz\StringCalc\Symbols\Concrete\MultiplicationOperand;
+use ChrisKonnertz\StringCalc\Symbols\Concrete\Number;
 use ChrisKonnertz\StringCalc\Symbols\Concrete\OpeningBracket;
 use ChrisKonnertz\StringCalc\Symbols\Concrete\PiConstant;
 use ChrisKonnertz\StringCalc\Symbols\Concrete\SubtractionOperand;
@@ -31,6 +32,8 @@ class SymbolRegistry
     public function getSymbols()
     {
         $symbols = [
+            Number::class,
+
             ClosingBracket::class,
             OpeningBracket::class,
 
