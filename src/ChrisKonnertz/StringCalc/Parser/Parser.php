@@ -70,7 +70,7 @@ class Parser
         $nodes = [];
 
         $expectingOpeningBracket = false; // True if we expect an opening bracket (after a function name)
-        $openingBracketCounter = 0;
+        $openBracketCounter = 0;
 
         foreach ($tokens as $token) {
             $type = $token->getType();
@@ -98,15 +98,15 @@ class Parser
                 }
 
                 if (is_a($symbol, AbstractOpeningBracket::class)) {
-                    $openingBracketCounter++;
+                    $openBracketCounter++;
                 }
                 if (is_a($symbol, AbstractClosingBracket::class)) {
-                    $openingBracketCounter--;
+                    $openBracketCounter--;
 
                     // Make sure there are not too many closing brackets
-                    if ($openingBracketCounter < 0) {
+                    if ($openBracketCounter < 0) {
                         throw new ParserException(
-                            'Error: Found closing bracket that does not belong to an opening bracket.'
+                            'Error: Found closing bracket that does not have an opening bracket.'
                         );
                     }
                 }
@@ -136,9 +136,9 @@ class Parser
         }
 
         // Make sure there are not too many opening brackets
-        if ($openingBracketCounter > 0) {
+        if ($openBracketCounter > 0) {
             throw new ParserException(
-                'Error: There is at least one opening bracket that does not belong to a closing bracket.'
+                'Error: There is at least one opening bracket that does not have a closing bracket.'
             );
         }
 
@@ -146,12 +146,15 @@ class Parser
     }
 
     /**
+     * Expects a flat array of nodes and (if possible) transforms
+     * it to a tree of nodes.
+     *
      * @param Node[] $nodes
-     * @return Node[]
+     * @return array
      */
     protected function createTree(array $nodes)
     {
-        $nodes = $this->parseBrackets($nodes);
+        $nodes = $this->createTreeByBrackets($nodes);
 
         // TODO implement missing stuff
 
@@ -159,12 +162,54 @@ class Parser
     }
 
     /**
+     * Expects a flat array of nodes and (if possible) transforms
+     * it to a tree of nodes. Only cares for brackets.
+     * Attention: Expects valid brackets!
+     * Check the brackets before you call this method.
+     *
      * @param Node[] $nodes
      * @return array
+     * @throws ParserException
      */
-    protected function parseBrackets(array $nodes)
+    protected function createTreeByBrackets(array $nodes)
     {
-        // TODO implement missing stuff
+        $tree = [];
+        $nodesInBrackets = []; // Nodes inside level0-brackets
+        $openBracketCounter = 0;
+
+        foreach ($nodes as $index => $node) {
+            if (! is_a($node, Node::class)) {
+                throw new ParserException('Error: Expected node, got something else.');
+            }
+
+            if (is_a($node->getSymbol(), AbstractOpeningBracket::class)) {
+                $openBracketCounter++;
+
+                if ($openBracketCounter > 1) {
+                    $nodesInBrackets[] = $node;
+                }
+            } elseif (is_a($node->getSymbol(), AbstractClosingBracket::class)) {
+                $openBracketCounter--;
+
+                // Found a closing bracket on level 0
+                if ($openBracketCounter == 0) {
+                    $subTree = $this->createTreeByBrackets($nodesInBrackets);
+
+                    // Subtree can be empty for example if the term looks like this: "()"
+                    if (sizeof($subTree) > 0) {
+                        $tree[] = $subTree;
+                    }
+                } else {
+                    $nodesInBrackets[] = $node;
+                }
+            } else {
+                if ($openBracketCounter == 0) {
+                    $tree[] = $node;
+                } else {
+                    $nodesInBrackets[] = $node;
+                }
+            }
+        }
 
         return $nodes;
     }
