@@ -3,11 +3,11 @@
 namespace ChrisKonnertz\StringCalc\Symbols;
 
 /**
- * The symbol manager manages an array with all symbol objects.
+ * The symbol container manages an array with all symbol objects.
  *
  * @package ChrisKonnertz\StringCalc
  */
-class SymbolManager implements SymbolManagerInterface
+class SymbolContainer implements SymbolContainerInterface
 {
 
     /**
@@ -30,6 +30,7 @@ class SymbolManager implements SymbolManagerInterface
      * creates objects of these classes and stores them.
      *
      * @return void
+     * @throws \LengthException
      */
     protected function prepareSymbols()
     {
@@ -37,17 +38,25 @@ class SymbolManager implements SymbolManagerInterface
         $symbolClassesNames = $symbolRegistry->getSymbols();
 
         foreach ($symbolClassesNames as $symbolClassName) {
+            /** @var AbstractSymbol $symbol */
             $symbol = new $symbolClassName();
+
+            if (sizeof($symbol->getIdentifiers()) == 0) {
+                throw new \LengthException('Error: Symbol does not have any identifiers.');
+            }
+
             $this->symbols[$symbolClassName] = $symbol;
         }
     }
 
     /**
-     * Adds a symbol to the array of symbols.
+     * Adds a symbol to the array of symbols. This method allows to add symbols
+     * at runtime from the outside of this library.
      *
      * @param AbstractSymbol $symbol        The new symbol object
      * @param string|null    $replaceSymbol Class name of an known symbol that you want to replace
      * @return void
+     * @throws \InvalidArgumentException
      */
     public function addSymbol(AbstractSymbol $symbol, $replaceSymbol = null)
     {
@@ -100,7 +109,7 @@ class SymbolManager implements SymbolManagerInterface
     }
 
     /**
-     * Getter for the array of symbols.
+     * Getter for the array of all symbols.
      *
      * @return AbstractSymbol[]
      */

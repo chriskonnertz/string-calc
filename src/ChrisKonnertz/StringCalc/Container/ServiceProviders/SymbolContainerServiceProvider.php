@@ -3,16 +3,16 @@
 namespace ChrisKonnertz\StringCalc\Container\ServiceProviders;
 
 use ChrisKonnertz\StringCalc\Container\AbstractSingletonServiceProvider;
-use ChrisKonnertz\StringCalc\Symbols\SymbolManager;
+use ChrisKonnertz\StringCalc\Symbols\SymbolContainer;
 
-class SymbolManagerServiceProvider extends AbstractSingletonServiceProvider
+class SymbolContainerServiceProvider extends AbstractSingletonServiceProvider
 {
     /**
      * @inheritdoc
      */
     protected function createService()
     {
-        return new SymbolManager();
+        return new SymbolContainer();
     }
 
 }

@@ -8,7 +8,7 @@ use ChrisKonnertz\StringCalc\Container\ContainerInterface;
 use ChrisKonnertz\StringCalc\Container\ServiceProviderRegistry;
 use ChrisKonnertz\StringCalc\Support\StringHelperInterface;
 use ChrisKonnertz\StringCalc\Symbols\AbstractSymbol;
-use ChrisKonnertz\StringCalc\Symbols\SymbolManagerInterface;
+use ChrisKonnertz\StringCalc\Symbols\SymbolContainerInterface;
 use ChrisKonnertz\StringCalc\Tokenizer\InputStreamInterface;
 use ChrisKonnertz\StringCalc\Tokenizer\Tokenizer;
 
@@ -25,7 +25,7 @@ class StringCalc
      *
      * @const string
      */
-    const VERSION = '0.0.4';
+    const VERSION = '0.0.5';
 
     /**
      * The service container
@@ -37,9 +37,9 @@ class StringCalc
     /**
      * Manager that manages all symbols
      *
-     * @var SymbolManagerInterface
+     * @var SymbolContainerInterface
      */
-    protected $symbolManager;
+    protected $symbolContainer;
 
     /**
      * StringCalc constructor.
@@ -66,7 +66,7 @@ class StringCalc
             $this->container = $container;
         }
 
-        $this->symbolManager = $this->container->get('stringcalc_symbolmanager');
+        $this->symbolContainer = $this->container->get('stringcalc_symbolcontainer');
     }
 
     /**
@@ -94,14 +94,18 @@ class StringCalc
      */
     protected function tokenize($term)
     {
-        /** @var StringHelperInterface $stringHelper */
-        $stringHelper = $this->container->get('stringcalc_stringhelper');
-
         /** @var InputStreamInterface $inputStream */
         $inputStream = $this->container->get('stringcalc_inputstream');
         $inputStream->setInput($term);
 
-        $tokenizer = new Tokenizer($inputStream, $stringHelper);
+        /** @var SymbolContainerInterface $symbolContainer */
+        $symbolContainer = $this->container->get('stringcalc_symbolcontainer');
+
+        /** @var StringHelperInterface $stringHelper */
+        $stringHelper = $this->container->get('stringcalc_stringhelper');
+
+        // TODO use tokenizer service?
+        $tokenizer = new Tokenizer($inputStream, $symbolContainer, $stringHelper);
 
         $tokens = $tokenizer->tokenize();
 
@@ -110,8 +114,8 @@ class StringCalc
 
     /**
      * Adds a symbol to the list of symbols.
-     * This is just a shortcut method. Call getSymbolManager() if you want to
-     * call more methods directly on the symbol manager.
+     * This is just a shortcut method. Call getSymbolContainer() if you want to
+     * call more methods directly on the symbol container.
      *
      * @param AbstractSymbol $symbol        The new symbol object
      * @param string|null    $replaceSymbol Class name of an known symbol that you want to replace
@@ -119,17 +123,17 @@ class StringCalc
      */
     public function addSymbol(AbstractSymbol $symbol, $replaceSymbol = null)
     {
-        $this->symbolManager->addSymbol($symbol, $replaceSymbol);
+        $this->symbolContainer->addSymbol($symbol, $replaceSymbol);
     }
 
     /**
-     * Getter for the symbol manager
+     * Getter for the symbol container
      *
-     * @return SymbolManagerInterface
+     * @return SymbolContainerInterface
      */
-    public function getSymbolManager()
+    public function getSymbolContainer()
     {
-        return $this->symbolManager;
+        return $this->symbolContainer;
     }
 
 }

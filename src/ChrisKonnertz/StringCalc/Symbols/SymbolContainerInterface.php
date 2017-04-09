@@ -3,11 +3,11 @@
 namespace ChrisKonnertz\StringCalc\Symbols;
 
 /**
- * This is an interface for the SymbolManager class.
+ * This is an interface for the SymbolContainer class.
  *
  * @package ChrisKonnertz\StringCalc
  */
-interface SymbolManagerInterface
+interface SymbolContainerInterface
 {
 
     /**

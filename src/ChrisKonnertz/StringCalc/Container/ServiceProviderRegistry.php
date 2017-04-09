@@ -4,8 +4,14 @@ namespace ChrisKonnertz\StringCalc\Container;
 
 use ChrisKonnertz\StringCalc\Container\ServiceProviders\InputStreamServiceProvider;
 use ChrisKonnertz\StringCalc\Container\ServiceProviders\StringHelperServiceProvider;
-use ChrisKonnertz\StringCalc\Container\ServiceProviders\SymbolManagerServiceProvider;
+use ChrisKonnertz\StringCalc\Container\ServiceProviders\SymbolContainerServiceProvider;
 
+/**
+ * This class is where all service providers are registered
+ * (except of those that are registered at runtime).
+ *
+ * @package ChrisKonnertz\StringCalc\Container
+ */
 class ServiceProviderRegistry implements ServiceProviderRegistryInterface
 {
 
@@ -15,9 +21,9 @@ class ServiceProviderRegistry implements ServiceProviderRegistryInterface
     public function getServiceProviders()
     {
         $serviceProviders = [
-            'stringcalc_stringhelper' => StringHelperServiceProvider::class,
-            'stringcalc_inputstream' => InputStreamServiceProvider::class,
-            'stringcalc_symbolmanager' => SymbolManagerServiceProvider::class,
+            'stringcalc_stringhelper'       => StringHelperServiceProvider::class,
+            'stringcalc_inputstream'        => InputStreamServiceProvider::class,
+            'stringcalc_symbolcontainer'    => SymbolContainerServiceProvider::class,
         ];
 
         return $serviceProviders;
