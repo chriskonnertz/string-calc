@@ -112,7 +112,7 @@ class Parser
                 }
             }
 
-            // Make a function is not followed by a symbol that is not of type opening bracket
+            // Make sure a function is not followed by a symbol that is not of type opening bracket
             if ($expectingOpeningBracket) {
                 if (! is_a($symbol, AbstractOpeningBracket::class)) {
                     throw new ParserException(
@@ -154,11 +154,11 @@ class Parser
      */
     protected function createTree(array $nodes)
     {
-        $nodes = $this->createTreeByBrackets($nodes);
+        $tree = $this->createTreeByBrackets($nodes);
 
         // TODO implement missing stuff
 
-        return $nodes;
+        return $tree;
     }
 
     /**
@@ -211,7 +211,7 @@ class Parser
             }
         }
 
-        return $nodes;
+        return $tree;
     }
 
 }
