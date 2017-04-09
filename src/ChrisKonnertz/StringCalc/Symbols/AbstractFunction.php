@@ -44,7 +44,7 @@ abstract class AbstractFunction extends AbstractSymbol
         // TODO test this:
         // Use regular expression to ensure the identifier consists only of letters
         if (preg_match('/^[a-zA-Z\d]+$/', $identifier) !== 1) {
-            throw new InvalidIdentifierException('Error: Identifier must consists of letters.');
+            throw new InvalidIdentifierException('Error: Identifier must consist of letters.');
         }
     }
 
