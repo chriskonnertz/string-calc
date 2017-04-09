@@ -41,9 +41,8 @@ abstract class AbstractConstant extends AbstractSymbol
      */
     protected function validateIdentifierMore($identifier)
     {
-        // TODO test this:
         // Use regular expression to ensure the identifier consists only of letters
-        if (preg_match('/^[a-zA-Z\d]+$/', $identifier) !== 1) {
+        if (preg_match('/^[a-zA-Z]+$/', $identifier) !== 1) {
             throw new InvalidIdentifierException('Error: Identifier must consist of letters.');
         }
     }

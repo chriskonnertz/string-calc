@@ -134,7 +134,7 @@ class StringCalc
      */
     protected function parse(array $tokens)
     {
-        // TODO use tokenizer service?
+        // TODO use parser service?
         $parser = new Parser();
 
         $nodes = $parser->parse($tokens);

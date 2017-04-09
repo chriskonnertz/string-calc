@@ -16,15 +16,27 @@ abstract class AbstractSymbol
 {
 
     /**
-     * Array with the 1-n unique identifiers (the textual
-     * representation of a symbol) of the symbol. Example: ['/', ':']
+     * Array with the 1-n (exception: the Number class may have 0)
+     * unique identifiers (the textual representation of a symbol)
+     * of the symbol. Example: ['/', ':']
      * Attention: The identifiers are case-sensitive, however,
      * valid identifiers in a term are always written in lower-case.
      * Therefore identifiers always have to be written in lower-case!
      *
      * @var string[]
      */
-    protected $identifiers;
+    protected $identifiers = [];
+
+    /**
+     * Subclasses can set their identifiers in $this->identifiers.
+     * These identifiers need to be validated. This wil be done
+     * in getIdentifiers(). Since we do not need to validate them
+     * each time the getter is called we set a flag if we have
+     * validated them once.
+     *
+     * @var bool
+     */
+    private $validatedIdentifiers = false;
 
     /**
      * @var StringHelperInterface
@@ -40,10 +52,6 @@ abstract class AbstractSymbol
     public function __construct(StringHelperInterface $stringHelper)
     {
         $this->stringHelper = $stringHelper;
-
-        foreach ($this->identifiers as $identifier) {
-            $this->validateIdentifier($identifier);
-        }
     }
 
     /**
@@ -57,6 +65,10 @@ abstract class AbstractSymbol
     public function addIdentifier($identifier)
     {
         $this->validateIdentifier($identifier);
+
+        if (in_array($identifier, $this->identifiers)) {
+            throw new InvalidIdentifierException('Error: Cannot add an identifier twice');
+        }
 
         $this->identifiers[] = $identifier;
     }
@@ -72,7 +84,7 @@ abstract class AbstractSymbol
      * @return void
      * @throws InvalidIdentifierException
      */
-    final protected function validateIdentifier($identifier)
+    final public function validateIdentifier($identifier)
     {
         $this->stringHelper->validate($identifier);
 
@@ -80,8 +92,10 @@ abstract class AbstractSymbol
             throw new InvalidIdentifierException('Error: Identifier cannot contain period character');
         }
 
-        // Use regular expression to search for digits
-        if (preg_match('/[^0-9]/', $identifier) === 1) {
+        // Use regular expression to search for characters that are digits
+        // Regex is true when there are  0-n non-digits chars and then one digit
+        // (it does not matter what is behind the digit)
+        if (preg_match('/(\D*)\d/', $identifier) === 1) {
             throw new InvalidIdentifierException('Error: Identifier cannot contain any digits.');
         }
 
@@ -92,11 +106,7 @@ abstract class AbstractSymbol
             }
         }
 
-        if (in_array($identifier, $this->identifiers)) {
-            throw new InvalidIdentifierException('Error: Cannot add an identifier twice');
-        }
-
-        $this->validateIdentifier($identifier);
+        $this->validateIdentifierMore($identifier);
     }
 
     /**
@@ -119,8 +129,20 @@ abstract class AbstractSymbol
      *
      * @return string[]
      */
-    public function getIdentifiers()
+    final public function getIdentifiers()
     {
+        if (! $this->validatedIdentifiers) {
+            foreach ($this->identifiers as $identifier) {
+                $this->validateIdentifier($identifier);
+            }
+
+            if (sizeof(array_unique($this->identifiers)) != sizeof($this->identifiers) ) {
+                throw new \DomainException('Error: Identifier duplicated found.');
+            }
+
+            $this->validatedIdentifiers = true;
+        }
+
         return $this->identifiers;
     }
 

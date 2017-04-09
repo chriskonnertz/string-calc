@@ -48,15 +48,15 @@ class SymbolContainer implements SymbolContainerInterface
      */
     protected function validate()
     {
-        foreach ($this->symbols as $symbol) {
-            if (sizeof($symbol->getIdentifiers()) == 0) {
-                throw new \LengthException('Error: Symbol does not have any identifiers.');
-            }
-        }
-
         $numberSymbols = $this->findSubtype(Number::class);
         if (sizeof($numberSymbols) != 1) {
             throw new NotFoundException('Error: Could not identify number class.');
+        }
+
+        foreach ($this->symbols as $symbol) {
+            if (sizeof($symbol->getIdentifiers()) == 0 and ! is_a($symbol, Number::class)) {
+                throw new \LengthException('Error: Symbol does not have any identifiers.');
+            }
         }
     }
 
