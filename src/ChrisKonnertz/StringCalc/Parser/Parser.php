@@ -69,9 +69,8 @@ class Parser
     {
         $nodes = [];
 
-        $expectingOpeningBracket = false;
+        $expectingOpeningBracket = false; // True if we expect an opening bracket (after a function name)
         $openingBracketCounter = 0;
-        $closingBracketCounter = 0;
 
         foreach ($tokens as $token) {
             $type = $token->getType();
@@ -102,10 +101,10 @@ class Parser
                     $openingBracketCounter++;
                 }
                 if (is_a($symbol, AbstractClosingBracket::class)) {
-                    $closingBracketCounter++;
+                    $openingBracketCounter--;
 
                     // Make sure there are not too many closing brackets
-                    if ($closingBracketCounter < $openingBracketCounter) {
+                    if ($openingBracketCounter < 0) {
                         throw new ParserException(
                             'Error: Found closing bracket that does not belong to an opening bracket.'
                         );
@@ -137,7 +136,7 @@ class Parser
         }
 
         // Make sure there are not too many opening brackets
-        if ($openingBracketCounter > $closingBracketCounter) {
+        if ($openingBracketCounter > 0) {
             throw new ParserException(
                 'Error: There is at least one opening bracket that does not belong to a closing bracket.'
             );
