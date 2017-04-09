@@ -60,6 +60,10 @@ class SymbolContainer implements SymbolContainerInterface
      */
     public function addSymbol(AbstractSymbol $symbol, $replaceSymbol = null)
     {
+        if (sizeof($symbol->getIdentifiers()) == 0) {
+            throw new \LengthException('Error: Symbol does not have any identifiers.');
+        }
+
         if ($replaceSymbol === null) {
             if (array_key_exists(get_class($symbol), $this->symbols)) {
                 throw new \InvalidArgumentException(
