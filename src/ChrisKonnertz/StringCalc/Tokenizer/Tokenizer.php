@@ -5,7 +5,14 @@ namespace ChrisKonnertz\StringCalc\Tokenizer;
 use ChrisKonnertz\StringCalc\Support\StringHelperInterface;
 use ChrisKonnertz\StringCalc\Symbols\SymbolContainerInterface;
 
-// FIXME This class is broken and needs to be re-implemented.
+/**
+ * "Tokenization is the process of demarcating and possibly classifying
+ * sections of a string of input characters" (Source: Wikipedia)
+ * The tokenizer operates on the string term and tries to split it into
+ * parts (these are the symbols of the term or the tokens).
+ *
+ * @package ChrisKonnertz\StringCalc\Tokenizer
+ */
 class Tokenizer
 {
 
@@ -25,6 +32,8 @@ class Tokenizer
     protected $stringHelper;
 
     /**
+     * Tokenizer constructor.
+     *
      * @param InputStreamInterface     $inputStream
      * @param SymbolContainerInterface $symbolContainer
      * @param StringHelperInterface    $stringHelper
