@@ -76,6 +76,7 @@ class Parser
                     throw new NotFoundException('Error: Detected unknown or invalid identifier.');
                 }
             } elseif ($type == Token::TYPE_NUMBER) {
+                // Notice: Numbers do not have an identifier
                 $symbol = $this->symbolContainer->findSubtype(Number::class)[0];
             } else { // Type Token::TYPE_CHARACTER:
                 $identifier = $token->getValue();

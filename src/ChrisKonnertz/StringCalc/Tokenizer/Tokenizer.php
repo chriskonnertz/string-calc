@@ -84,12 +84,6 @@ class Tokenizer
             $type = Token::TYPE_WORD;
         } elseif ($this->isDigit($char) or $this->isPeriod($char)) {
             $value = $this->readNumber();
-
-            // Convert string to int or float (depending on the type of the number)
-            // Attention: The fractional part of a PHP float can only have a limited length.
-            // If the number has a longer fractional part, it will be cut.
-            $value = 0 + $value;
-
             $type = Token::TYPE_NUMBER;
         } else {
             $value = $this->readSpecialChar();

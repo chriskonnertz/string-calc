@@ -153,6 +153,15 @@ class StringCalc
     protected function calculateNodes(array $nodes)
     {
         // TODO implement
+
+        // TODO: Convert string that are numbers values to int/float.
+        // Maybe this is not the right place to tdo this -> then move it to a better place
+
+        // Convert string to int or float (depending on the type of the number)
+        // Attention: The fractional part of a PHP float can only have a limited length.
+        // If the number has a longer fractional part, it will be cut.
+        $value = 0 + $value;
+
         return 0;
     }
 
