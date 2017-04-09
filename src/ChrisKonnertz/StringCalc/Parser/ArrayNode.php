@@ -62,6 +62,7 @@ class ArrayNode extends AbstractNode
                     $binary = constant(AbstractOperator::class.'::OPERATES_BINARY');
 
                     throw new \Exception('NOT YET IMPLEMENTED, PLEASE IMPLEMENT ME!'); // TODO FIXME implement this!
+                    // IDEA: Use PHP array sort to sort operands after precedence in the symbol container!
                 }
             }
         }

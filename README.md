@@ -46,7 +46,7 @@ fractional part, the fractional part will be cut somewhere.
 
 ...
 
-### Operands
+### Operators
 
 ..
 
