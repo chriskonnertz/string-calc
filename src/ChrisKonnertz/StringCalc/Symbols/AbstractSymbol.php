@@ -2,6 +2,7 @@
 
 namespace ChrisKonnertz\StringCalc\Symbols;
 
+use ChrisKonnertz\StringCalc\Exceptions\InvalidIdentifierException;
 use ChrisKonnertz\StringCalc\Support\StringHelperInterface;
 
 /**
@@ -15,12 +16,13 @@ abstract class AbstractSymbol
 {
 
     /**
-     * Array with the textual representations (1-n) of the symbol. Example: ['/', ':']
-     * The textual representations are case-insensitive.
+     * Array with the 1-n unique identifiers (the textual
+     * representation of a symbol) of the symbol. Example: ['/', ':']
+     * The identifiers are case-insensitive.
      *
      * @var string[]
      */
-    protected $textualRepresentations;
+    protected $identifiers;
 
     /**
      * @var StringHelperInterface
@@ -28,41 +30,70 @@ abstract class AbstractSymbol
     protected $stringHelper;
 
     /**
+     * AbstractSymbol constructor.
+     *
      * @param StringHelperInterface $stringHelper
      */
-
     public function __construct(StringHelperInterface $stringHelper)
     {
         $this->stringHelper = $stringHelper;
     }
 
     /**
-     * Create a textual representation for the symbol at runtime.
-     * All characters are allowed except digits and '.'.
+     * Validate the identifier. This method is meant to be overwritten by
+     * the abstract subclasses (such as AbstractOperand) if they need
+     * specialised validation.
      *
-     * @param string $textualRepresentation
+     * @param string $identifier
      * @return void
-     * @throws \Exception
+     * @throws InvalidIdentifierException
      */
-    public function addTextualRepresentation($textualRepresentation)
+    protected function validateIdentifier($identifier)
     {
-        $this->stringHelper->validate($textualRepresentation);
-
-        if (in_array($textualRepresentation, $this->textualRepresentations)) {
-            throw new \Exception('Error: Cannot add a textual representation twice');
-        }
-
-        $this->textualRepresentations[] = $textualRepresentation;
+        // Implement this method in a subclass. If the validations fails,
+        // throw an InvalidIdentifierException exception.
     }
 
     /**
-     * Getter for the textual representations of the symbol
+     * Create a new identifier for the symbol at runtime. All characters
+     * are allowed except digits and '.'. This method is declared as final,
+     * because the validation that is done here is essential and the risk
+     * of its integrity being corrupted by a subclass is too high.
+     *
+     * @param string $identifier
+     * @return void
+     * @throws \Exception
+     */
+    final public function addIdentifier($identifier)
+    {
+        $this->stringHelper->validate($identifier);
+
+        if (strpos($identifier, '.') !== false) {
+            throw new InvalidIdentifierException('Error: Identifier cannot contain period character');
+        }
+
+        // Use regular expression to search for digits
+        if (preg_match('/[^0-9]/', $identifier) === 1) {
+            throw new InvalidIdentifierException('Error: Identifier cannot contain any digits.');
+        }
+
+        $this->validateIdentifier($identifier);
+
+        if (in_array($identifier, $this->identifiers)) {
+            throw new InvalidIdentifierException('Error: Cannot add an identifier twice');
+        }
+
+        $this->identifiers[] = $identifier;
+    }
+
+    /**
+     * Getter for the identifiers of the symbol
      *
      * @return string[]
      */
-    public function getTextualRepresentations()
+    public function getIdentifiers()
     {
-        return $this->textualRepresentations;
+        return $this->identifiers;
     }
 
 }

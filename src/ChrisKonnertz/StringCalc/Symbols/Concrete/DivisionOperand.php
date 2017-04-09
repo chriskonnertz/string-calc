@@ -10,7 +10,7 @@ class DivisionOperand extends AbstractOperand
     /**
      * @inheritdoc
      */
-    protected $textualRepresentations = ['/'];
+    protected $identifier = ['/'];
 
     /**
      * @inheritdoc

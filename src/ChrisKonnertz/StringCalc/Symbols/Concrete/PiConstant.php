@@ -13,7 +13,7 @@ abstract class PiConstant extends AbstractConstant
     /**
      * @inheritdoc
      */
-    protected $textualRepresentations = ['pi'];
+    protected $identifier = ['pi'];
 
     /**
      * @inheritdoc

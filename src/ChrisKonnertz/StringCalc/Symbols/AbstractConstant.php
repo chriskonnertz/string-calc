@@ -2,6 +2,8 @@
 
 namespace ChrisKonnertz\StringCalc\Symbols;
 
+use ChrisKonnertz\StringCalc\Exceptions\InvalidIdentifierException;
+
 /**
  * This class is the base class for all symbols that are of the type "constant".
  * We recommend to use names as textual representations for this type of symbol.
@@ -32,6 +34,18 @@ abstract class AbstractConstant extends AbstractSymbol
     public function getValue()
     {
         return $this->value;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    protected function validateIdentifier($identifier)
+    {
+        // TODO test this:
+        // Use regular expression to ensure the identifier consists only of letters
+        if (preg_match('/^[a-zA-Z\d]+$/', $identifier) !== 1) {
+            throw new InvalidIdentifierException('Error: Identifier must consists of letters.');
+        }
     }
 
 }

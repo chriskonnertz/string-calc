@@ -10,6 +10,6 @@ class ClosingBracket extends AbstractClosingBracket
     /**
      * @inheritdoc
      */
-    protected $textualRepresentations = [')'];
+    protected $identifier = [')'];
 
 }

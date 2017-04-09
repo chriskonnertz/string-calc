@@ -2,6 +2,8 @@
 
 namespace ChrisKonnertz\StringCalc\Symbols;
 
+use ChrisKonnertz\StringCalc\Exceptions\InvalidIdentifierException;
+
 /**
  * This class is the base class for all symbols that are of the type "function".
  * Typically the textual representation of a function consists of two or more letters.
@@ -33,5 +35,17 @@ abstract class AbstractFunction extends AbstractSymbol
      * @return int|float
      */
     abstract public function execute(array $arguments);
+
+    /**
+     * @inheritdoc
+     */
+    protected function validateIdentifier($identifier)
+    {
+        // TODO test this:
+        // Use regular expression to ensure the identifier consists only of letters
+        if (preg_match('/^[a-zA-Z\d]+$/', $identifier) !== 1) {
+            throw new InvalidIdentifierException('Error: Identifier must consists of letters.');
+        }
+    }
 
 }

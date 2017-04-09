@@ -13,7 +13,7 @@ class AbsFunction extends AbstractFunction
     /**
      * @inheritdoc
      */
-    protected $textualRepresentations = ['abs'];
+    protected $identifier = ['abs'];
 
     /**
      * @inheritdoc
