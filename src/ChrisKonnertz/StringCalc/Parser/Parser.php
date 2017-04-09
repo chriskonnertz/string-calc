@@ -17,7 +17,7 @@ class Parser
 
     /**
      * Parses an array with tokens. Returns an array of nodes.
-     * These nodes define an abstract syntax tree.
+     * These nodes define a syntax tree.
      *
      * @param Token[] $tokens
      * @return array
@@ -27,6 +27,11 @@ class Parser
         // TODO implement
 
         return [];
+    }
+
+    public function bracketPrecedence(array $tokens)
+    {
+
     }
 
 }

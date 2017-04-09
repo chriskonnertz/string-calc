@@ -106,6 +106,11 @@ class Tokenizer
             $identifier = $stringToken;
             $value = $stringToken;
             $symbol = $this->symbolContainer->findSubtype(Number::class)[0];
+
+            // Convert string to int or float (depending on the type of the number)
+            // Attention: The fractional part of a PHP float can only have a limited length.
+            // If the number has a longer fractional part, it will be cut.
+            $value = 0 + $value;
         } else {
             $stringToken = $this->readSpecialChar();
 
