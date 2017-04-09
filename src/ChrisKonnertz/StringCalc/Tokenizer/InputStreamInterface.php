@@ -53,6 +53,6 @@ interface InputStreamInterface
      *
      * @return int
      */
-    public function getIndex();
+    public function getPosition();
 
 }

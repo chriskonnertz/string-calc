@@ -118,7 +118,7 @@ class Tokenizer
             }
         }
 
-        $token = new Token($identifier, $value, $symbol);
+        $token = new Token($value, $symbol, $identifier, $this->inputStream->getPosition());
 
         return $token;
     }

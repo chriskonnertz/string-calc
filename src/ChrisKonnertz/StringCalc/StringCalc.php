@@ -144,8 +144,8 @@ class StringCalc
 
     /**
      * This method actually calculates the results of every sub-terms
-     * in the abstract syntax tree (which consists of nodes).
-     * it can call itself recursively.
+     * in the syntax tree (which consists of nodes).
+     * It can call itself recursively.
      *
      * @param array $nodes
      * @return int|float

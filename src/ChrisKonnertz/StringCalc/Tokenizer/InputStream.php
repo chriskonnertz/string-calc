@@ -23,11 +23,11 @@ class InputStream implements InputStreamInterface
     protected $input = '';
 
     /**
-     * Current position in the input
+     * Current position in the input stream
      *
      * @var int
      */
-    protected $index = 0;
+    protected $position = 0;
 
     /**
      * @var StringHelperInterface
@@ -45,14 +45,14 @@ class InputStream implements InputStreamInterface
     }
 
     /**
-     * Move the pointer to the next position.
-     * Will always move the pointer, even if the end of the term has been passed.
+     * Move the the cursor to the next position.
+     * Will always move the cursor, even if the end of the string has been passed.
      *
      * @return string|null
      */
     public function readNext()
     {
-        $this->index++;
+        $this->position++;
 
         return $this->readCurrent();
     }
@@ -65,7 +65,7 @@ class InputStream implements InputStreamInterface
     public function readCurrent()
     {
         if ($this->hasCurrent()) {
-            $char = $this->input[$this->index];
+            $char = $this->input[$this->position];
         } else {
             $char = null;
         }
@@ -80,17 +80,17 @@ class InputStream implements InputStreamInterface
      */
     public function hasCurrent()
     {
-        return ($this->index < strlen($this->input));
+        return ($this->position < strlen($this->input));
     }
 
     /**
-     * Resets the cursor to the beginning of the string.
+     * Resets the position of the cursor to the beginning of the string.
      *
      * @return void
      */
     public function reset()
     {
-        $this->index = 0;
+        $this->position = 0;
     }
 
     /**
@@ -120,9 +120,9 @@ class InputStream implements InputStreamInterface
      *
      * @return int
      */
-    public function getIndex()
+    public function getPosition()
     {
-        return $this->index;
+        return $this->position;
     }
 
 }

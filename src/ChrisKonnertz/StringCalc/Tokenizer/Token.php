@@ -15,12 +15,11 @@ class Token
 {
 
     /**
-     * The identifier that was used in the term for this token.
-     * Might be equal to the identifier.
+     * The value of the token. Might be equal to the identifier
      *
-     * @var string
+     * @var string|int|float
      */
-    protected $identifier;
+    protected $value = null;
 
     /**
      * The symbol of the token. It defines the type of the token.
@@ -30,36 +29,49 @@ class Token
     protected $symbol;
 
     /**
-     * The value of the token. Might be equal to the identifier
+     * The identifier that was used in the term for this token.
+     * Might be equal to the identifier. It is stored as a
+     * debugging information.
      *
-     * @var string|int|float
+     * @var string
      */
-    protected $value = null;
+    protected $identifier;
+
+    /**
+     * Position of the token in the input stream.
+     * It is stored as a debugging information.
+     *
+     * @var int
+     */
+    protected $position;
 
     /**
      * Token constructor.
      *
-     * @param string            $identifier
      * @param string|int|float  $value
      * @param AbstractSymbol    $symbol
+     * @param string            $identifier
+     * @param int               $position
      */
-    public function __construct($identifier, $value, AbstractSymbol $symbol)
+    public function __construct($value, AbstractSymbol $symbol, $identifier, $position)
     {
         $this->identifier = $identifier;
 
         $this->value = $value;
 
         $this->symbol = $symbol;
+
+        $this->position = $position;
     }
 
     /**
-     * Getter for the identifier
+     * Getter for the value
      *
-     * @return string
+     * @return string|int|float
      */
-    public function getIdentifier()
+    public function getValue()
     {
-        return $this->identifier;
+        return $this->value;
     }
 
     /**
@@ -73,13 +85,23 @@ class Token
     }
 
     /**
-     * Getter for the value
+     * Getter for the identifier
      *
-     * @return string|int|float
+     * @return string
      */
-    public function getValue()
+    public function getIdentifier()
     {
-        return $this->value;
+        return $this->identifier;
+    }
+
+    /**
+     * Getter for the position
+     *
+     * @return int
+     */
+    public function getPosition()
+    {
+        return $this->position;
     }
 
 }
