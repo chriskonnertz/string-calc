@@ -9,7 +9,7 @@ use ChrisKonnertz\StringCalc\Support\StringHelperInterface;
  * A term is built of symbols: numbers/constants, variables, brackets, operands and functions.
  * - This is the abstract base class of all symbols.
  * - It is extended by a limited number of abstract classes that represent the different
- * types of symbols
+ * types of symbols. These classes have a semantic meaning.
  * - These classes are then extended by concrete classes that represent concrete symbols
  */
 abstract class AbstractSymbol

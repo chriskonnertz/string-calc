@@ -24,5 +24,5 @@ Bad examples:
 Just for your information: From the tokenizer's point of view, numbers in a term are always positive. 
 This means that the tokenizer will split the term `-1` in two parts: `-` and `1`. 
 
-> Attention: The fractional part of a PHP float can only have a limited length. If a number in a term has a longer 
+> Notice: The fractional part of a PHP float can only have a limited length. If a number in a term has a longer 
 fractional part, the fractional part will be cut somewhere.

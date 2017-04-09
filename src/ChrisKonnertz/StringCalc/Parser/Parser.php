@@ -3,6 +3,10 @@
 namespace ChrisKonnertz\StringCalc\Parser;
 
 use ChrisKonnertz\StringCalc\Exceptions\NotFoundException;
+use ChrisKonnertz\StringCalc\Exceptions\ParserException;
+use ChrisKonnertz\StringCalc\Symbols\AbstractClosingBracket;
+use ChrisKonnertz\StringCalc\Symbols\AbstractFunction;
+use ChrisKonnertz\StringCalc\Symbols\AbstractOpeningBracket;
 use ChrisKonnertz\StringCalc\Symbols\Concrete\Number;
 use ChrisKonnertz\StringCalc\Symbols\SymbolContainer;
 use ChrisKonnertz\StringCalc\Symbols\SymbolContainerInterface;
@@ -65,6 +69,10 @@ class Parser
     {
         $nodes = [];
 
+        $expectingOpeningBracket = false;
+        $openingBracketCounter = 0;
+        $closingBracketCounter = 0;
+
         foreach ($tokens as $token) {
             $type = $token->getType();
 
@@ -74,6 +82,10 @@ class Parser
 
                 if ($symbol === null) {
                     throw new NotFoundException('Error: Detected unknown or invalid identifier.');
+                }
+
+                if (is_a($symbol, AbstractFunction::class)) {
+                    $expectingOpeningBracket = true;
                 }
             } elseif ($type == Token::TYPE_NUMBER) {
                 // Notice: Numbers do not have an identifier
@@ -85,11 +97,50 @@ class Parser
                 if ($symbol === null) {
                     throw new NotFoundException('Error: Detected unknown or invalid identifier.');
                 }
+
+                if (is_a($symbol, AbstractOpeningBracket::class)) {
+                    $openingBracketCounter++;
+                }
+                if (is_a($symbol, AbstractClosingBracket::class)) {
+                    $closingBracketCounter++;
+
+                    // Make sure there are not too many closing brackets
+                    if ($closingBracketCounter < $openingBracketCounter) {
+                        throw new ParserException(
+                            'Error: Found closing bracket that does not belong to an opening bracket.'
+                        );
+                    }
+                }
+            }
+
+            // Make a function is not followed by a symbol that is not of type opening bracket
+            if ($expectingOpeningBracket) {
+                if (! is_a($symbol, AbstractOpeningBracket::class)) {
+                    throw new ParserException(
+                        'Error: Expected opening bracket (after a function) but got something else.'
+                    );
+                }
+
+                $expectingOpeningBracket = false;
             }
 
             $node = new Node($token, $symbol);
 
             $nodes[] = $node;
+        }
+
+        // Make sure the term does not end with the name of a function but without an opening bracket
+        if ($expectingOpeningBracket) {
+            throw new ParserException(
+                'Error: Expected opening bracket (after a function) but reached the end of the term.'
+            );
+        }
+
+        // Make sure there are not too many opening brackets
+        if ($openingBracketCounter > $closingBracketCounter) {
+            throw new ParserException(
+                'Error: There is at least one opening bracket that does not belong to a closing bracket.'
+            );
         }
 
         return $nodes;
