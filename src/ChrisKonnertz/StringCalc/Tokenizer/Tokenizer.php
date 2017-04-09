@@ -2,7 +2,9 @@
 
 namespace ChrisKonnertz\StringCalc\Tokenizer;
 
+use ChrisKonnertz\StringCalc\Exceptions\NotFoundException;
 use ChrisKonnertz\StringCalc\Support\StringHelperInterface;
+use ChrisKonnertz\StringCalc\Symbols\Concrete\Number;
 use ChrisKonnertz\StringCalc\Symbols\SymbolContainerInterface;
 
 /**
@@ -10,6 +12,7 @@ use ChrisKonnertz\StringCalc\Symbols\SymbolContainerInterface;
  * sections of a string of input characters" (Source: Wikipedia)
  * The tokenizer operates on the string term and tries to split it into
  * parts (these are the symbols of the term or the tokens).
+ * The tokenizer is not very smart, it does not really care for grammar.
  *
  * @package ChrisKonnertz\StringCalc\Tokenizer
  */
@@ -54,7 +57,7 @@ class Tokenizer
     /**
      * Tokenize the term. Returns an array with the tokens.
      *
-     * @return array
+     * @return Token[]
      */
     public function tokenize()
     {
@@ -72,7 +75,8 @@ class Tokenizer
     /**
      * Reads a token.
      *
-     * @return string
+     * @return Token|null
+     * @throws NotFoundException
      */
     protected function readToken()
     {
@@ -88,13 +92,35 @@ class Tokenizer
 
         if ($this->isLetter($char)) {
             $stringToken = $this->readWord();
+
+            $identifier = $stringToken;
+            $value = $stringToken;
+            $symbol = $this->symbolContainer->find($identifier);
+
+            if ($symbol === null) {
+                throw new NotFoundException('Error: Found unknown or invalid identifier.');
+            }
         } elseif ($this->isDigit($char) or $this->isPeriod($char)) {
             $stringToken = $this->readNumber();
+
+            $identifier = $stringToken;
+            $value = $stringToken;
+            $symbol = $this->symbolContainer->findSubtype(Number::class)[0];
         } else {
             $stringToken = $this->readSpecialChar();
+
+            $identifier = $stringToken;
+            $value = $stringToken;
+            $symbol = $this->symbolContainer->find($identifier);
+
+            if ($symbol === null) {
+                throw new NotFoundException('Error: Found unknown or invalid identifier.');
+            }
         }
 
-        return $stringToken;
+        $token = new Token($identifier, $value, $symbol);
+
+        return $token;
     }
 
     /**
@@ -190,6 +216,9 @@ class Tokenizer
             } else {
                 break;
             }
+
+            // Just move the cursor to the next position
+            $this->inputStream->readNext();
         }
 
         return $word;
@@ -213,7 +242,7 @@ class Tokenizer
         // or if it ends with a period.
         while (($char = $this->inputStream->readCurrent()) !== null) {
             if ($this->isPeriod($char) or $this->isDigit($char)) {
-                if ($this->isDigit($char)) {
+                if ($this->isPeriod($char)) {
                     if ($foundPeriod) {
                         throw new \Exception('Error: Number cannot have more than one period');
                     }
@@ -225,6 +254,9 @@ class Tokenizer
             } else {
                 break;
             }
+
+            // Just move the cursor to the next position
+            $this->inputStream->readNext();
         }
 
         return $number;
@@ -239,6 +271,9 @@ class Tokenizer
     protected function readSpecialChar()
     {
         $char = $this->inputStream->readCurrent();
+
+        // Just move the cursor to the next position
+        $this->inputStream->readNext();
 
         return $char;
     }
