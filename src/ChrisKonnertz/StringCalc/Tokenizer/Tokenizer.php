@@ -38,9 +38,9 @@ class Tokenizer
         StringHelperInterface $stringHelper
     )
     {
-        $this->stringHelper = $stringHelper;
-
         $this->inputStream = $inputStream;
+
+        $this->stringHelper = $stringHelper;
     }
 
     /**
@@ -183,7 +183,7 @@ class Tokenizer
 
         // Try to read the word
         while (($char = $this->inputStream->readCurrent()) !== null) {
-            if ($this->isDigit($char)) {
+            if ($this->isLetter($char)) {
                 $word .= $char;
             } else {
                 break;

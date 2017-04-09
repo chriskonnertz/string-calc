@@ -2,6 +2,8 @@
 
 This library is in a very early state (pre-alpha) and does not work at the moment.
 
+Missing: Multiple paramters for functions. This is very important bu completely missing yet!
+
 ## Numbers
 
 Numbers in a term always consist of digits and may include one period. Good examples:

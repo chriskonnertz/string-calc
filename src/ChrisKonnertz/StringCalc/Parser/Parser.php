@@ -8,7 +8,6 @@ use ChrisKonnertz\StringCalc\Symbols\AbstractClosingBracket;
 use ChrisKonnertz\StringCalc\Symbols\AbstractFunction;
 use ChrisKonnertz\StringCalc\Symbols\AbstractOpeningBracket;
 use ChrisKonnertz\StringCalc\Symbols\Concrete\Number;
-use ChrisKonnertz\StringCalc\Symbols\SymbolContainer;
 use ChrisKonnertz\StringCalc\Symbols\SymbolContainerInterface;
 use ChrisKonnertz\StringCalc\Tokenizer\Token;
 
@@ -82,10 +81,6 @@ class Parser
                 if ($symbol === null) {
                     throw new NotFoundException('Error: Detected unknown or invalid identifier.');
                 }
-
-                if (is_a($symbol, AbstractFunction::class)) {
-                    $expectingOpeningBracket = true;
-                }
             } elseif ($type == Token::TYPE_NUMBER) {
                 // Notice: Numbers do not have an identifier
                 $symbol = $this->symbolContainer->findSubtype(Number::class)[0];
@@ -121,6 +116,10 @@ class Parser
                 }
 
                 $expectingOpeningBracket = false;
+            } else {
+                if (is_a($symbol, AbstractFunction::class)) {
+                    $expectingOpeningBracket = true;
+                }
             }
 
             $symbolNode = new SymbolNode($token, $symbol);
@@ -157,6 +156,7 @@ class Parser
         $tree = $this->createTreeByBrackets($symbolNodes);
 
         // TODO implement missing stuff
+        // Especially grammar checking (for example that not two operators follow each other)
 
         return $tree;
     }
@@ -174,7 +174,7 @@ class Parser
     protected function createTreeByBrackets(array $symbolNodes)
     {
         $tree = [];
-        $nodesInBrackets = []; // Symbol nodes inside level0-brackets
+        $nodesInBrackets = []; // Symbol nodes inside level-0-brackets
         $openBracketCounter = 0;
 
         foreach ($symbolNodes as $index => $symbolNode) {
@@ -195,10 +195,9 @@ class Parser
                 if ($openBracketCounter == 0) {
                     $subTree = $this->createTreeByBrackets($nodesInBrackets);
 
-                    // Subtree can be empty for example if the term looks like this: "()"
-                    if (sizeof($subTree) > 0) {
-                        $tree[] = new ArrayNode($subTree);
-                    }
+                    // Subtree can be empty for example if the term looks like this: "()" or "functioname()"
+                    // But this is okay, we need to allow this so we can call functions without a parameter
+                    $tree[] = new ArrayNode($subTree);
                 } else {
                     $nodesInBrackets[] = $symbolNode;
                 }
@@ -211,15 +210,6 @@ class Parser
             }
         }
 
-        return $tree;
-    }
-
-    /**
-     * @param AbstractNode[] $tree The tree consists of Node elements and arrays (of Node elements and arrays of ...)
-     * @return AbstractNode[]
-     */
-    protected function orderTreeByPrecedence(array $tree)
-    {
         return $tree;
     }
 
