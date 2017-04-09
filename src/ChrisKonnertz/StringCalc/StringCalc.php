@@ -25,17 +25,17 @@ class StringCalc
      *
      * @const string
      */
-    const VERSION = '0.0.5';
+    const VERSION = '0.1.0';
 
     /**
      * The service container
      *
      * @var ContainerInterface
      */
-    protected $container = null;
+    protected $container;
 
     /**
-     * Manager that manages all symbols
+     * Container that manages all symbols
      *
      * @var SymbolContainerInterface
      */
@@ -134,6 +134,16 @@ class StringCalc
     public function getSymbolContainer()
     {
         return $this->symbolContainer;
+    }
+
+    /**
+     * Getter for the service container
+     *
+     * @return ContainerInterface
+     */
+    public function getContainer()
+    {
+        return $this->container;
     }
 
 }

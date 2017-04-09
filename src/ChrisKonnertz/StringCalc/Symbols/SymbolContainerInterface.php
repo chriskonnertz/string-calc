@@ -17,7 +17,7 @@ interface SymbolContainerInterface
      * @param string|null    $replaceSymbol Class name of an known symbol that you want to replace
      * @return void
      */
-    public function addSymbol(AbstractSymbol $symbol, $replaceSymbol = null);
+    public function add(AbstractSymbol $symbol, $replaceSymbol = null);
 
     /**
      * Removes a symbol from the array of symbols.
@@ -27,7 +27,27 @@ interface SymbolContainerInterface
      * @param AbstractSymbol $symbol
      * @return void
      */
-    public function removeSymbol(AbstractSymbol $symbol);
+    public function remove(AbstractSymbol $symbol);
+
+    /**
+     * Returns the symbol that has the given identifier.
+     * Returns null if none is found.
+     *
+     * @param string $identifier
+     * @return AbstractSymbol|null
+     */
+    public function find($identifier);
+
+    /**
+     * Returns all symbols that inherit from a given abstract
+     * parent type (class): The parent type has to be an
+     * AbstractSymbol.
+     * Notice: The parent type name will not be validated!
+     *
+     * @param string $parentTypeName
+     * @return AbstractSymbol[]
+     */
+    public function findSubtype($parentTypeName);
 
     /**
      * Returns the number of managed symbols.
@@ -41,6 +61,6 @@ interface SymbolContainerInterface
      *
      * @return AbstractSymbol[]
      */
-    public function getSymbols();
+    public function getAll();
 
 }

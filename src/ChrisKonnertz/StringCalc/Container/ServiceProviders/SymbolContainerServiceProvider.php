@@ -12,7 +12,9 @@ class SymbolContainerServiceProvider extends AbstractSingletonServiceProvider
      */
     protected function createService()
     {
-        return new SymbolContainer();
+        $stringHelper = $this->getService('stringcalc_stringhelper');
+
+        return new SymbolContainer($stringHelper);
     }
 
 }
