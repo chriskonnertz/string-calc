@@ -44,15 +44,13 @@ class Parser
      * These nodes define a syntax tree.
      *
      * @param Token[] $tokens
-     * @return array
+     * @return AbstractNode[]
      */
     public function parse(array $tokens)
     {
         $symbolNodes = $this->detectSymbols($tokens);
 
         $nodes = $this->createTree($symbolNodes);
-
-        // TODO implement missing stuff
 
         return $nodes;
     }
@@ -146,24 +144,7 @@ class Parser
 
     /**
      * Expects a flat array of symbol nodes and (if possible) transforms
-     * it to a tree of nodes.
-     *
-     * @param SymbolNode[] $symbolNodes
-     * @return array
-     */
-    protected function createTree(array $symbolNodes)
-    {
-        $tree = $this->createTreeByBrackets($symbolNodes);
-
-        // TODO implement missing stuff
-        // Especially grammar checking (for example that not two operators follow each other)
-
-        return $tree;
-    }
-
-    /**
-     * Expects a flat array of symbol nodes and (if possible) transforms
-     * it to a tree of nodes. Only cares for brackets.
+     * it to a tree of nodes. Cares for brackets.
      * Attention: Expects valid brackets!
      * Check the brackets before you call this method.
      *
@@ -171,7 +152,7 @@ class Parser
      * @return AbstractNode[]
      * @throws ParserException
      */
-    protected function createTreeByBrackets(array $symbolNodes)
+    protected function createTree(array $symbolNodes)
     {
         $tree = [];
         $nodesInBrackets = []; // Symbol nodes inside level-0-brackets
@@ -193,7 +174,7 @@ class Parser
 
                 // Found a closing bracket on level 0
                 if ($openBracketCounter == 0) {
-                    $subTree = $this->createTreeByBrackets($nodesInBrackets);
+                    $subTree = $this->createTree($nodesInBrackets);
 
                     // Subtree can be empty for example if the term looks like this: "()" or "functioname()"
                     // But this is okay, we need to allow this so we can call functions without a parameter
@@ -209,6 +190,21 @@ class Parser
                 }
             }
         }
+
+        $this->checkGrammar($tree);
+
+        return $tree;
+    }
+
+    /**
+     * Ensures the tree follows the grammar rules for terms
+     *
+     * @param AbstractNode[] $tree
+     * @return AbstractNode[]
+     */
+    protected function checkGrammar(array $tree)
+    {
+        // TODO implement this
 
         return $tree;
     }

@@ -2,7 +2,11 @@
 
 This library is in a very early state (pre-alpha) and does not work at the moment.
 
-Missing: Multiple paramters for functions. This is very important bu completely missing yet!
+Missing: 
+* Multiple parameters for functions. This is very important bu completely missing yet!
+* Minus operator can be unary 
+* Grammar checking
+* Actual calculation
 
 ## Numbers
 

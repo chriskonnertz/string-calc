@@ -31,7 +31,18 @@ class ArrayNode extends AbstractNode
             }
         }
 
+        $this->sortByPrecedence();
+
         $this->nodes = $nodes;
+    }
+
+    /**
+     * Sorts the nodes. Attention: Does not sort the sub nodes!
+     * Every ArrayNode is only responsible for its level-0-nodes.
+     */
+    protected function sortByPrecedence()
+    {
+
     }
 
     /**
