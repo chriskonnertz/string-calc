@@ -2,17 +2,17 @@
 
 namespace ChrisKonnertz\StringCalc\Symbols\Concrete;
 
-use ChrisKonnertz\StringCalc\Symbols\AbstractOperand;
+use ChrisKonnertz\StringCalc\Symbols\AbstractOperator;
 
 /**
- * The comma "operand" is not a typical mathematical operand
+ * The comma "operator" is not a typical mathematical operator
  * but is used to separate the arguments of a function.
  * Commas in a term are always interpreted as the identifier
- * of the comma operand.
+ * of the comma operator.
  *
  * @package ChrisKonnertz\StringCalc\Symbols\Concrete
  */
-class CommaOperand extends AbstractOperand
+class CommaOperator extends AbstractOperator
 {
 
     /**

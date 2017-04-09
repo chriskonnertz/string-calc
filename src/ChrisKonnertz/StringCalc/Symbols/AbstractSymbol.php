@@ -6,7 +6,7 @@ use ChrisKonnertz\StringCalc\Exceptions\InvalidIdentifierException;
 use ChrisKonnertz\StringCalc\Support\StringHelperInterface;
 
 /**
- * A term is built of symbols: numbers/constants, variables, brackets, operands and functions.
+ * A term is built of symbols: numbers/constants, variables, brackets, operators and functions.
  * - This is the abstract base class of all symbols.
  * - It is extended by a limited number of abstract classes that represent the different
  * types of symbols. These classes have a semantic meaning.
@@ -112,7 +112,7 @@ abstract class AbstractSymbol
     /**
      * Validate the identifier even more than with validateIdentifier().
      * This method is meant to be overwritten by the abstract subclasses
-     * (such as AbstractOperand) if they need specialised validation.
+     * (such as AbstractOperator) if they need specialised validation.
      *
      * @param string $identifier
      * @return void

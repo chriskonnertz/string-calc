@@ -2,15 +2,15 @@
 
 namespace ChrisKonnertz\StringCalc\Symbols\Concrete;
 
-use ChrisKonnertz\StringCalc\Symbols\AbstractOperand;
+use ChrisKonnertz\StringCalc\Symbols\AbstractOperator;
 
-class MultiplicationOperand extends AbstractOperand
+class AdditionOperator extends AbstractOperator
 {
 
     /**
      * @inheritdoc
      */
-    protected $identifiers = ['*'];
+    protected $identifiers = ['+'];
 
     /**
      * @inheritdoc
@@ -22,7 +22,7 @@ class MultiplicationOperand extends AbstractOperand
      */
     public function operate($leftNumber, $rightNumber)
     {
-        return $leftNumber * $rightNumber;
+        return $leftNumber + $rightNumber;
     }
 
 }

@@ -27,7 +27,7 @@ abstract class AbstractFunction extends AbstractSymbol
      * The items of the $arguments array will always be of type int or float. They will never be null.
      * They keys will be integers starting at 0 and representing the positions of the arguments
      * in ascending order.
-     * Overwrite this method in the concrete operand class.
+     * Overwrite this method in the concrete operator class.
      * If this class does NOT return a value of type int or float,
      * an exception will be thrown.
      *

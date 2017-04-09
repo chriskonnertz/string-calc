@@ -1,9 +1,10 @@
 <?php
 
 namespace ChrisKonnertz\StringCalc\Parser;
+use ChrisKonnertz\StringCalc\Symbols\AbstractOperator;
 
 /**
- * An array node is an array of nodes
+ * An array node is a (sorted) array of nodes
  *
  * @package ChrisKonnertz\StringCalc\Parser
  */
@@ -11,7 +12,7 @@ class ArrayNode extends AbstractNode
 {
 
     /**
-     * Array of nodes
+     * Array of (sorted) nodes
      *
      * @var AbstractNode[]
      */
@@ -24,6 +25,16 @@ class ArrayNode extends AbstractNode
      */
     public function __construct(array $nodes)
     {
+        $this->setNodes($nodes);
+    }
+
+    /**
+     * Setter for the sub nodes.
+     *
+     * @param array $nodes
+     */
+    protected function setNodes(array $nodes)
+    {
         // Ensure integrity of $nodes array
         foreach ($nodes as $node) {
             if (! is_a($node, AbstractNode::class)) {
@@ -31,9 +42,9 @@ class ArrayNode extends AbstractNode
             }
         }
 
-        $this->sortByPrecedence();
-
         $this->nodes = $nodes;
+
+        $this->sortByPrecedence();
     }
 
     /**
@@ -42,17 +53,14 @@ class ArrayNode extends AbstractNode
      */
     protected function sortByPrecedence()
     {
+        foreach ($this->nodes as $index => $node) {
+            if (is_a($node, SymbolNode::class)) {
+                /** @var $node SymbolNode */
+                if (is_a($node->getSymbol(), AbstractOperator::class)) {
 
-    }
-
-    /**
-     * Getter for the sub nodes
-     *
-     * @return AbstractNode[]
-     */
-    public function getNodes()
-    {
-        return $this->nodes;
+                }
+            }
+        }
     }
 
     /**
@@ -64,6 +72,27 @@ class ArrayNode extends AbstractNode
     public function size()
     {
         return sizeof($this->nodes);
+    }
+
+    /**
+     * Returns true if the array nodes does not have any
+     * sub nodes.
+     *
+     * @return bool
+     */
+    public function isEmpty()
+    {
+        return ($this->size() == 0);
+    }
+
+    /**
+     * Getter for the sub nodes
+     *
+     * @return AbstractNode[]
+     */
+    public function getNodes()
+    {
+        return $this->nodes;
     }
 
 }

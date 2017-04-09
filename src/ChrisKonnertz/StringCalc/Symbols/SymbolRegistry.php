@@ -3,14 +3,14 @@
 namespace ChrisKonnertz\StringCalc\Symbols;
 
 use ChrisKonnertz\StringCalc\Symbols\Concrete\AbsFunction;
-use ChrisKonnertz\StringCalc\Symbols\Concrete\AdditionOperand;
+use ChrisKonnertz\StringCalc\Symbols\Concrete\AdditionOperator;
 use ChrisKonnertz\StringCalc\Symbols\Concrete\ClosingBracket;
-use ChrisKonnertz\StringCalc\Symbols\Concrete\DivisionOperand;
-use ChrisKonnertz\StringCalc\Symbols\Concrete\MultiplicationOperand;
+use ChrisKonnertz\StringCalc\Symbols\Concrete\DivisionOperator;
+use ChrisKonnertz\StringCalc\Symbols\Concrete\MultiplicationOperator;
 use ChrisKonnertz\StringCalc\Symbols\Concrete\Number;
 use ChrisKonnertz\StringCalc\Symbols\Concrete\OpeningBracket;
 use ChrisKonnertz\StringCalc\Symbols\Concrete\PiConstant;
-use ChrisKonnertz\StringCalc\Symbols\Concrete\SubtractionOperand;
+use ChrisKonnertz\StringCalc\Symbols\Concrete\SubtractionOperator;
 
 /**
  * This class has one simple job: It contains an array with the names
@@ -39,10 +39,10 @@ class SymbolRegistry
 
             PiConstant::class,
 
-            AdditionOperand::class,
-            DivisionOperand::class,
-            MultiplicationOperand::class,
-            SubtractionOperand::class,
+            AdditionOperator::class,
+            DivisionOperator::class,
+            MultiplicationOperator::class,
+            SubtractionOperator::class,
 
             AbsFunction::class,
         ];

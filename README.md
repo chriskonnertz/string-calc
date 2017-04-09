@@ -2,13 +2,19 @@
 
 This library is in a very early state (pre-alpha) and does not work at the moment.
 
-Missing: 
+TODO / Missing: 
 * Multiple parameters for functions. This is very important bu completely missing yet!
 * Minus operator can be unary 
 * Grammar checking
 * Actual calculation
+* Create FunctionSymbolNode node type?
+* Add function for 7E-10 numbers?
 
-## Numbers
+## Types of symbols
+
+A term consists of symbols that are from a specific type. This section list all available symbol types.
+
+### Numbers
 
 Numbers in a term always consist of digits and may include one period. Good examples:
 
@@ -32,3 +38,20 @@ This means that the tokenizer will split the term `-1` in two parts: `-` and `1`
 
 > Notice: The fractional part of a PHP float can only have a limited length. If a number in a term has a longer 
 fractional part, the fractional part will be cut somewhere.
+
+### Brackets
+
+...
+
+### Constants
+
+...
+
+### Operands
+
+..
+
+### Functions
+
+...
+
