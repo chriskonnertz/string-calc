@@ -4,6 +4,13 @@ namespace ChrisKonnertz\StringCalc\Symbols\Concrete;
 
 use ChrisKonnertz\StringCalc\Symbols\AbstractOperator;
 
+/**
+ * Operator for mathematical division.
+ * Example: "6/2" => 3, "6/0" => InvalidArgumentException
+ * @see https://en.wikipedia.org/wiki/Division_(mathematics)
+ *
+ * @package ChrisKonnertz\StringCalc\Symbols\Concrete
+ */
 class DivisionOperator extends AbstractOperator
 {
 
@@ -22,6 +29,11 @@ class DivisionOperator extends AbstractOperator
      */
     public function operate($leftNumber, $rightNumber)
     {
+        // TODO: Is this expression true for imprecise floats?
+        if ($rightNumber == 0) {
+            throw new \InvalidArgumentException('Error: Division by zero detected.');
+        }
+
         return $leftNumber / $rightNumber;
     }
 

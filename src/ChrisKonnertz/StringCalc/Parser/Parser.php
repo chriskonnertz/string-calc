@@ -7,6 +7,7 @@ use ChrisKonnertz\StringCalc\Exceptions\ParserException;
 use ChrisKonnertz\StringCalc\Symbols\AbstractClosingBracket;
 use ChrisKonnertz\StringCalc\Symbols\AbstractFunction;
 use ChrisKonnertz\StringCalc\Symbols\AbstractOpeningBracket;
+use ChrisKonnertz\StringCalc\Symbols\AbstractOperator;
 use ChrisKonnertz\StringCalc\Symbols\Concrete\Number;
 use ChrisKonnertz\StringCalc\Symbols\SymbolContainerInterface;
 use ChrisKonnertz\StringCalc\Tokenizer\Token;
@@ -53,6 +54,12 @@ class Parser
         $nodes = $this->createTreeByBrackets($symbolNodes);
 
         $nodes = $this->restructureTreeByFunctions($nodes);
+
+        $nodes = $this->restructureTreeByUnaryOperators($nodes);
+
+        $this->checkGrammar($nodes);
+
+        $nodes = $this->sortNodesByPrecedence($nodes);
 
         // Wrap the nodes in an array node. This will sort the nodes on level-0 according to their precedence.
         $rootNode = new ArrayNode($nodes);
@@ -196,8 +203,6 @@ class Parser
             }
         }
 
-        $this->checkGrammar($tree);
-
         return $tree;
     }
 
@@ -240,6 +245,61 @@ class Parser
         }
 
         return $restructuredNodes;
+    }
+
+    /**
+     * @param AbstractNode[] $nodes
+     * @return AbstractNode[]
+     */
+    protected function sortNodesByPrecedence(array $nodes)
+    {
+        // TODO Finish implementation of this method
+
+        return $nodes;
+
+        $operators = [];
+
+        foreach ($nodes as $index => $node) {
+            if (is_a($node, SymbolNode::class)) {
+                /** @var $node SymbolNode */
+                $symbol = $node->getSymbol();
+                if (is_a($symbol, AbstractOperator::class)) {
+                    $unary = constant(AbstractOperator::class.'::OPERATES_UNARY');
+                    $binary = constant(AbstractOperator::class.'::OPERATES_BINARY');
+
+                    $operators[] = $node;
+                }
+            }
+        }
+
+        // Using Quicksort to sort the operators according to their precedence
+        usort($operators, function(SymbolNode $nodeOne, SymbolNode $nodeTwo)
+        {
+
+            $symbolOne = $nodeOne->getSymbol();
+            $precedenceOne = constant(get_class($symbolOne).'::PRECEDENCE');
+
+            $symbolTwo = $nodeTwo->getSymbol();
+            $precedenceTwo = constant(get_class($symbolTwo).'::PRECEDENCE');
+
+            if ($precedenceOne == $precedenceTwo) {
+                return 0;
+            }
+            return ($precedenceOne < $precedenceTwo) ? 1 : -1;
+        });
+
+        return $nodes;
+    }
+
+    /**
+     * @param AbstractNode[] $nodes
+     * @return AbstractNode[]
+     */
+    protected function restructureTreeByUnaryOperators(array $nodes)
+    {
+        // TODO implement this method
+
+        return $nodes;
     }
 
     /**

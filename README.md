@@ -3,11 +3,22 @@
 This library is in a very early state (pre-alpha) and does not work at the moment.
 
 TODO / Missing: 
-* Multiple parameters for functions. This is very important bu completely missing yet!
+* Multiple parameters for functions. This is very important but completely missing yet!
+* Deal with unary operators
+* Care for operator precedence (WIP)
 * Grammar checking
 * Actual calculation
-* Create FunctionSymbolNode node type?
 * Add function for 7E-10 numbers?
+
+## The term
+
+Example, we need an example! Here we go: `2*(pi-abs(-0.4))`
+
+This is a mathematical term following syntactical and grammatical rules that StringCalc understands. 
+Syntax and grammar of these terms are very similar to what you would write in PHP code. 
+To be more precise, there is an intersecting set of syntactical and grammatical rules. 
+There are some exceptions but usually you will be able to write terms for StringCalc 
+by pretending that you are writing PHP code. 
 
 ## Types of symbols
 
@@ -55,3 +66,8 @@ fractional part, the fractional part will be cut somewhere.
 
 ...
 
+## Notes
+
+Internally this library uses PHP's mathematical constants, operators and functions to calculate the term. 
+Therefore - as a rule of thumb - please transfer your knowledge about mathematics in PHP to the mathematics 
+in StringCalc.  

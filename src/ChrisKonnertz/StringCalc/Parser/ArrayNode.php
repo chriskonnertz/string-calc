@@ -46,45 +46,6 @@ class ArrayNode extends AbstractNode
     }
 
     /**
-     * TODO Remove this code to a better place!
-     * Sorts the nodes. Attention: Does not sort the sub nodes!
-     * Every ArrayNode is only responsible for its level-0-nodes.
-     */
-    protected function sortByPrecedence()
-    {
-        $operators = [];
-
-        foreach ($this->childNodes as $index => $childNodes) {
-            if (is_a($childNodes, SymbolNode::class)) {
-                /** @var $node SymbolNode */
-                $symbol = $node->getSymbol();
-                if (is_a($symbol, AbstractOperator::class)) {
-                    $unary = constant(AbstractOperator::class.'::OPERATES_UNARY');
-                    $binary = constant(AbstractOperator::class.'::OPERATES_BINARY');
-
-                    $operators[] = $childNodes;
-                }
-            }
-        }
-
-        // Using Quicksort to sort the operators according to their precedence
-        usort($operators, function(SymbolNode $nodeOne, SymbolNode $nodeTwo)
-        {
-
-            $symbolOne = $nodeOne->getSymbol();
-            $precedenceOne = constant(get_class($symbolOne).'::PRECEDENCE');
-
-            $symbolTwo = $nodeTwo->getSymbol();
-            $precedenceTwo = constant(get_class($symbolTwo).'::PRECEDENCE');
-
-            if ($precedenceOne == $precedenceTwo) {
-                return 0;
-            }
-            return ($precedenceOne < $precedenceTwo) ? 1 : -1;
-        });
-    }
-
-    /**
      * Returns the number of child nodes in this array node.
      * Does not count the child nodes of the child nodes.
      *
