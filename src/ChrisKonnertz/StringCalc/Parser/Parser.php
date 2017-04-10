@@ -208,10 +208,11 @@ class Parser
 
     /**
      * Replace [a SymbolNode that has a symbol of type AbstractFunction,
-     * followed by a node is of type ArrayNode] by a FunctionNode.
+     * followed by a node of type ArrayNode] by a FunctionNode.
      *
      * @param AbstractNode[] $nodes
      * @return AbstractNode[]
+     * @throws ParserException
      */
     protected function restructureTreeByFunctions(array $nodes)
     {
@@ -233,7 +234,7 @@ class Parser
                 } else {
                     $restructuredNodes[] = $node;
                 }
-            } else {
+            } elseif (is_a($node, ArrayNode::class)) {
                 /** @var SymbolNode $node */
                 $symbol = $node->getSymbol();
                 if (is_a($symbol, AbstractFunction::class)) {
@@ -241,6 +242,8 @@ class Parser
                 } else {
                     $restructuredNodes[] = $node;
                 }
+            } else {
+                throw new ParserException('Error: Expected array node or symbol node, got something else.');
             }
         }
 
