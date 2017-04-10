@@ -14,7 +14,7 @@ abstract class AbstractFunction extends AbstractSymbol
     /**
      * An integer >= 0 that specifies how many arguments the
      * self::execute() method excepts.
-     * const int
+     * @const int
      */
     const NUMBER_OF_ARGUMENTS = 0;
 
