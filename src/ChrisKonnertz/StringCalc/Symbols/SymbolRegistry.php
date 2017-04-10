@@ -6,6 +6,7 @@ use ChrisKonnertz\StringCalc\Symbols\Concrete\AbsFunction;
 use ChrisKonnertz\StringCalc\Symbols\Concrete\AdditionOperator;
 use ChrisKonnertz\StringCalc\Symbols\Concrete\ClosingBracket;
 use ChrisKonnertz\StringCalc\Symbols\Concrete\DivisionOperator;
+use ChrisKonnertz\StringCalc\Symbols\Concrete\ExponentiationOperator;
 use ChrisKonnertz\StringCalc\Symbols\Concrete\MultiplicationOperator;
 use ChrisKonnertz\StringCalc\Symbols\Concrete\Number;
 use ChrisKonnertz\StringCalc\Symbols\Concrete\OpeningBracket;
@@ -41,6 +42,7 @@ class SymbolRegistry
 
             AdditionOperator::class,
             DivisionOperator::class,
+            ExponentiationOperator::class,
             MultiplicationOperator::class,
             SubtractionOperator::class,
 

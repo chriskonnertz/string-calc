@@ -50,7 +50,7 @@ class SymbolContainer implements SymbolContainerInterface
     {
         $numberSymbols = $this->findSubtype(Number::class);
         if (sizeof($numberSymbols) != 1) {
-            throw new NotFoundException('Error: Could not identify number class.');
+            throw new NotFoundException('Error: Could not find or identify number class.');
         }
 
         foreach ($this->symbols as $symbol) {
@@ -76,6 +76,8 @@ class SymbolContainer implements SymbolContainerInterface
             /** @var AbstractSymbol $symbol */
             $symbol = new $symbolClassName($this->stringHelper);
 
+            // Notice: We cannot use add() here, because validation might fail
+            // if we do not add the Number class as the first symbol.
             $this->symbols[$symbolClassName] = $symbol;
         }
 

@@ -44,15 +44,20 @@ class Parser
      * These nodes define a syntax tree.
      *
      * @param Token[] $tokens
-     * @return AbstractNode[]
+     * @return ArrayNode
      */
     public function parse(array $tokens)
     {
         $symbolNodes = $this->detectSymbols($tokens);
 
-        $nodes = $this->createTree($symbolNodes);
+        $nodes = $this->createTreeByBrackets($symbolNodes);
 
-        return $nodes;
+        $nodes = $this->restructureTreeByFunctions($nodes);
+
+        // Wrap the nodes in an array node. This will sort the nodes on level-0 according to their precedence.
+        $rootNode = new ArrayNode($nodes);
+
+        return $rootNode;
     }
 
     /**
@@ -152,7 +157,7 @@ class Parser
      * @return AbstractNode[]
      * @throws ParserException
      */
-    protected function createTree(array $symbolNodes)
+    protected function createTreeByBrackets(array $symbolNodes)
     {
         $tree = [];
         $nodesInBrackets = []; // Symbol nodes inside level-0-brackets
@@ -194,6 +199,47 @@ class Parser
         $this->checkGrammar($tree);
 
         return $tree;
+    }
+
+    /**
+     * Replace [a SymbolNode that has a symbol of type AbstractFunction,
+     * followed by a node is of type ArrayNode] by a FunctionNode.
+     *
+     * @param AbstractNode[] $nodes
+     * @return AbstractNode[]
+     */
+    protected function restructureTreeByFunctions(array $nodes)
+    {
+        $restructuredNodes = [];
+
+        /** @var FunctionNode $functionNode */
+        $functionNode = null;
+
+        foreach ($nodes as $node) {
+            if (is_a($node, ArrayNode::class)) {
+                /** @var ArrayNode $node */
+                $restructuredChildNodes = $this->restructureTreeByFunctions($node->getChildNodes());
+                $node->setChildNodes($restructuredChildNodes);
+
+                if ($functionNode !== null) {
+                    $functionNode->setArrayNode($node);
+                    $restructuredNodes[] = $functionNode;
+                    $functionNode = null;
+                } else {
+                    $restructuredNodes[] = $node;
+                }
+            } else {
+                /** @var SymbolNode $node */
+                $symbol = $node->getSymbol();
+                if (is_a($symbol, AbstractFunction::class)) {
+                    $functionNode = new FunctionNode($node);
+                } else {
+                    $restructuredNodes[] = $node;
+                }
+            }
+        }
+
+        return $restructuredNodes;
     }
 
     /**
