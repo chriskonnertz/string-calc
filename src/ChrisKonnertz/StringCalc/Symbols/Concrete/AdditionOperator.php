@@ -15,7 +15,7 @@ class AdditionOperator extends AbstractOperator
     /**
      * @inheritdoc
      */
-    const PRECEDENCE = 0;
+    const PRECEDENCE = 100;
 
     /**
      * @inheritdoc

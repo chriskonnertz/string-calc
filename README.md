@@ -19,9 +19,10 @@ Numbers in a term always consist of digits and may include one period. Good exam
 
 ```
 0
+00
 123
 4.56
-.5
+.7
 ```
 
 Bad examples:
