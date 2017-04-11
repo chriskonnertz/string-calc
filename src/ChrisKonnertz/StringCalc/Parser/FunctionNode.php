@@ -5,9 +5,9 @@ namespace ChrisKonnertz\StringCalc\Parser;
 /**
  * A function in a term consists of the name of the function
  * (the symbol of the function) and the brackets that follow
- * the name and everything what is in this brackets (the
+ * the name and everything that is in this brackets (the
  * arguments). A function node combines these two things.
- * It store its symbol in the $symbolNode property and its
+ * It stores its symbol in the $symbolNode property and its
  * arguments in the $childNodes property which is inherited
  * from the ContainerNode class.
  *
