@@ -45,7 +45,7 @@ class Parser
      * These nodes define a syntax tree.
      *
      * @param Token[] $tokens
-     * @return ArrayNode
+     * @return ContainerNode
      */
     public function parse(array $tokens)
     {
@@ -62,7 +62,7 @@ class Parser
         $nodes = $this->sortNodesByPrecedence($nodes);
 
         // Wrap the nodes in an array node. This will sort the nodes on level-0 according to their precedence.
-        $rootNode = new ArrayNode($nodes);
+        $rootNode = new ContainerNode($nodes);
 
         return $rootNode;
     }
@@ -186,11 +186,11 @@ class Parser
 
                 // Found a closing bracket on level 0
                 if ($openBracketCounter == 0) {
-                    $subTree = $this->createTree($nodesInBrackets);
+                    $subTree = $this->createTreeByBrackets($nodesInBrackets);
 
                     // Subtree can be empty for example if the term looks like this: "()" or "functioname()"
                     // But this is okay, we need to allow this so we can call functions without a parameter
-                    $tree[] = new ArrayNode($subTree);
+                    $tree[] = new ContainerNode($subTree);
                 } else {
                     $nodesInBrackets[] = $symbolNode;
                 }
@@ -208,7 +208,8 @@ class Parser
 
     /**
      * Replace [a SymbolNode that has a symbol of type AbstractFunction,
-     * followed by a node of type ArrayNode] by a FunctionNode.
+     * followed by a node of type ContainerNode] by a FunctionNode.
+     * Expects the nodes not including any function nodes.
      *
      * @param AbstractNode[] $nodes
      * @return AbstractNode[]
@@ -218,27 +219,26 @@ class Parser
     {
         $restructuredNodes = [];
 
-        /** @var FunctionNode $functionNode */
-        $functionNode = null;
+        $functionSymbolNode = null;
 
         foreach ($nodes as $node) {
-            if (is_a($node, ArrayNode::class)) {
-                /** @var ArrayNode $node */
+            if (is_a($node, ContainerNode::class)) {
+                /** @var ContainerNode $node */
                 $restructuredChildNodes = $this->restructureTreeByFunctions($node->getChildNodes());
-                $node->setChildNodes($restructuredChildNodes);
 
-                if ($functionNode !== null) {
-                    $functionNode->setArrayNode($node);
+                if ($functionSymbolNode !== null) {
+                    $functionNode = new FunctionNode($restructuredChildNodes, $functionSymbolNode);
                     $restructuredNodes[] = $functionNode;
-                    $functionNode = null;
+                    $functionSymbolNode = null;
                 } else {
+                    $node->setChildNodes($restructuredChildNodes);
                     $restructuredNodes[] = $node;
                 }
-            } elseif (is_a($node, ArrayNode::class)) {
+            } elseif (is_a($node, SymbolNode::class)) {
                 /** @var SymbolNode $node */
                 $symbol = $node->getSymbol();
                 if (is_a($symbol, AbstractFunction::class)) {
-                    $functionNode = new FunctionNode($node);
+                    $functionSymbolNode = new $symbol;
                 } else {
                     $restructuredNodes[] = $node;
                 }
@@ -313,7 +313,14 @@ class Parser
      */
     protected function checkGrammar(array $tree)
     {
-        // TODO implement this
+        /*
+         * TODO implement this
+         * - make sure that separators are only in the child nodes of the array node of a function node
+         * - make sure there there are not two operatos next to each other (except
+         * - make sure binary-only operands are used only binary, unary-only only unary
+         *   (this might mean we need two checkGrammar methods because we cannot check these AFTER we made unary
+         *    operators binary)
+         */
 
         return $tree;
     }

@@ -2,7 +2,18 @@
 
 namespace ChrisKonnertz\StringCalc\Parser;
 
-class FunctionNode extends AbstractNode
+/**
+ * A function in a term consists of the name of the function
+ * (the symbol of the function) and the brackets that follow
+ * the name and everything what is in this brackets (the
+ * arguments). A function node combines these two things.
+ * It store its symbol in the $symbolNode property and its
+ * arguments in the $childNodes property which is inherited
+ * from the ContainerNode class.
+ *
+ * @package ChrisKonnertz\StringCalc\Parser
+ */
+class FunctionNode extends ContainerNode
 {
 
     /**
@@ -11,17 +22,17 @@ class FunctionNode extends AbstractNode
     protected $symbolNode;
 
     /**
-     * @var ArrayNode
-     */
-    protected $arrayNode;
-
-    /**
-     * FunctionNode constructor.
+     * ContainerNode constructor.
+     * Attention: The constructor is differs from the constructor
+     * of the parent class!
      *
-     * @param SymbolNode $symbolNode
+     * @param AbstractNode[] $childNodes
+     * @param SymbolNode     $symbolNode
      */
-    public function __construct(SymbolNode $symbolNode)
+    public function __construct(array $childNodes, SymbolNode $symbolNode)
     {
+        parent::__construct($childNodes);
+
         $this->symbolNode = $symbolNode;
     }
 
@@ -39,22 +50,6 @@ class FunctionNode extends AbstractNode
     public function setSymbolNode(SymbolNode $symbolNode)
     {
         $this->symbolNode = $symbolNode;
-    }
-
-    /**
-     * @return ArrayNode
-     */
-    public function getArrayNode()
-    {
-        return $this->arrayNode;
-    }
-
-    /**
-     * @param ArrayNode $arrayNode
-     */
-    public function setArrayNode(ArrayNode $arrayNode)
-    {
-        $this->arrayNode = $arrayNode;
     }
 
 }

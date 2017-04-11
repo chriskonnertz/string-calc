@@ -86,7 +86,7 @@ class Tokenizer
             $value = $this->readNumber();
             $type = Token::TYPE_NUMBER;
         } else {
-            $value = $this->readSpecialChar();
+            $value = $this->readChar();
             $type = Token::TYPE_CHARACTER;
         }
 
@@ -143,7 +143,7 @@ class Tokenizer
      */
     protected function isPeriod($char)
     {
-        return ($char == '.');
+        return ($char === '.');
     }
 
     /**
@@ -235,12 +235,12 @@ class Tokenizer
     }
 
     /**
-     * Reads a single special char. Assumes that the cursor of the input stream
-     * currently is positioned at a special char.
+     * Reads a single char. Assumes that the cursor of the input stream
+     * currently is positioned at a char (not on null).
      *
      * @return string
      */
-    protected function readSpecialChar()
+    protected function readChar()
     {
         $char = $this->inputStream->readCurrent();
 

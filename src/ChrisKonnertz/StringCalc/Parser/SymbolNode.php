@@ -6,7 +6,10 @@ use ChrisKonnertz\StringCalc\Symbols\AbstractSymbol;
 use ChrisKonnertz\StringCalc\Tokenizer\Token;
 
 /**
- * A node is a node in the syntax tree.
+ * A symbol node is a node in the syntax tree.
+ * Leaf nodes do not have any child nodes
+ * (parent nodes can have child nodes). A
+ * symbol node represents a mathematical symbol.
  * Nodes are created by the parser.
  *
  * @package ChrisKonnertz\StringCalc\Parser

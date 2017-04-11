@@ -6,7 +6,7 @@ use ChrisKonnertz\StringCalc\Exceptions\NotFoundException;
 use ChrisKonnertz\StringCalc\Container\Container;
 use ChrisKonnertz\StringCalc\Container\ContainerInterface;
 use ChrisKonnertz\StringCalc\Container\ServiceProviderRegistry;
-use ChrisKonnertz\StringCalc\Parser\ArrayNode;
+use ChrisKonnertz\StringCalc\Parser\ContainerNode;
 use ChrisKonnertz\StringCalc\Parser\Parser;
 use ChrisKonnertz\StringCalc\Support\StringHelperInterface;
 use ChrisKonnertz\StringCalc\Symbols\AbstractSymbol;
@@ -128,7 +128,7 @@ class StringCalc
      * Parses an array with tokens. Returns an array of nodes.
      *
      * @param Token[] $tokens
-     * @return ArrayNode
+     * @return ContainerNode
      */
     protected function parse(array $tokens)
     {
@@ -148,20 +148,22 @@ class StringCalc
      * in the syntax tree (which consists of nodes).
      * It can call itself recursively.
      *
-     * @param ArrayNode $rootNode
+     * @param ContainerNode $rootNode
      * @return int|float
      */
-    protected function calculateTree(ArrayNode $rootNode)
+    protected function calculateTree(ContainerNode $rootNode)
     {
         $childNodes = $rootNode->getChildNodes();
 
         foreach ($childNodes as $childNode) {
-            if (is_a($childNode, ArrayNode::class)) {
+            if (is_a($childNode, ContainerNode::class)) {
                 $result = $this->calculateTree($childNode);
             }
 
             // ...
         }
+
+        // Attention: This method will have to deal with separator symbols.
 
         // TODO: Convert string that are numbers values to int/float.
         // Maybe this is not the right place to tdo this -> then move it to a better place

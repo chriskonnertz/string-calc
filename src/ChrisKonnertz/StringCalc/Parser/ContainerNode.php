@@ -1,25 +1,25 @@
 <?php
 
 namespace ChrisKonnertz\StringCalc\Parser;
-use ChrisKonnertz\StringCalc\Symbols\AbstractOperator;
 
 /**
- * An array node is a container for a (sorted) array of nodes
+ * A parent node is a container for a (sorted) array of nodes
  *
  * @package ChrisKonnertz\StringCalc\Parser
  */
-class ArrayNode extends AbstractNode
+class ContainerNode extends AbstractNode
 {
 
     /**
      * Array of (sorted) child nodes
+     * Notice: The number of child nodes can be 0.
      *
      * @var AbstractNode[]
      */
     protected $childNodes;
 
     /**
-     * ArrayNode constructor.
+     * ContainerNode constructor.
      *
      * @param AbstractNode[] $childNodes
      */
@@ -30,6 +30,7 @@ class ArrayNode extends AbstractNode
 
     /**
      * Setter for the child nodes.
+     * Notice: The number of child nodes can be 0.
      *
      * @param AbstractNode[] $childNodes
      */
@@ -58,11 +59,11 @@ class ArrayNode extends AbstractNode
 
     /**
      * Returns true if the array node does not have any
-     * child nodes.
+     * child nodes. This might sound strange but is possible.
      *
      * @return bool
      */
-    public function isEmpty()
+    public function hasChildren()
     {
         return ($this->size() == 0);
     }

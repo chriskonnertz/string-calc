@@ -11,13 +11,14 @@ use ChrisKonnertz\StringCalc\Symbols\Concrete\MultiplicationOperator;
 use ChrisKonnertz\StringCalc\Symbols\Concrete\Number;
 use ChrisKonnertz\StringCalc\Symbols\Concrete\OpeningBracket;
 use ChrisKonnertz\StringCalc\Symbols\Concrete\PiConstant;
+use ChrisKonnertz\StringCalc\Symbols\Concrete\Separator;
 use ChrisKonnertz\StringCalc\Symbols\Concrete\SubtractionOperator;
 
 /**
  * This class has one simple job: It contains an array with the names
  * of the initially registered symbols. It does not offer an add()
- * method - you can add new symbols via the addSymbol() method of the
- * StringCalc class.
+ * method - but you can add new symbols via the addSymbol() method of
+ * the StringCalc class.
  *
  * @package ChrisKonnertz\StringCalc\Symbols
  */
@@ -34,6 +35,8 @@ class SymbolRegistry
     {
         $symbols = [
             Number::class,
+
+            Separator::class,
 
             ClosingBracket::class,
             OpeningBracket::class,

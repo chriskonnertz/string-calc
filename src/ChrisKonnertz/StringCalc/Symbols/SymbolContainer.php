@@ -1,6 +1,7 @@
 <?php
 
 namespace ChrisKonnertz\StringCalc\Symbols;
+
 use ChrisKonnertz\StringCalc\Exceptions\NotFoundException;
 use ChrisKonnertz\StringCalc\Support\StringHelperInterface;
 use ChrisKonnertz\StringCalc\Symbols\Concrete\Number;
@@ -50,7 +51,9 @@ class SymbolContainer implements SymbolContainerInterface
     {
         $numberSymbols = $this->findSubtype(Number::class);
         if (sizeof($numberSymbols) != 1) {
-            throw new NotFoundException('Error: Could not find or identify number class.');
+            throw new NotFoundException(
+                'Error: Expected to contain one number class but found '.sizeof($numberSymbols).'.'
+            );
         }
 
         foreach ($this->symbols as $symbol) {
