@@ -3,7 +3,6 @@
 This library is in a very early state (pre-alpha) and does not work at the moment.
 
 TODO / Missing: 
-* Multiple parameters for functions. This is very important but completely missing yet!
 * Deal with unary operators
 * Care for operator precedence (WIP)
 * Grammar checking
