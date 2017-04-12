@@ -31,10 +31,36 @@ class SymbolNode extends AbstractNode
      */
     protected $symbol;
 
+    /**
+     * SymbolNode constructor.
+     *
+     * @param Token          $token
+     * @param AbstractSymbol $symbol
+     */
     public function __construct(Token $token, AbstractSymbol $symbol)
     {
         $this->token = $token;
 
+        $this->symbol = $symbol;
+    }
+
+    /**
+     * Setter for the token
+     *
+     * @param Token $token
+     */
+    public function setToken(Token $token)
+    {
+        $this->token = $token;
+    }
+
+    /**
+     * Setter for the symbol
+     *
+     * @param AbstractSymbol $symbol
+     */
+    public function setSymbol(AbstractSymbol $symbol)
+    {
         $this->symbol = $symbol;
     }
 
