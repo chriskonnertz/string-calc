@@ -17,7 +17,7 @@ class SubtractionOperator extends AbstractOperator
     /**
      * @inheritdoc
      */
-    protected $identifiers = ['+'];
+    protected $identifiers = ['-'];
 
     /**
      * @inheritdoc
