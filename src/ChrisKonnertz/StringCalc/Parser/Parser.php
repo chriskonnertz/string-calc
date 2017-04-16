@@ -4,7 +4,6 @@ namespace ChrisKonnertz\StringCalc\Parser;
 
 use ChrisKonnertz\StringCalc\Exceptions\NotFoundException;
 use ChrisKonnertz\StringCalc\Exceptions\ParserException;
-use ChrisKonnertz\StringCalc\Symbols\AbstractBracket;
 use ChrisKonnertz\StringCalc\Symbols\AbstractClosingBracket;
 use ChrisKonnertz\StringCalc\Symbols\AbstractFunction;
 use ChrisKonnertz\StringCalc\Symbols\AbstractOpeningBracket;
@@ -56,11 +55,7 @@ class Parser
 
         $nodes = $this->transformTreeByFunctions($nodes);
 
-        $nodes = $this->transformTreeByUnaryOperators($nodes);
-
         $this->checkGrammar($nodes);
-
-        $nodes = $this->sortNodesByPrecedence($nodes);
 
         // Wrap the nodes in an array node. This will sort the nodes on level-0 according to their precedence.
         $rootNode = new ContainerNode($nodes);
