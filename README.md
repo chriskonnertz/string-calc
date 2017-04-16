@@ -77,8 +77,7 @@ Bad examples:
 
 ```
 (1+1    // Missing closing bracket
-)1+1(   // Missing opening bracket for the closing bracket,
-        // missing closing bracket for the open bracket
+)1+1(   // Missing opening bracket for the closing bracket, missing closing bracket for the open bracket
 ```
 
 #### Bracket implementation
