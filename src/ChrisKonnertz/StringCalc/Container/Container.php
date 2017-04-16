@@ -9,7 +9,7 @@ use ChrisKonnertz\StringCalc\Exceptions\NotFoundException;
  * This class is a PSR-11 compatible container for all the services that this library uses.
  * ({@link https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-11-container.md})
  * Instead of directly creating objects the library uses services that create these objects.
- * Container can be replaced from outside the library so they make it easy to replace
+ * Containers can be replaced from outside the library so they make it easy to replace
  * classes with custom implementations.
  *
  * @package ChrisKonnertz\StringCalc\Container
