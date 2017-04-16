@@ -157,11 +157,14 @@ class StringCalc
 
         foreach ($childNodes as $childNode) {
             if (is_a($childNode, ContainerNode::class)) {
+                /** @var ContainerNode $childNode */
                 $result = $this->calculateTree($childNode);
             }
 
             // ...
         }
+
+        throw new \Exception('Error: Not yet implemented.');
 
         // Attention: This method will have to deal with separator symbols.
 

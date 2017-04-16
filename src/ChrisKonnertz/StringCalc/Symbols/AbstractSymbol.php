@@ -10,7 +10,8 @@ use ChrisKonnertz\StringCalc\Support\StringHelperInterface;
  * - This is the abstract base class of all symbols.
  * - It is extended by a limited number of abstract classes that represent the different
  * types of symbols. These classes have an immutable semantic meaning.
- * - These classes are then extended by concrete classes that represent concrete symbols
+ * - These classes may have child classes that are abstract as well, but are finally extended
+ * by concrete classes that represent concrete symbols
  */
 abstract class AbstractSymbol
 {

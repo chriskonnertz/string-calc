@@ -4,6 +4,7 @@ namespace ChrisKonnertz\StringCalc\Parser;
 
 use ChrisKonnertz\StringCalc\Exceptions\NotFoundException;
 use ChrisKonnertz\StringCalc\Exceptions\ParserException;
+use ChrisKonnertz\StringCalc\Symbols\AbstractBracket;
 use ChrisKonnertz\StringCalc\Symbols\AbstractClosingBracket;
 use ChrisKonnertz\StringCalc\Symbols\AbstractFunction;
 use ChrisKonnertz\StringCalc\Symbols\AbstractOpeningBracket;
@@ -53,9 +54,9 @@ class Parser
 
         $nodes = $this->createTreeByBrackets($symbolNodes);
 
-        $nodes = $this->restructureTreeByFunctions($nodes);
+        $nodes = $this->transformTreeByFunctions($nodes);
 
-        $nodes = $this->restructureTreeByUnaryOperators($nodes);
+        $nodes = $this->transformTreeByUnaryOperators($nodes);
 
         $this->checkGrammar($nodes);
 
@@ -215,24 +216,24 @@ class Parser
      * @return AbstractNode[]
      * @throws ParserException
      */
-    protected function restructureTreeByFunctions(array $nodes)
+    protected function transformTreeByFunctions(array $nodes)
     {
-        $restructuredNodes = [];
+        $transformedNodes = [];
 
         $functionSymbolNode = null;
 
         foreach ($nodes as $node) {
             if (is_a($node, ContainerNode::class)) {
                 /** @var ContainerNode $node */
-                $restructuredChildNodes = $this->restructureTreeByFunctions($node->getChildNodes());
+                $transformedChildNodes = $this->transformTreeByFunctions($node->getChildNodes());
 
                 if ($functionSymbolNode !== null) {
-                    $functionNode = new FunctionNode($restructuredChildNodes, $functionSymbolNode);
-                    $restructuredNodes[] = $functionNode;
+                    $functionNode = new FunctionNode($transformedChildNodes, $functionSymbolNode);
+                    $transformedNodes[] = $functionNode;
                     $functionSymbolNode = null;
                 } else {
-                    $node->setChildNodes($restructuredChildNodes);
-                    $restructuredNodes[] = $node;
+                    $node->setChildNodes($transformedChildNodes);
+                    $transformedNodes[] = $node;
                 }
             } elseif (is_a($node, SymbolNode::class)) {
                 /** @var SymbolNode $node */
@@ -240,14 +241,79 @@ class Parser
                 if (is_a($symbol, AbstractFunction::class)) {
                     $functionSymbolNode = new $symbol;
                 } else {
-                    $restructuredNodes[] = $node;
+                    $transformedNodes[] = $node;
                 }
             } else {
                 throw new ParserException('Error: Expected array node or symbol node, got something else.');
             }
         }
 
-        return $restructuredNodes;
+        return $transformedNodes;
+    }
+
+    /**
+     * Operators internally always operate on two operands (numbers).
+     * Therefore the tree has to be transformed into a tree that
+     * fulfills this condition. Adding a dummy operand in front of
+     * every unary operator ensures this.
+     *
+     * @param AbstractNode[] $nodes
+     * @return AbstractNode[]
+     * @throws ParserException
+     */
+    protected function transformTreeByUnaryOperators(array $nodes)
+    {
+        $transformedNodes = [];
+
+        $numberSymbol = $this->symbolContainer->findSubtype(Number::class)[0];
+
+        // TODO implement this method
+        foreach ($nodes as $index => $node) {
+            if (is_a($node, SymbolNode::class)) {
+                /** @var $node SymbolNode */
+                $symbol = $node->getSymbol();
+                if (is_a($symbol, AbstractOperator::class)) {
+                    $posOfRightOperand = $index + 1;
+
+                    // Make sure the operator is positioned left of an operand. Example term: "-1"
+                    if ($posOfRightOperand >= sizeof($nodes)) {
+                        throw new ParserException('Error: Found operator that does not stand before an operand.');
+                    }
+
+                    $posOfLeftOperand = $index - 1;
+
+                    $leftOperand = null;
+
+                    // Operator is unary if positioned at the beginning of a term
+                    if ($posOfLeftOperand >= 0) {
+                        $leftOperand = $nodes[$posOfRightOperand];
+
+                        if (is_a($leftOperand, SymbolNode::class)) {
+                            /** @var $leftOperand SymbolNode */
+                            if (is_a($leftOperand->getSymbol(), AbstractOperator::class)) {
+                                // Operator is unary if positioned right to another operator
+                                $leftOperand = null;
+                            }
+                        }
+                    }
+
+                    // If null, the operator is unary
+                    if ($leftOperand === null) {
+                        // Add a new symbol with value 0 in front of the unary operator:
+                        $token = new Token('0', Token::TYPE_NUMBER, $node->getToken()->getPosition());
+                        $transformedNodes[] = new SymbolNode($token, $numberSymbol);
+                    }
+                }
+            } else {
+                /** @var $node ContainerNode */
+                $transformedChildNodes = $this->transformTreeByUnaryOperators($node->getChildNodes());
+                $node->setChildNodes($transformedChildNodes);
+            }
+
+            $transformedNodes[] = $node;
+        }
+
+        return $transformedNodes;
     }
 
     /**
@@ -290,17 +356,6 @@ class Parser
             }
             return ($precedenceOne < $precedenceTwo) ? 1 : -1;
         });
-
-        return $nodes;
-    }
-
-    /**
-     * @param AbstractNode[] $nodes
-     * @return AbstractNode[]
-     */
-    protected function restructureTreeByUnaryOperators(array $nodes)
-    {
-        // TODO implement this method
 
         return $nodes;
     }

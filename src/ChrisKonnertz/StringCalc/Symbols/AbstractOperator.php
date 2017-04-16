@@ -25,7 +25,12 @@ abstract class AbstractOperator extends AbstractSymbol
 
     /**
      * Usually operators are binary, they operate on two operands (numbers).
-     * But some can operate on one operand (number).
+     * But some can operate on one operand (number). The operand of a unary
+     * operator is always positioned after the operator (=prefix notation).
+     * Good example: "-1" Bad Example: "1-"
+     * If you want to create a unary operator that operates on the left
+     * operand, you should use a function instead. Functions with one
+     * parameter execute unary operations in functional notation.
      * Notice: Operators can be unary AND binary (but this is a rare case)
      */
     const OPERATES_UNARY = false;

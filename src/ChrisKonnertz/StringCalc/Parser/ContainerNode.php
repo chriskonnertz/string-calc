@@ -3,7 +3,8 @@
 namespace ChrisKonnertz\StringCalc\Parser;
 
 /**
- * A parent node is a container for a (sorted) array of nodes
+ * A parent node is a container for a (sorted) array of nodes.
+ * Notice: Do not mix this class up with the service container class.
  *
  * @package ChrisKonnertz\StringCalc\Parser
  */
@@ -63,7 +64,7 @@ class ContainerNode extends AbstractNode
      *
      * @return bool
      */
-    public function hasChildren()
+    public function isEmpty()
     {
         return ($this->size() == 0);
     }
