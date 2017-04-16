@@ -103,7 +103,7 @@ class StringCalc
             return 0;
         }
 
-        $result = $this->calculateTree($rootNode);
+        $result = $this->calculateContainerNode($rootNode);
 
         return $result;
     }
