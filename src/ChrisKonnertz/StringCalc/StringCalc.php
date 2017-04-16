@@ -176,6 +176,47 @@ class StringCalc
         // If the number has a longer fractional part, it will be cut.
         $value = 0 + $value;
 
+        // --------------------------------------------------------------------------------------
+        // The following lines of code come from the obsolete parser method sortNodesByPrecedence()
+
+        $operators = [];
+
+        foreach ($nodes as $index => $node) {
+            if (is_a($node, SymbolNode::class)) {
+                /** @var $node SymbolNode */
+                $symbol = $node->getSymbol();
+                if (is_a($symbol, AbstractOperator::class)) {
+                    $operators[] = $node;
+                }
+            } else {
+                /** @var $node ContainerNode */
+                $transformedChildNodes = $this->sortNodesByPrecedence($node->getChildNodes());
+                $node->setChildNodes($transformedChildNodes);
+            }
+        }
+
+        // Using Quicksort to sort the operators according to their precedence. Keeps the indices.
+        uasort($operators, function(SymbolNode $nodeOne, SymbolNode $nodeTwo)
+        {
+
+            $symbolOne = $nodeOne->getSymbol();
+            $precedenceOne = constant(get_class($symbolOne).'::PRECEDENCE');
+
+            $symbolTwo = $nodeTwo->getSymbol();
+            $precedenceTwo = constant(get_class($symbolTwo).'::PRECEDENCE');
+
+            if ($precedenceOne == $precedenceTwo) {
+                return 0;
+            }
+            return ($precedenceOne < $precedenceTwo) ? 1 : -1;
+        });
+
+        $transformedNodes = [];
+
+
+
+        return $nodes;
+
         return 0;
     }
 

@@ -9,6 +9,7 @@ TODO / Missing:
 * Actual calculation
 * Add function for 7E-10 numbers?
 * Make injectable grammar checker?
+* Make exceptions (way more) verbose?
 
 ## The term
 
@@ -102,7 +103,8 @@ Please be aware that operators are closely related to functions. Functions are a
 
 Operator classes implement the `operate($leftNumber, $rightNumber)` method. Its parameters represent the operands.
 It might be confisuing that even if the operator is a unary operator its `operate` method needs to have offer
-both parameters. The `$rightNumber` parameter will contain the operand of the unary operation.
+both parameters. The `$rightNumber` parameter will contain the operand of the unary operation while the left will 
+contain 0.
 
 ### Functions
 

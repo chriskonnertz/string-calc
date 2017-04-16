@@ -252,30 +252,32 @@ class Parser
     }
 
     /**
-     * Operators internally always operate on two operands (numbers).
-     * Therefore the tree has to be transformed into a tree that
-     * fulfills this condition. Adding a dummy operand in front of
-     * every unary operator ensures this.
+     * Ensures the tree follows the grammar rules for terms
      *
-     * @param AbstractNode[] $nodes
-     * @return AbstractNode[]
+     * @param array $nodes
+     * @return void
      * @throws ParserException
      */
-    protected function transformTreeByUnaryOperators(array $nodes)
+    protected function checkGrammar(array $nodes)
     {
-        $transformedNodes = [];
+        /*
+         * TODO implement the missing parts of this method:
+         * - make sure that separators are only in the child nodes of the array node of a function node
+         */
 
-        $numberSymbol = $this->symbolContainer->findSubtype(Number::class)[0];
-
-        // TODO implement this method
         foreach ($nodes as $index => $node) {
             if (is_a($node, SymbolNode::class)) {
                 /** @var $node SymbolNode */
+
                 $symbol = $node->getSymbol();
+
                 if (is_a($symbol, AbstractOperator::class)) {
+                    /** @var $symbol AbstractOperator */
+
                     $posOfRightOperand = $index + 1;
 
-                    // Make sure the operator is positioned left of an operand. Example term: "-1"
+                    // Make sure the operator is positioned left of a (potential) operand (=prefix notation).
+                    // Example term: "-1"
                     if ($posOfRightOperand >= sizeof($nodes)) {
                         throw new ParserException('Error: Found operator that does not stand before an operand.');
                     }
@@ -286,7 +288,7 @@ class Parser
 
                     // Operator is unary if positioned at the beginning of a term
                     if ($posOfLeftOperand >= 0) {
-                        $leftOperand = $nodes[$posOfRightOperand];
+                        $leftOperand = $nodes[$posOfLeftOperand];
 
                         if (is_a($leftOperand, SymbolNode::class)) {
                             /** @var $leftOperand SymbolNode */
@@ -299,85 +301,20 @@ class Parser
 
                     // If null, the operator is unary
                     if ($leftOperand === null) {
-                        // Add a new symbol with value 0 in front of the unary operator:
-                        $token = new Token('0', Token::TYPE_NUMBER, $node->getToken()->getPosition());
-                        $transformedNodes[] = new SymbolNode($token, $numberSymbol);
+                        if (! constant(get_class($symbol).'::OPERATES_UNARY')) {
+                            throw new ParserException('Error: Found operator in unary notation that is not unary.');
+                        }
+                    } else {
+                        if (! constant(get_class($symbol).'::OPERATES_BINARY')) {
+                            throw new ParserException('Error: Found operator in binary notation that is not binary.');
+                        }
                     }
                 }
             } else {
                 /** @var $node ContainerNode */
-                $transformedChildNodes = $this->transformTreeByUnaryOperators($node->getChildNodes());
-                $node->setChildNodes($transformedChildNodes);
-            }
-
-            $transformedNodes[] = $node;
-        }
-
-        return $transformedNodes;
-    }
-
-    /**
-     * @param AbstractNode[] $nodes
-     * @return AbstractNode[]
-     */
-    protected function sortNodesByPrecedence(array $nodes)
-    {
-        // TODO Finish implementation of this method
-
-        return $nodes;
-
-        $operators = [];
-
-        foreach ($nodes as $index => $node) {
-            if (is_a($node, SymbolNode::class)) {
-                /** @var $node SymbolNode */
-                $symbol = $node->getSymbol();
-                if (is_a($symbol, AbstractOperator::class)) {
-                    $unary = constant(AbstractOperator::class.'::OPERATES_UNARY');
-                    $binary = constant(AbstractOperator::class.'::OPERATES_BINARY');
-
-                    $operators[] = $node;
-                }
+                $this->checkGrammar($node->getChildNodes());
             }
         }
-
-        // Using Quicksort to sort the operators according to their precedence
-        usort($operators, function(SymbolNode $nodeOne, SymbolNode $nodeTwo)
-        {
-
-            $symbolOne = $nodeOne->getSymbol();
-            $precedenceOne = constant(get_class($symbolOne).'::PRECEDENCE');
-
-            $symbolTwo = $nodeTwo->getSymbol();
-            $precedenceTwo = constant(get_class($symbolTwo).'::PRECEDENCE');
-
-            if ($precedenceOne == $precedenceTwo) {
-                return 0;
-            }
-            return ($precedenceOne < $precedenceTwo) ? 1 : -1;
-        });
-
-        return $nodes;
-    }
-
-    /**
-     * Ensures the tree follows the grammar rules for terms
-     *
-     * @param AbstractNode[] $tree
-     * @return AbstractNode[]
-     */
-    protected function checkGrammar(array $tree)
-    {
-        /*
-         * TODO implement this
-         * - make sure that separators are only in the child nodes of the array node of a function node
-         * - make sure there there are not two operatos next to each other (except
-         * - make sure binary-only operands are used only binary, unary-only only unary
-         *   (this might mean we need two checkGrammar methods because we cannot check these AFTER we made unary
-         *    operators binary)
-         */
-
-        return $tree;
     }
 
 }
