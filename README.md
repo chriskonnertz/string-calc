@@ -10,6 +10,7 @@ TODO / Missing:
 * Add function for 7E-10 numbers?
 * Make injectable grammar checker?
 * Make exceptions (way more) verbose?
+* Make two operate() methods, for binary and unary operations?
 
 ## The term
 
