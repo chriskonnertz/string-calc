@@ -299,6 +299,9 @@ class Parser
                         if (! constant(get_class($symbol).'::OPERATES_UNARY')) {
                             throw new ParserException('Error: Found operator in unary notation that is not unary.');
                         }
+
+                        // Remember that this node represents a unary operator
+                        $node->setIsUnaryOperator(true);
                     } else {
                         if (! constant(get_class($symbol).'::OPERATES_BINARY')) {
                             throw new ParserException('Error: Found operator in binary notation that is not binary.');

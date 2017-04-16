@@ -2,6 +2,7 @@
 
 namespace ChrisKonnertz\StringCalc\Parser;
 
+use ChrisKonnertz\StringCalc\Symbols\AbstractOperator;
 use ChrisKonnertz\StringCalc\Symbols\AbstractSymbol;
 use ChrisKonnertz\StringCalc\Tokenizer\Token;
 
@@ -32,6 +33,16 @@ class SymbolNode extends AbstractNode
     protected $symbol;
 
     /**
+     * Unary operators need to be treated specially.
+     * Therefore a node has to know if it (or to be
+     * more precise the symbol of the node)
+     * represents a unary operator.
+     *
+     * @var bool
+     */
+    protected $isUnaryOperator = false;
+
+    /**
      * SymbolNode constructor.
      *
      * @param Token          $token
@@ -55,16 +66,6 @@ class SymbolNode extends AbstractNode
     }
 
     /**
-     * Setter for the symbol
-     *
-     * @param AbstractSymbol $symbol
-     */
-    public function setSymbol(AbstractSymbol $symbol)
-    {
-        $this->symbol = $symbol;
-    }
-
-    /**
      * Getter for the token
      *
      * @return Token
@@ -75,6 +76,16 @@ class SymbolNode extends AbstractNode
     }
 
     /**
+     * Setter for the symbol
+     *
+     * @param AbstractSymbol $symbol
+     */
+    public function setSymbol(AbstractSymbol $symbol)
+    {
+        $this->symbol = $symbol;
+    }
+
+    /**
      * Getter for the symbol
      *
      * @return AbstractSymbol
@@ -82,6 +93,34 @@ class SymbolNode extends AbstractNode
     public function getSymbol()
     {
         return $this->symbol;
+    }
+
+    /**
+     * Setter to remember that the node (or to be more precise the
+     * symbol of the node) represents a unary operator
+     *
+     * @param bool $isUnaryOperator
+     */
+    public function setIsUnaryOperator($isUnaryOperator = true)
+    {
+        if (! is_a($this->getSymbol(), AbstractOperator::class)) {
+            throw new \InvalidArgumentException(
+                'Error: Cannot mark node as unary operator, because symbol is not an operator.'
+            );
+        }
+
+        $this->isUnaryOperator = $isUnaryOperator;
+    }
+
+    /**
+     * Returns true if the node (or to be more precise the
+     * symbol of the node) represents a unary operator
+     *
+     * @return bool
+     */
+    public function isUnaryOperator()
+    {
+        return $this->isUnaryOperator;
     }
 
 }
