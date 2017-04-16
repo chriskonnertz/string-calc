@@ -55,7 +55,8 @@ fractional part, the fractional part will be cut somewhere.
 #### Number implementation
 
 There is only one concrete number class: `Symbols\Concrete\Number`. 
-It extends the abstract class `Symbols\AbstractNumber`. 
+It extends the abstract class `Symbols\AbstractNumber`. It does not implement any behaviour. 
+It is basically a placeholder for concrete numbers in the term.
 
 ### Brackets
 
@@ -93,7 +94,7 @@ The `Symbols\AbstractBracket` class is the base class for all brackets. It is ex
 ### Operators
 
 Operators in a term can be unary or binary or even both. However, if they are unary, they have to follow
- prefix notation (example: "-1"). 
+ the prefix notation (example: "-1"). 
 
 #### Operator implementation
 
@@ -101,9 +102,10 @@ The `Symbols\AbstractOperator` class is the base class for all operators.
 There are several concrete operators that extend this class.
 
 Please be aware that operators are closely related to functions. Functions are at least as powerful as operators are.
+If an operator does not seem suitable for a purpose, a function might be an appropriate alternative.
 
 Operator classes implement the `operate($leftNumber, $rightNumber)` method. Its parameters represent the operands.
-It might be confisuing that even if the operator is a unary operator its `operate` method needs to have offer
+It might be confusing that even if the operator is a unary operator its `operate` method needs to have offer
 both parameters. The `$rightNumber` parameter will contain the operand of the unary operation while the left will 
 contain 0.
 
@@ -120,3 +122,6 @@ in StringCalc.
 * This class does not offer support for any other numeral system than the decimal numeral system. 
 It is not intended to provide such support so if you need support of other numeral system 
 (such as the binary numeral system) this might not be the library of your choice. 
+
+* General advice: The code of this library is well documented. Therefore, do not hesitate to take a closer 
+look at the implementation. 
