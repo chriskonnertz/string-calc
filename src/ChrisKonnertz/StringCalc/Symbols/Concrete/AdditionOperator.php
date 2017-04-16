@@ -4,6 +4,13 @@ namespace ChrisKonnertz\StringCalc\Symbols\Concrete;
 
 use ChrisKonnertz\StringCalc\Symbols\AbstractOperator;
 
+/**
+ * Operator for mathematical addition.
+ * Example: "1+2" => 3
+ * @see https://en.wikipedia.org/wiki/Addition
+ *
+ * @package ChrisKonnertz\StringCalc\Symbols\Concrete
+ */
 class AdditionOperator extends AbstractOperator
 {
 
@@ -15,7 +22,7 @@ class AdditionOperator extends AbstractOperator
     /**
      * @inheritdoc
      */
-    const PRECEDENCE = 0;
+    const PRECEDENCE = 100;
 
     /**
      * @inheritdoc

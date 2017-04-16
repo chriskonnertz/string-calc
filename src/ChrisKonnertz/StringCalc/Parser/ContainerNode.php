@@ -1,0 +1,81 @@
+<?php
+
+namespace ChrisKonnertz\StringCalc\Parser;
+
+/**
+ * A parent node is a container for a (sorted) array of nodes
+ *
+ * @package ChrisKonnertz\StringCalc\Parser
+ */
+class ContainerNode extends AbstractNode
+{
+
+    /**
+     * Array of (sorted) child nodes
+     * Notice: The number of child nodes can be 0.
+     *
+     * @var AbstractNode[]
+     */
+    protected $childNodes;
+
+    /**
+     * ContainerNode constructor.
+     *
+     * @param AbstractNode[] $childNodes
+     */
+    public function __construct(array $childNodes)
+    {
+        $this->setChildNodes($childNodes);
+    }
+
+    /**
+     * Setter for the child nodes.
+     * Notice: The number of child nodes can be 0.
+     *
+     * @param AbstractNode[] $childNodes
+     */
+    public function setChildNodes(array $childNodes)
+    {
+        // Ensure integrity of $nodes array
+        foreach ($childNodes as $childNode) {
+            if (! is_a($childNode, AbstractNode::class)) {
+                throw new \InvalidArgumentException('Error: Expected AbstractNode, got something else.');
+            }
+        }
+
+        $this->childNodes = $childNodes;
+    }
+
+    /**
+     * Returns the number of child nodes in this array node.
+     * Does not count the child nodes of the child nodes.
+     *
+     * @return int
+     */
+    public function size()
+    {
+        return sizeof($this->childNodes);
+    }
+
+    /**
+     * Returns true if the array node does not have any
+     * child nodes. This might sound strange but is possible.
+     *
+     * @return bool
+     */
+    public function hasChildren()
+    {
+        return ($this->size() == 0);
+    }
+
+    /**
+     * Getter for the child nodes
+     *
+     * @return AbstractNode[]
+     */
+    public function getChildNodes()
+    {
+        return $this->childNodes;
+    }
+
+}

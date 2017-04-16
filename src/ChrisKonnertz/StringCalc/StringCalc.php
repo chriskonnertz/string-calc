@@ -6,6 +6,7 @@ use ChrisKonnertz\StringCalc\Exceptions\NotFoundException;
 use ChrisKonnertz\StringCalc\Container\Container;
 use ChrisKonnertz\StringCalc\Container\ContainerInterface;
 use ChrisKonnertz\StringCalc\Container\ServiceProviderRegistry;
+use ChrisKonnertz\StringCalc\Parser\ContainerNode;
 use ChrisKonnertz\StringCalc\Parser\Parser;
 use ChrisKonnertz\StringCalc\Support\StringHelperInterface;
 use ChrisKonnertz\StringCalc\Symbols\AbstractSymbol;
@@ -27,7 +28,7 @@ class StringCalc
      *
      * @const string
      */
-    const VERSION = '0.2.0';
+    const VERSION = '0.4.0';
 
     /**
      * The service container
@@ -90,12 +91,12 @@ class StringCalc
             return 0;
         }
 
-        $nodes = $this->parse($tokens);
-        if (sizeof($nodes) == 0) {
+        $rootNode = $this->parse($tokens);
+        if ($rootNode->isEmpty()) {
             return 0;
         }
 
-        $result = $this->calculateNodes($nodes);
+        $result = $this->calculateTree($rootNode);
 
         return $result;
     }
@@ -127,7 +128,7 @@ class StringCalc
      * Parses an array with tokens. Returns an array of nodes.
      *
      * @param Token[] $tokens
-     * @return array
+     * @return ContainerNode
      */
     protected function parse(array $tokens)
     {
@@ -137,9 +138,9 @@ class StringCalc
         // TODO use parser service?
         $parser = new Parser($symbolContainer);
 
-        $nodes = $parser->parse($tokens);
+        $rootNode = $parser->parse($tokens);
 
-        return $nodes;
+        return $rootNode;
     }
 
     /**
@@ -147,12 +148,22 @@ class StringCalc
      * in the syntax tree (which consists of nodes).
      * It can call itself recursively.
      *
-     * @param array $nodes
+     * @param ContainerNode $rootNode
      * @return int|float
      */
-    protected function calculateNodes(array $nodes)
+    protected function calculateTree(ContainerNode $rootNode)
     {
-        // TODO implement
+        $childNodes = $rootNode->getChildNodes();
+
+        foreach ($childNodes as $childNode) {
+            if (is_a($childNode, ContainerNode::class)) {
+                $result = $this->calculateTree($childNode);
+            }
+
+            // ...
+        }
+
+        // Attention: This method will have to deal with separator symbols.
 
         // TODO: Convert string that are numbers values to int/float.
         // Maybe this is not the right place to tdo this -> then move it to a better place

@@ -28,7 +28,6 @@ class Token
      *
      * @const int
      */
-
     const TYPE_NUMBER = 1;
 
     /**
@@ -38,7 +37,6 @@ class Token
      *
      * @const int
      */
-
     const TYPE_CHARACTER = 2;
 
     /**
@@ -65,7 +63,7 @@ class Token
     protected $position;
 
     /**
-     * Token constructor.
+     * Token constructor. The position must be >= 0.
      *
      * @param string    $value
      * @param string    $type

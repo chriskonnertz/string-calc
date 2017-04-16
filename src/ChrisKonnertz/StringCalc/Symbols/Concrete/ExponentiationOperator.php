@@ -5,31 +5,31 @@ namespace ChrisKonnertz\StringCalc\Symbols\Concrete;
 use ChrisKonnertz\StringCalc\Symbols\AbstractOperator;
 
 /**
- * Operator for mathematical multiplication.
- * Example: "2*3" => 6
- * @see https://en.wikipedia.org/wiki/Multiplication
+ * Operator for mathematical exponentiation.
+ * Example: "3^2" => 9, "-3^2" => -9, "3^-2" equals "3^(-2)"
+ * @see https://en.wikipedia.org/wiki/Exponentiation
  *
  * @package ChrisKonnertz\StringCalc\Symbols\Concrete
  */
-class MultiplicationOperator extends AbstractOperator
+class ExponentiationOperator extends AbstractOperator
 {
 
     /**
      * @inheritdoc
      */
-    protected $identifiers = ['*'];
+    protected $identifiers = ['^'];
 
     /**
      * @inheritdoc
      */
-    const PRECEDENCE = 200;
+    const PRECEDENCE = 300;
 
     /**
      * @inheritdoc
      */
     public function operate($leftNumber, $rightNumber)
     {
-        return $leftNumber * $rightNumber;
+        return pow($leftNumber, $rightNumber);
     }
 
 }

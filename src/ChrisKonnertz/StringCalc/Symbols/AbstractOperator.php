@@ -16,7 +16,7 @@ abstract class AbstractOperator extends AbstractSymbol
      * The operator precedence determines which operators to perform first
      * in order to evaluate a given term.
      * You are supposed to overwrite this constant in the concrete constant class.
-     * Take a look at other operator classes to see the precedences of the other operators.
+     * Take a look at other operator classes to see the precedences of the predefined operators.
      * 0: default, > 0: higher, < 0: lower
      *
      * @const int

@@ -2,10 +2,12 @@
 
 namespace ChrisKonnertz\StringCalc\Symbols\Concrete;
 
+use ChrisKonnertz\StringCalc\Exceptions\InvalidArgumentsException;
 use ChrisKonnertz\StringCalc\Symbols\AbstractFunction;
 
 /**
- * PHP abs() function
+ * PHP abs() function. Expects one parameter.
+ * Example: "abs(2)" => 2, "abs(-2)" => 2, "abs(0)" => 0
  */
 class AbsFunction extends AbstractFunction
 {
@@ -18,13 +20,12 @@ class AbsFunction extends AbstractFunction
     /**
      * @inheritdoc
      */
-    const NUMBER_OF_ARGUMENTS = 1;
-
-    /**
-     * @inheritdoc
-     */
     public function execute(array $arguments)
     {
+        if (sizeof($arguments) != 1) {
+            throw new \InvalidArgumentException('Error: Expected one argument, got '.sizeof($arguments));
+        }
+
         $number = $arguments[0];
 
         return abs($number);
