@@ -57,7 +57,7 @@ class Parser
 
         $this->checkGrammar($nodes);
 
-        // Wrap the nodes in an array node. This will sort the nodes on level-0 according to their precedence.
+        // Wrap the nodes in an array node.
         $rootNode = new ContainerNode($nodes);
 
         return $rootNode;
