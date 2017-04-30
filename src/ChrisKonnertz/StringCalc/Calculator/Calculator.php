@@ -25,13 +25,13 @@ class Calculator
 
     /**
      * Calculates the numeric result of nodes in the syntax tree.
-     * It takes a parser container node as input and returns the
-     * numeric result of the calculation.
+     * It takes a parser node as input and returns the numeric
+     * result of the calculation.
      *
-     * @param ContainerNode $rootNode
+     * @param AbstractNode $rootNode
      * @return float|int
      */
-    public function calculate(ContainerNode $rootNode) // TODO Do we HAVE to expect a ContaienrNode? AbstractNode is not enough?!
+    public function calculate(AbstractNode $rootNode)
     {
         $result = $this->calculateNode($rootNode);
 
