@@ -9,6 +9,7 @@ use ChrisKonnertz\StringCalc\Parser\SymbolNode;
 use ChrisKonnertz\StringCalc\Symbols\AbstractConstant;
 use ChrisKonnertz\StringCalc\Symbols\AbstractNumber;
 use ChrisKonnertz\StringCalc\Symbols\AbstractOperator;
+use ChrisKonnertz\StringCalc\Symbols\AbstractSymbol;
 
 /**
  * The calculator has one important method: calculate()
@@ -53,85 +54,83 @@ class Calculator
 
         $nodes = $containerNode->getChildNodes();
 
-        $order = $this->determineCalculationOrder($nodes);
+        $calculableTerm = [];
 
-        $calculationComplete = false;
-        while ($calculationComplete == false) {
-            $result = 0;
-
-            foreach ($nodes as $node) {
-
-            }
-        }
-
-
-
-
-        throw new \Exception('Error: Legacy code reached.');
-
-
-
-
-        $this->orderNodes($nodes);
-
-        foreach ($nodes as $key => $node) {
+        // Create the $calculableTerm array which is ready for calculation.
+        foreach ($nodes as $node) {
             if (is_a($node, SymbolNode::class)) {
                 /** @var SymbolNode $node */
 
-                $symbol = $node->getSymbol();
-
-                if (is_a($symbol, AbstractOperator::class)) {
-                    /** @var $symbol AbstractOperator */
-
-                    if ($node->isUnaryOperator()) {
-                        // TODO implement
-                        //$result = $symbol->operate(null, $rightNumber);
-                    } else {
-                        $leftOperand = $nodes[$key -1];
-
-                        if (is_a($leftOperand, SymbolNode::class)) {
-                            $leftNumber = $this->calculateSymbolNode($leftOperand);
-                        } else if (is_a($leftOperand, FunctionNode::class)) {
-                            $leftNumber = $this->calculateFunctionNode($leftOperand);
-                        } else {
-                            /** @var ContainerNode $leftNumber */
-                            $leftNumber = $this->calculateContainerNode($leftOperand);
-                        }
-
-                        $rightOperand = $nodes[$key -1];
-
-                        if (is_a($rightOperand, SymbolNode::class)) {
-                            $rightNumber = $this->calculateSymbolNode($rightOperand);
-                        } else if (is_a($rightOperand, FunctionNode::class)) {
-                            $rightNumber = $this->calculateFunctionNode($rightOperand);
-                        } else {
-                            /** @var ContainerNode $leftNumber */
-                            $rightNumber = $this->calculateContainerNode($rightOperand);
-                        }
-
-                        $result = $symbol->operate($leftNumber, $rightNumber);
-                        // TODO use result
-                    }
+                if (is_a($node->getSymbol(), AbstractOperator::class)) {
+                    $calculableTerm[] = $node;
                 } else {
-                    // All functions and operators have been calculated so leave the loop
-                    break;
+                    $calculableTerm[] = new ResultBag($node);
                 }
-            } elseif (is_a($node, FunctionNode::class)) {
-                /** @var FunctionNode $node */
-
-                $result = $this->calculateFunctionNode($node);
-                // TODO use result
             } else {
-                // All functions and operators have been calculated so leave the loop
-                break;
+                $calculableTerm[] = new ResultBag($node);
             }
         }
 
-        throw new \Exception('Error: Not yet implemented.');
+        $operatorNodes = $this->detectCalculationOrder($nodes);
 
-        // Attention: This method will have to deal with separator symbols.
+        // Actually calculate the term
+        foreach ($operatorNodes as $index => $operatorNode) {
+            if ($operatorNode->isUnaryOperator()) {
+                $rightOperand = $nodes[$index + 1];
 
-        return 0;
+                if (is_a($rightOperand, SymbolNode::class)) {
+                    $rightNumber = $this->calculateSymbolNode($rightOperand);
+                } else if (is_a($rightOperand, FunctionNode::class)) {
+                    $rightNumber = $this->calculateFunctionNode($rightOperand);
+                } else {
+                    /** @var ContainerNode $leftNumber */
+                    $rightNumber = $this->calculateContainerNode($rightOperand);
+                }
+
+                /** @var AbstractOperator $symbol */
+                $symbol = $operatorNode->getSymbol();
+
+                $result = $symbol->operate(null, $rightNumber);
+
+                unset($nodes[$index + 1]);
+                $nodes[$index] = $result;
+            } else {
+                $leftOperand = $nodes[$index - 1];
+
+                if (is_a($leftOperand, SymbolNode::class)) {
+                    $leftNumber = $this->calculateSymbolNode($leftOperand);
+                } else if (is_a($leftOperand, FunctionNode::class)) {
+                    $leftNumber = $this->calculateFunctionNode($leftOperand);
+                } else {
+                    /** @var ContainerNode $leftNumber */
+                    $leftNumber = $this->calculateContainerNode($leftOperand);
+                }
+
+                $rightOperand = $nodes[$index + 1];
+
+                if (is_a($rightOperand, SymbolNode::class)) {
+                    $rightNumber = $this->calculateSymbolNode($rightOperand);
+                } else if (is_a($rightOperand, FunctionNode::class)) {
+                    $rightNumber = $this->calculateFunctionNode($rightOperand);
+                } else {
+                    /** @var ContainerNode $leftNumber */
+                    $rightNumber = $this->calculateContainerNode($rightOperand);
+                }
+
+                /** @var AbstractOperator $symbol */
+                $symbol = $operatorNode->getSymbol();
+
+                $result = $symbol->operate($leftNumber, $rightNumber);
+
+                unset($nodes[$index - 1]);
+                unset($nodes[$index + 1]);
+                $nodes[$index] = $result;
+            }
+        }
+
+        return $nodes[0];
+
+        // TODO Attention: This method will have to deal with separator symbols.
     }
 
     /**
@@ -175,11 +174,66 @@ class Calculator
     }
 
     /**
+     * Detected the calculation order of a given array of nodes.
+     * Does only care for the precedence of operators.
+     * Does not care for child nodes of container nodes.
+     * Returns a new array with ordered symbol nodes.
+     *
+     * @param AbstractNode[] $nodes
+     * @return SymbolNode[]
+     */
+    protected function detectCalculationOrder(array $nodes)
+    {
+        $operatorNodes = [];
+
+        // Store all symbol nodes that have a symbol of type abstract operator in an array
+        foreach ($nodes as $index => $node) {
+            if (is_a($node, SymbolNode::class)) {
+                if (is_a($node->getSymbol(), AbstractOperator::class)) {
+                    $operatorNodes[$index] = $node;
+                }
+            }
+        }
+
+        // Using Quicksort to sort the operators according to their precedence. Keeps the indices.
+        uasort($operatorNodes, function(SymbolNode $nodeOne, SymbolNode $nodeTwo)
+        {
+            // Precedence of node one
+            $symbolOne = $nodeOne->getSymbol();
+            $precedenceOne = 2;
+            if ($nodeOne->isUnaryOperator()) {
+                $precedenceOne = 3;
+            }
+
+            // Precedence of node two
+            $symbolTwo = $nodeTwo->getSymbol();
+            $precedenceTwo = 2;
+            if ($nodeTwo->isUnaryOperator()) {
+                $precedenceTwo = 3;
+            }
+
+            if ($precedenceOne == $precedenceTwo) {
+                $precedenceOne = constant(get_class($symbolOne).'::PRECEDENCE');
+                $precedenceTwo = constant(get_class($symbolTwo).'::PRECEDENCE');
+            }
+
+            if ($precedenceOne == $precedenceTwo) {
+                return 0;
+            }
+            return ($precedenceOne < $precedenceTwo) ? 1 : -1;
+        });
+
+        return $operatorNodes;
+    }
+
+    /**
      * Orders nodes they way they are supposed to be calculated.
      * The parameter is passed by reference so there is no return value.
      *
      * @param AbstractNode[] $nodes
      * @return void
+     *
+     * @deprecated TODO Remove this method if it is obsolete
      */
     protected function orderNodes(array &$nodes)
     {
@@ -221,7 +275,7 @@ class Calculator
                 }
             }
 
-            if ($precedenceOne == $precedenceTwo and $precedenceOne > 2) {
+            if ($precedenceOne == $precedenceTwo and $precedenceOne >= 2) {
                 $precedenceOne = constant(get_class($symbolOne).'::PRECEDENCE');
                 $precedenceTwo = constant(get_class($symbolTwo).'::PRECEDENCE');
             }
