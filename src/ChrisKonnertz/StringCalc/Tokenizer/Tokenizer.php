@@ -33,10 +33,7 @@ class Tokenizer
      * @param InputStreamInterface     $inputStream
      * @param StringHelperInterface    $stringHelper
      */
-    public function __construct(
-        InputStreamInterface $inputStream,
-        StringHelperInterface $stringHelper
-    )
+    public function __construct(InputStreamInterface $inputStream, StringHelperInterface $stringHelper)
     {
         $this->inputStream = $inputStream;
 
