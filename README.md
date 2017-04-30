@@ -11,6 +11,8 @@ TODO / Missing:
 * Make injectable grammar checker?
 * Make exceptions (way more) verbose?
 * Make two operate() methods, for binary and unary operations?
+* Rename symbol classes to symbol type classes?
+* Check phpdoc comment, especially echeck for @throws tags
 
 ## The term
 
