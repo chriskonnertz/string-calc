@@ -115,6 +115,9 @@ contain 0.
 
 ...
 
+> Attention: The comma character is used as a separator of function arguments. 
+It is never interpreted as a decimal mark! Example for the former: max(1,2)
+
 ## Notes
 
 * Internally this library uses PHP's mathematical constants, operators and functions to calculate the term. 

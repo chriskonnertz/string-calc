@@ -32,12 +32,16 @@ abstract class AbstractOperator extends AbstractSymbol
      * operand, you should use a function instead. Functions with one
      * parameter execute unary operations in functional notation.
      * Notice: Operators can be unary AND binary (but this is a rare case)
+     *
+     * @const bool
      */
     const OPERATES_UNARY = false;
 
     /**
      * Usually operators are binary, they operate on two operands (numbers).
      * Notice: Operators can be unary AND binary (but this is a rare case)
+     *
+     * @const bool
      */
     const OPERATES_BINARY = true;
 
@@ -53,5 +57,41 @@ abstract class AbstractOperator extends AbstractSymbol
      * @return int|float
      */
     abstract public function operate($leftNumber, $rightNumber);
+
+    /**
+     * Getter for the self::PRECEDENCE constant.
+     * This is just a convenient helper that makes accessing
+     * the constant a little bit more elegant.
+     *
+     * @return int
+     */
+    public function getPrecedence()
+    {
+        return static::PRECEDENCE;
+    }
+
+    /**
+     * Getter for the self::OPERATES_UNARY constant
+     * This is just a convenient helper that makes accessing
+     * the constant a little bit more elegant.
+     *
+     * @return bool
+     */
+    public function getOperatesUnary()
+    {
+        return static::OPERATES_UNARY;
+    }
+
+    /**
+     * Getter for the self::OPERATES_BINARY constant
+     * This is just a convenient helper that makes accessing
+     * the constant a little bit more elegant.
+     *
+     * @return bool
+     */
+    public function getOperatesBinary()
+    {
+        return static::OPERATES_BINARY;
+    }
 
 }

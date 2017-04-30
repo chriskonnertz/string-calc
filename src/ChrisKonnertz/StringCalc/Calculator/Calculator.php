@@ -8,8 +8,10 @@ use ChrisKonnertz\StringCalc\Parser\Nodes\ContainerNode;
 use ChrisKonnertz\StringCalc\Parser\Nodes\FunctionNode;
 use ChrisKonnertz\StringCalc\Parser\Nodes\SymbolNode;
 use ChrisKonnertz\StringCalc\Symbols\AbstractConstant;
+use ChrisKonnertz\StringCalc\Symbols\AbstractFunction;
 use ChrisKonnertz\StringCalc\Symbols\AbstractNumber;
 use ChrisKonnertz\StringCalc\Symbols\AbstractOperator;
+use ChrisKonnertz\StringCalc\Symbols\AbstractSeparator;
 
 /**
  * The calculator has one important method: calculate()
@@ -29,11 +31,39 @@ class Calculator
      * @param ContainerNode $rootNode
      * @return float|int
      */
-    public function calculate(ContainerNode $rootNode)
+    public function calculate(ContainerNode $rootNode) // TODO Do we HAVE to expect a ContaienrNode? AbstractNode is not enough?!
     {
-        $result = $this->calculateContainerNode($rootNode);
+        $result = $this->calculateNode($rootNode);
 
         return $result;
+    }
+
+    /**
+     * Calculates the numeric value / result of a node of
+     * any known and calculable type. (For example symbol
+     * nodes with a symbol of type separator are not
+     * calculable.)
+     *
+     * @param AbstractNode $node
+     * @return float|int
+     */
+    protected function calculateNode(AbstractNode $node)
+    {
+        if (is_a($node, SymbolNode::class)) {
+            /** @var SymbolNode $node */
+
+            return $this->calculateSymbolNode($node);
+        } elseif (is_a($node, FunctionNode::class)) {
+            /** @var FunctionNode $node */
+
+            return $this->calculateFunctionNode($node);
+        } elseif (is_a($node, ContainerNode::class)) {
+            /** @var ContainerNode $node */
+
+            return $this->calculateContainerNode($node);
+        } else {
+            throw new \InvalidArgumentException('Error: Cannot calculate node of unknown type.');
+        }
     }
 
     /**
@@ -56,55 +86,34 @@ class Calculator
 
         $operatorNodes = $this->detectCalculationOrder($nodes);
 
-        // Actually calculate the term
+        // Actually calculate the term. iterates over the ordered operators and
+        // calculates them, then replace the parts of the operation by the result.
         foreach ($operatorNodes as $index => $operatorNode) {
             if ($operatorNode->isUnaryOperator()) {
                 $rightOperand = $nodes[$index + 1];
-
-                if (is_a($rightOperand, SymbolNode::class)) {
-                    $rightNumber = $this->calculateSymbolNode($rightOperand);
-                } else if (is_a($rightOperand, FunctionNode::class)) {
-                    $rightNumber = $this->calculateFunctionNode($rightOperand);
-                } else {
-                    /** @var ContainerNode $leftNumber */
-                    $rightNumber = $this->calculateContainerNode($rightOperand);
-                }
+                $rightNumber = $this->calculateNode($rightOperand);
 
                 /** @var AbstractOperator $symbol */
                 $symbol = $operatorNode->getSymbol();
 
                 $result = $symbol->operate(null, $rightNumber);
 
+                // Replace the participating symbols of the operation by the result
                 unset($nodes[$index + 1]);
                 $nodes[$index] = $result;
             } else {
                 $leftOperand = $nodes[$index - 1];
-
-                if (is_a($leftOperand, SymbolNode::class)) {
-                    $leftNumber = $this->calculateSymbolNode($leftOperand);
-                } else if (is_a($leftOperand, FunctionNode::class)) {
-                    $leftNumber = $this->calculateFunctionNode($leftOperand);
-                } else {
-                    /** @var ContainerNode $leftNumber */
-                    $leftNumber = $this->calculateContainerNode($leftOperand);
-                }
+                $leftNumber = $this->calculateNode($leftOperand);
 
                 $rightOperand = $nodes[$index + 1];
-
-                if (is_a($rightOperand, SymbolNode::class)) {
-                    $rightNumber = $this->calculateSymbolNode($rightOperand);
-                } else if (is_a($rightOperand, FunctionNode::class)) {
-                    $rightNumber = $this->calculateFunctionNode($rightOperand);
-                } else {
-                    /** @var ContainerNode $leftNumber */
-                    $rightNumber = $this->calculateContainerNode($rightOperand);
-                }
+                $rightNumber = $this->calculateNode($rightOperand);
 
                 /** @var AbstractOperator $symbol */
                 $symbol = $operatorNode->getSymbol();
 
                 $result = $symbol->operate($leftNumber, $rightNumber);
 
+                // Replace the participating symbols of the operation by the result
                 unset($nodes[$index - 1]);
                 unset($nodes[$index + 1]);
                 $nodes[$index] = $result;
@@ -112,35 +121,72 @@ class Calculator
         }
 
         // The only remaining element of the $nodes array contains the overall result
-        return current($nodes);
+        $result = current($nodes);
 
-        // TODO Attention: This method will have to deal with separator symbols.
+        // If the $nodes array did not contain any operator (but only one node) than
+        // the result of this node has to be calculated now
+        if (! is_numeric($result)) {
+            return $this->calculateNode($result);
+        }
+
+        return current($nodes);
     }
 
     /**
-     * @param FunctionNode $node
+     * Returns the numeric value of a function node.
+     *
+     * @param FunctionNode $functionNode
      * @return int|float
      */
-    protected function calculateFunctionNode(FunctionNode $node)
+    protected function calculateFunctionNode(FunctionNode $functionNode)
     {
+        $nodes = $functionNode->getChildNodes();
 
+        $arguments = [];
+        $argumentChildNodes = [];
 
-        return 0;
+        foreach ($nodes as $node) {
+            if (is_a($node, SymbolNode::class)) {
+                /** @var SymbolNode $node */
+
+                if (is_a($node->getSymbol(), AbstractSeparator::class)) {
+                    $containerNode = new ContainerNode($argumentChildNodes);
+                    $arguments[] = $this->calculateContainerNode($containerNode);
+                    $argumentChildNodes = [];
+                } else {
+                    $argumentChildNodes[] = $node;
+                }
+            } else {
+                $argumentChildNodes[] = $node;
+            }
+        }
+
+        if (sizeof($argumentChildNodes) > 0) {
+            $containerNode = new ContainerNode($argumentChildNodes);
+            $arguments[] = $this->calculateContainerNode($containerNode);
+        }
+
+        /** @var AbstractFunction $symbol */
+        $symbol = $functionNode->getSymbolNode()->getSymbol();
+
+        $result = $symbol->execute($arguments);
+
+        return $result;
     }
 
     /**
      * Returns the numeric value of a symbol node.
      * Attention: $node->symbol must not be of type AbstractOperator!
      *
-     * @param SymbolNode $node
+     * @param SymbolNode $symbolNode
      * @return int|float
      */
-    protected function calculateSymbolNode(SymbolNode $node)
+    protected function calculateSymbolNode(SymbolNode $symbolNode)
     {
-        $symbol = $node->getSymbol();
+        $symbol = $symbolNode->getSymbol();
 
         if (is_a($symbol, AbstractNumber::class)) {
-            $number = $node->getToken()->getValue();
+            $number = $symbolNode->getToken()->getValue();
 
             // Convert string to int or float (depending on the type of the number)
             // Attention: The fractional part of a PHP float can only have a limited length.

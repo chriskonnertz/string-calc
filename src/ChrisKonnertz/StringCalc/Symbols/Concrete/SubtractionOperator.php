@@ -26,9 +26,9 @@ class SubtractionOperator extends AbstractOperator
 
     /**
      * @inheritdoc
-     * The subtraction operator is unary AND binary!
+     * Notice: The subtraction operator is unary AND binary!
      */
-    const UNARY = true;
+    const OPERATES_UNARY = true;
 
     /**
      * @inheritdoc

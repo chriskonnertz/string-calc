@@ -89,7 +89,7 @@ class Parser
                 $symbol = $this->symbolContainer->find($identifier);
 
                 if ($symbol === null) {
-                    throw new NotFoundException('Error: Detected unknown or invalid identifier.');
+                    throw new NotFoundException('Error: Detected unknown or invalid string identifier.');
                 }
             } elseif ($type == Token::TYPE_NUMBER) {
                 // Notice: Numbers do not have an identifier
@@ -99,7 +99,7 @@ class Parser
                 $symbol = $this->symbolContainer->find($identifier);
 
                 if ($symbol === null) {
-                    throw new NotFoundException('Error: Detected unknown or invalid identifier.');
+                    throw new NotFoundException('Error: Detected unknown or invalid character identifier.');
                 }
 
                 if (is_a($symbol, AbstractOpeningBracket::class)) {
@@ -207,9 +207,9 @@ class Parser
     }
 
     /**
-     * Replace [a SymbolNode that has a symbol of type AbstractFunction,
+     * Replaces [a SymbolNode that has a symbol of type AbstractFunction,
      * followed by a node of type ContainerNode] by a FunctionNode.
-     * Expects the nodes not including any function nodes.
+     * Expects the $nodes not including any function nodes (yet).
      *
      * @param AbstractNode[] $nodes
      * @return AbstractNode[]
@@ -238,7 +238,7 @@ class Parser
                 /** @var SymbolNode $node */
                 $symbol = $node->getSymbol();
                 if (is_a($symbol, AbstractFunction::class)) {
-                    $functionSymbolNode = new $symbol;
+                    $functionSymbolNode = $node;
                 } else {
                     $transformedNodes[] = $node;
                 }
@@ -300,14 +300,14 @@ class Parser
 
                     // If null, the operator is unary
                     if ($leftOperand === null) {
-                        if (! constant(get_class($symbol).'::OPERATES_UNARY')) {
+                        if (! $symbol->getOperatesUnary()) {
                             throw new ParserException('Error: Found operator in unary notation that is not unary.');
                         }
 
                         // Remember that this node represents a unary operator
                         $node->setIsUnaryOperator(true);
                     } else {
-                        if (! constant(get_class($symbol).'::OPERATES_BINARY')) {
+                        if (! $symbol->getOperatesBinary()) {
                             throw new ParserException('Error: Found operator in binary notation that is not binary.');
                         }
                     }
