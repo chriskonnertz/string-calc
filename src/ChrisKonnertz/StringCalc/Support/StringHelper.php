@@ -37,16 +37,16 @@ class StringHelper implements StringHelperInterface
     public function validate($str)
     {
         if ($str === null) {
-            throw new \InvalidArgumentException('Error: Variable must not be null.');
+            throw new \InvalidArgumentException('Error: String must not be null.');
         }
         if (! is_string($str)) {
-            throw new \InvalidArgumentException('Error: Variable must be of type string.');
+            throw new \InvalidArgumentException('Error: String must be of type string.');
         }
         if ($str === '') {
-            throw new \InvalidArgumentException('Error: Variable must not be empty.');
+            throw new \InvalidArgumentException('Error: String must not be empty.');
         }
         if ($this->containsMultibyteChar($str)) {
-            throw new \InvalidArgumentException('Error: Variable must not contain any multibyte characters.');
+            throw new \InvalidArgumentException('Error: String must not contain any multibyte characters.');
         }
     }
 

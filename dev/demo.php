@@ -28,12 +28,16 @@
 
 	<?php
 
-		if ($term) {
+		if ($term !== null) {
 			$stringCalc = new ChrisKonnertz\StringCalc\StringCalc();
 
-			$result = $stringCalc->calculate($term);
+			try {
+                $result = $stringCalc->calculate($term);
 
-			echo 'Result: <code>'.$result.'</code> (Type: '.gettype($result).')';
+                echo 'Result: <code>'.$result.'</code> (Type: '.gettype($result).')';
+            } catch (Exception $exception) {
+                echo $exception->getMessage();
+            }
 		}
 
 	?>
