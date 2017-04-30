@@ -2,7 +2,6 @@
 
 namespace ChrisKonnertz\StringCalc\Calculator;
 
-
 use ChrisKonnertz\StringCalc\Parser\Nodes\AbstractNode;
 use ChrisKonnertz\StringCalc\Parser\Nodes\ContainerNode;
 use ChrisKonnertz\StringCalc\Parser\Nodes\FunctionNode;
@@ -84,44 +83,45 @@ class Calculator
 
         $nodes = $containerNode->getChildNodes();
 
-        $operatorNodes = $this->detectCalculationOrder($nodes);
+        $orderedOperatorNodes = $this->detectCalculationOrder($nodes);
 
         // Actually calculate the term. iterates over the ordered operators and
         // calculates them, then replace the parts of the operation by the result.
-        foreach ($operatorNodes as $index => $operatorNode) {
+        foreach ($orderedOperatorNodes as $index => $operatorNode) {
+            reset($nodes);
+            while (key($nodes) !== $index) {
+                $leftOperand = current($nodes);
+                $leftOperandIndex = key($nodes);
+                next($nodes);
+            }
+
+            $rightOperand = next($nodes);
+            $rightOperandIndex = key($nodes);
+            $rightNumber = is_numeric($rightOperand) ? $rightOperand : $this->calculateNode($rightOperand);
+
+            /** @var AbstractOperator $symbol */
+            $symbol = $operatorNode->getSymbol();
+
             if ($operatorNode->isUnaryOperator()) {
-                $rightOperand = $nodes[$index + 1];
-                $rightNumber = $this->calculateNode($rightOperand);
-
-                /** @var AbstractOperator $symbol */
-                $symbol = $operatorNode->getSymbol();
-
                 $result = $symbol->operate(null, $rightNumber);
 
                 // Replace the participating symbols of the operation by the result
-                unset($nodes[$index + 1]);
+                unset($nodes[$rightOperandIndex]);
                 $nodes[$index] = $result;
             } else {
-                $leftOperand = $nodes[$index - 1];
-                $leftNumber = $this->calculateNode($leftOperand);
-
-                $rightOperand = $nodes[$index + 1];
-                $rightNumber = $this->calculateNode($rightOperand);
-
-                /** @var AbstractOperator $symbol */
-                $symbol = $operatorNode->getSymbol();
+                $leftNumber = is_numeric($leftOperand) ? $leftOperand : $this->calculateNode($leftOperand);
 
                 $result = $symbol->operate($leftNumber, $rightNumber);
 
                 // Replace the participating symbols of the operation by the result
-                unset($nodes[$index - 1]);
-                unset($nodes[$index + 1]);
+                unset($nodes[$leftOperandIndex]);
+                unset($nodes[$rightOperandIndex]);
                 $nodes[$index] = $result;
             }
         }
 
         // The only remaining element of the $nodes array contains the overall result
-        $result = current($nodes);
+        $result = end($nodes);
 
         // If the $nodes array did not contain any operator (but only one node) than
         // the result of this node has to be calculated now
@@ -129,7 +129,7 @@ class Calculator
             return $this->calculateNode($result);
         }
 
-        return current($nodes);
+        return $result;
     }
 
     /**
@@ -229,6 +229,7 @@ class Calculator
         uasort($operatorNodes, function(SymbolNode $nodeOne, SymbolNode $nodeTwo)
         {
             // First-level precedence of node one
+            /** @var AbstractOperator $symbolOne */
             $symbolOne = $nodeOne->getSymbol();
             $precedenceOne = 2;
             if ($nodeOne->isUnaryOperator()) {
@@ -236,6 +237,7 @@ class Calculator
             }
 
             // First-level precedence of node two
+            /** @var AbstractOperator $symbolTwo */
             $symbolTwo = $nodeTwo->getSymbol();
             $precedenceTwo = 2;
             if ($nodeTwo->isUnaryOperator()) {
@@ -244,8 +246,8 @@ class Calculator
 
             // If the first-level precedence is the same, compare the second-level precedence
             if ($precedenceOne == $precedenceTwo) {
-                $precedenceOne = constant(get_class($symbolOne).'::PRECEDENCE');
-                $precedenceTwo = constant(get_class($symbolTwo).'::PRECEDENCE');
+                $precedenceOne = $symbolOne->getPrecedence();
+                $precedenceTwo = $symbolTwo->getPrecedence();
             }
 
             if ($precedenceOne == $precedenceTwo) {

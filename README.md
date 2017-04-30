@@ -34,7 +34,7 @@ $result = $stringCalc->calculate($term);
 
 ## Types of symbols
 
-A term consists of symbols that are from a specific type. This section list all available symbol types.
+A term consists of symbols that are of a specific type. This section lists all available symbol types.
 
 ### Numbers
 

@@ -33,7 +33,7 @@
 
 			$result = $stringCalc->calculate($term);
 
-			echo 'Result: '.$result. ' (Type: '.gettype($result).')';
+			echo 'Result: <code>'.$result.'</code> (Type: '.gettype($result).')';
 		}
 
 	?>
