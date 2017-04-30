@@ -4,15 +4,13 @@ This library is in a very early state (alpha) and is not stable at the moment.
 
 TODO / Missing: 
 * Deal with unary operators
-* Care for operator precedence (WIP)
 * Grammar checking
-* Actual calculation
 * Add function for 7E-10 numbers?
 * Make injectable grammar checker?
 * Make exceptions (way more) verbose?
 * Make two operate() methods, for binary and unary operations?
 * Rename symbol classes to symbol type classes?
-* Check phpdoc comment, especially echeck for @throws tags
+* Check phpdoc comment, especially check for @throws tags
 
 ## The term
 
@@ -97,6 +95,9 @@ The `Symbols\AbstractBracket` class is the base class for all brackets. It is ex
 
 Operators in a term can be unary or binary or even both. However, if they are unary, they have to follow
  the prefix notation (example: "-1"). 
+ 
+Unary operator example: `-1`
+Binary operator example: `2-1`
 
 #### Operator implementation
 
@@ -113,10 +114,48 @@ contain 0.
 
 ### Functions
 
-...
+Functions in a term represent mathematical functions. Typically the textual representation of a function consists of 
+two or more letters, for example: `min`
 
-> Attention: The comma character is used as a separator of function arguments. 
+Good examples of using functions:
+                                                                           
+```
+abs(-1)
+ABS(-1)
+min(1,2)
+min(1,2,3)
+```
+
+Bad examples:
+
+```
+abs-1 // Missing brackets
+min(1,) // Missing argument
+```
+
+
+> Attention: The comma character is used exclusively as a separator of function arguments. 
 It is never interpreted as a decimal mark! Example for the former: max(1,2)
+
+#### Functions implementation
+
+The `Symbols\AbstractFunction` class is the base class for all functions. 
+There are several concrete functions that extend this class.
+
+Please be aware that operators are closely related to functions. Functions are at least as powerful as operators are.
+If an operator does not seem suitable for a purpose, a function might be an appropriate alternative.
+
+Function classes implement the `execute(array $arguments)` method. The arguments are passed as an array to this method. 
+The size of the arguments array can be 0-n. The implementation of this method is responsible to validate the number of 
+arguments. Example:
+
+```
+if (sizeof($arguments) < 1) {
+    throw new \InvalidArgumentException('Error: Expected at least one argument, none given.');
+}
+```
+
+The items of the $arguments array will always be of type int or float. They will never be null.
 
 ## Notes
 
