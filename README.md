@@ -16,7 +16,7 @@ Through Composer:
 composer require chriskonnertz/string-calc
 ```
 
-From now on you can run `composer update` to get the latest version of this library.
+From then on you may run `composer update` to get the latest version of this library.
 
 It is possible to use this library without using Composer but then it is necessary to register an 
 [autoloader function](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-0.md#example-implementation).
@@ -33,7 +33,7 @@ $term = '1+2';
 $result = $stringCalc->calculate($term);
 ```
 
-> There is a demo PHP script included. It is located at `dev/demo.php`.
+> There is a PHP demo script included. It is located at `dev/demo.php`.
 
 ## The term
 
@@ -127,7 +127,7 @@ The `Symbols\AbstractConstant` class is the base class for all constants.
 There are several concrete constants that extend this class.
 
 Constants classes have a property called `value` that stores the value of the constant. It is possible to overwrite this
-value in a concrete constant class or to overwrite the getter method `getValue`.
+value in a concrete constant class or to overwrite the getter method `getValue()`.
 
 ### Operators
 
