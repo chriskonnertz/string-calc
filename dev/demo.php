@@ -22,7 +22,7 @@
 
 	<form method="POST">
 		Term:
-		<input id="term" name="term" type="text" value="<?php echo $term !== null ? $term : '1+(2+3)' ?>">
+		<input id="term" name="term" type="text" value="<?php echo $term !== null ? $term : '1+(2+max(-3,3))' ?>">
 		<input type="submit" value="Calc">
 	</form>
 
