@@ -3,20 +3,12 @@
 namespace ChrisKonnertz\StringCalc;
 
 use ChrisKonnertz\StringCalc\Calculator\Calculator;
-use ChrisKonnertz\StringCalc\Exceptions\NotFoundException;
 use ChrisKonnertz\StringCalc\Container\Container;
 use ChrisKonnertz\StringCalc\Container\ContainerInterface;
 use ChrisKonnertz\StringCalc\Container\ServiceProviderRegistry;
-use ChrisKonnertz\StringCalc\Parser\AbstractNode;
 use ChrisKonnertz\StringCalc\Parser\ContainerNode;
-use ChrisKonnertz\StringCalc\Parser\FunctionNode;
 use ChrisKonnertz\StringCalc\Parser\Parser;
-use ChrisKonnertz\StringCalc\Parser\SymbolNode;
 use ChrisKonnertz\StringCalc\Support\StringHelperInterface;
-use ChrisKonnertz\StringCalc\Symbols\AbstractConstant;
-use ChrisKonnertz\StringCalc\Symbols\AbstractFunction;
-use ChrisKonnertz\StringCalc\Symbols\AbstractNumber;
-use ChrisKonnertz\StringCalc\Symbols\AbstractOperator;
 use ChrisKonnertz\StringCalc\Symbols\AbstractSymbol;
 use ChrisKonnertz\StringCalc\Symbols\SymbolContainerInterface;
 use ChrisKonnertz\StringCalc\Tokenizer\InputStreamInterface;
@@ -24,7 +16,9 @@ use ChrisKonnertz\StringCalc\Tokenizer\Token;
 use ChrisKonnertz\StringCalc\Tokenizer\Tokenizer;
 
 /**
- * This is the StringCalc base class. Call the calculate() method to calculate a term.
+ * This is the StringCalc base class. It is the API frontend of
+ * the StringCalc library. Call its calculate() method to
+ * calculate a mathematical term.
  *
  * @package ChrisKonnertz\StringCalc
  */
@@ -36,7 +30,7 @@ class StringCalc
      *
      * @const string
      */
-    const VERSION = '0.5.1';
+    const VERSION = '0.5.2';
 
     /**
      * The service container

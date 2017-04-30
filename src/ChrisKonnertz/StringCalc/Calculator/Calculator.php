@@ -11,9 +11,9 @@ use ChrisKonnertz\StringCalc\Symbols\AbstractNumber;
 use ChrisKonnertz\StringCalc\Symbols\AbstractOperator;
 
 /**
- * The parsers has one important method: calculate()
- * It takes a parser container node as input and
- * returns the numeric result of the calculation.
+ * The calculator has one important method: calculate()
+ * It takes a container node as input and returns the
+ * numeric result of the calculation.
  *
  * @package ChrisKonnertz\StringCalc\Calculator
  */
