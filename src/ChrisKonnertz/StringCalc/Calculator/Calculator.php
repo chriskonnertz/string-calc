@@ -54,24 +54,6 @@ class Calculator
 
         $nodes = $containerNode->getChildNodes();
 
-        $calculableTerm = [];
-
-        // TODO Remove this code? (If so also remove ResultBag class)
-        // Create the $calculableTerm array which is ready for calculation.
-        foreach ($nodes as $node) {
-            if (is_a($node, SymbolNode::class)) {
-                /** @var SymbolNode $node */
-
-                if (is_a($node->getSymbol(), AbstractOperator::class)) {
-                    $calculableTerm[] = $node;
-                } else {
-                    $calculableTerm[] = new ResultBag($node);
-                }
-            } else {
-                $calculableTerm[] = new ResultBag($node);
-            }
-        }
-
         $operatorNodes = $this->detectCalculationOrder($nodes);
 
         // Actually calculate the term
@@ -200,20 +182,21 @@ class Calculator
         // Using Quicksort to sort the operators according to their precedence. Keeps the indices.
         uasort($operatorNodes, function(SymbolNode $nodeOne, SymbolNode $nodeTwo)
         {
-            // Precedence of node one
+            // First-level precedence of node one
             $symbolOne = $nodeOne->getSymbol();
             $precedenceOne = 2;
             if ($nodeOne->isUnaryOperator()) {
                 $precedenceOne = 3;
             }
 
-            // Precedence of node two
+            // First-level precedence of node two
             $symbolTwo = $nodeTwo->getSymbol();
             $precedenceTwo = 2;
             if ($nodeTwo->isUnaryOperator()) {
                 $precedenceTwo = 3;
             }
 
+            // If the first-level precedence is the same, compare the second-level precedence
             if ($precedenceOne == $precedenceTwo) {
                 $precedenceOne = constant(get_class($symbolOne).'::PRECEDENCE');
                 $precedenceTwo = constant(get_class($symbolTwo).'::PRECEDENCE');
@@ -226,67 +209,6 @@ class Calculator
         });
 
         return $operatorNodes;
-    }
-
-    /**
-     * Orders nodes they way they are supposed to be calculated.
-     * The parameter is passed by reference so there is no return value.
-     *
-     * @param AbstractNode[] $nodes
-     * @return void
-     *
-     * @deprecated TODO Remove this method if it is obsolete
-     */
-    protected function orderNodes(array &$nodes)
-    {
-        // Using Quicksort to sort the symbols according to their precedence. Keeps the indices.
-        uasort($nodes, function(AbstractNode $nodeOne, AbstractNode $nodeTwo)
-        {
-            $precedenceOne = 0;
-            if (is_a($nodeOne, FunctionNode::class)) {
-                $precedenceOne = 1;
-            }
-            if (is_a($nodeOne, SymbolNode::class)) {
-                /** @var SymbolNode $nodeOne */
-
-                $symbolOne = $nodeOne->getSymbol();
-
-                if (is_a($symbolOne, AbstractOperator::class)) {
-                    $precedenceOne = 2;
-
-                    if ($nodeOne->isUnaryOperator()) {
-                        $precedenceOne = 3;
-                    }
-                }
-            }
-
-            $precedenceTwo = 0;
-            if (is_a($nodeTwo, FunctionNode::class)) {
-                $precedenceTwo = 1;
-            }
-            if (is_a($nodeTwo, SymbolNode::class)) {
-                /** @var SymbolNode $nodeTwo */
-                $symbolTwo = $nodeTwo->getSymbol();
-
-                if (is_a($symbolTwo, AbstractOperator::class)) {
-                    $precedenceTwo = 2;
-
-                    if ($nodeTwo->isUnaryOperator()) {
-                        $precedenceTwo = 3;
-                    }
-                }
-            }
-
-            if ($precedenceOne == $precedenceTwo and $precedenceOne >= 2) {
-                $precedenceOne = constant(get_class($symbolOne).'::PRECEDENCE');
-                $precedenceTwo = constant(get_class($symbolTwo).'::PRECEDENCE');
-            }
-
-            if ($precedenceOne == $precedenceTwo) {
-                return 0;
-            }
-            return ($precedenceOne < $precedenceTwo) ? 1 : -1;
-        });
     }
 
 }
