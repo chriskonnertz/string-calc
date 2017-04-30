@@ -145,6 +145,7 @@ Good examples of using functions:
 ```
 abs(-1)
 ABS(-1)
+abs(1+abs(2))
 min(1,2)
 min(1,2,3)
 ```
@@ -155,7 +156,6 @@ Bad examples:
 abs-1 // Missing brackets
 min(1,) // Missing argument
 ```
-
 
 > Attention: The comma character is used exclusively as a separator of function arguments. 
 It is never interpreted as a decimal mark! Example for the former: max(1,2)
@@ -179,6 +179,10 @@ if (sizeof($arguments) < 1) {
 ```
 
 The items of the `$arguments` array will always be of type int or float. They will never be null.
+
+### Separators
+
+...
 
 ## Notes
 
