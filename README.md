@@ -1,6 +1,8 @@
-## [WIP] PHP calculator for mathematical terms (expressions) passed as strings
+# StringCalc
 
-This library is in a very early state (alpha) and is not stable at the moment.
+StringCalc is a PHP calculator library for mathematical terms (expressions) passed as strings.
+
+´´´´WARNING: This library is in a very early state (alpha) and is not stable at the moment.´´´´
 
 ## The term
 
