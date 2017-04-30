@@ -155,7 +155,7 @@ class Tokenizer
      */
     protected function isWhitespace($char)
     {
-        return in_array($char, ["\t", "\n"]);
+        return in_array($char, [" ", "\t", "\n"]);
     }
 
     /**
