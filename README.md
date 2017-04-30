@@ -101,9 +101,11 @@ The `Symbols\AbstractBracket` class is the base class for all brackets. It is ex
 
 Constants in a term typically represent mathematical constants, for example pi.
  
-Example:
+Examples:
 ```
-pi*2
+pi
+PI
+1+pi*2
 ```
 
 #### Constant implementation

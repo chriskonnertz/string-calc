@@ -153,7 +153,7 @@ class StringCalc
      * call more methods directly on the symbol container.
      *
      * @param AbstractSymbol $symbol        The new symbol object
-     * @param string|null    $replaceSymbol Class name of an known symbol that you want to replace
+     * @param string|null    $replaceSymbol Class name of a known symbol that you want to replace
      * @return void
      */
     public function addSymbol(AbstractSymbol $symbol, $replaceSymbol = null)
