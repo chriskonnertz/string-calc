@@ -3,9 +3,9 @@
 StringCalc is a PHP calculator library for mathematical terms (expressions) passed as strings.
 
 ````
-+-----------------------------------------------------------------------------------------+
-| WARNING: This library is in a very early state (alpha) and is not stable at the moment. |
-+-----------------------------------------------------------------------------------------+
+╔═════════════════════════════════════════════════════════════════════════════════════════╗
+║ WARNING: This library is in a very early state (alpha) and is not stable at the moment. ║
+╚═════════════════════════════════════════════════════════════════════════════════════════╝
 ````
 
 ## The term
