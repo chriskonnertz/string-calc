@@ -41,17 +41,36 @@ class Calculator
      * It can call itself recursively.
      * Attention: $node must not be of type FunctionNode!
      *
-     * @param ContainerNode $rootNode
+     * @param ContainerNode $containerNode
      * @return float|int
      * @throws \Exception
      */
-    protected function calculateContainerNode(ContainerNode $rootNode)
+    protected function calculateContainerNode(ContainerNode $containerNode)
     {
-        if (is_a($rootNode, FunctionNode::class)) {
+        if (is_a($containerNode, FunctionNode::class)) {
             throw new \InvalidArgumentException('Error: Expected container node but got a function node.');
         }
 
-        $nodes = $rootNode->getChildNodes();
+        $nodes = $containerNode->getChildNodes();
+
+        $order = $this->determineCalculationOrder($nodes);
+
+        $calculationComplete = false;
+        while ($calculationComplete == false) {
+            $result = 0;
+
+            foreach ($nodes as $node) {
+
+            }
+        }
+
+
+
+
+        throw new \Exception('Error: Legacy code reached.');
+
+
+
 
         $this->orderNodes($nodes);
 
@@ -149,7 +168,6 @@ class Calculator
 
             $number = $symbol->getValue();
         } else {
-            // TODO Do we need this exception?
             throw new \LogicException('Error: Found symbol of unexpected type.');
         }
 
