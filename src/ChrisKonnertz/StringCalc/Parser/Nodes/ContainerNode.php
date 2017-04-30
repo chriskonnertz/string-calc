@@ -1,6 +1,6 @@
 <?php
 
-namespace ChrisKonnertz\StringCalc\Parser;
+namespace ChrisKonnertz\StringCalc\Parser\Nodes;
 
 /**
  * A parent node is a container for a (sorted) array of nodes.

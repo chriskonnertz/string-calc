@@ -2,14 +2,14 @@
 
 namespace ChrisKonnertz\StringCalc\Calculator;
 
-use ChrisKonnertz\StringCalc\Parser\AbstractNode;
-use ChrisKonnertz\StringCalc\Parser\ContainerNode;
-use ChrisKonnertz\StringCalc\Parser\FunctionNode;
-use ChrisKonnertz\StringCalc\Parser\SymbolNode;
+
+use ChrisKonnertz\StringCalc\Parser\Nodes\AbstractNode;
+use ChrisKonnertz\StringCalc\Parser\Nodes\ContainerNode;
+use ChrisKonnertz\StringCalc\Parser\Nodes\FunctionNode;
+use ChrisKonnertz\StringCalc\Parser\Nodes\SymbolNode;
 use ChrisKonnertz\StringCalc\Symbols\AbstractConstant;
 use ChrisKonnertz\StringCalc\Symbols\AbstractNumber;
 use ChrisKonnertz\StringCalc\Symbols\AbstractOperator;
-use ChrisKonnertz\StringCalc\Symbols\AbstractSymbol;
 
 /**
  * The calculator has one important method: calculate()
@@ -123,7 +123,7 @@ class Calculator
      */
     protected function calculateFunctionNode(FunctionNode $node)
     {
-        // TODO implement
+
 
         return 0;
     }

@@ -1,6 +1,6 @@
 <?php
 
-namespace ChrisKonnertz\StringCalc\Parser;
+namespace ChrisKonnertz\StringCalc\Parser\Nodes;
 
 /**
  * A function in a term consists of the name of the function
