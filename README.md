@@ -2,16 +2,6 @@
 
 This library is in a very early state (alpha) and is not stable at the moment.
 
-TODO / Missing: 
-* Deal with unary operators
-* Grammar checking
-* Add function for 7E-10 numbers?
-* Make injectable grammar checker?
-* Make exceptions (way more) verbose?
-* Make two operate() methods, for binary and unary operations?
-* Rename symbol classes to symbol type classes?
-* Check phpdoc comment, especially check for @throws tags
-
 ## The term
 
 Example, we need an example! Here we go: `2*(pi-abs(-0.4))`
@@ -34,7 +24,7 @@ $term = '1+2';
 $result = $stringCalc->calculate($term);
 ```
 
-> There is also a demo PHP script included. It is located at `dev/demo.php`.
+> There is a demo PHP script included. It is located at `dev/demo.php`.
 
 ## Types of symbols
 
@@ -196,3 +186,16 @@ It is not intended to provide such support so if you need support of other numer
 
 * General advice: The code of this library is well documented. Therefore, do not hesitate to take a closer 
 look at the implementation. 
+
+## TODO
+
+* Deal with unary operators
+* Grammar checking
+* Add function for 7E-10 numbers?
+* Make injectable grammar checker?
+* Make exceptions (way more) verbose?
+* Make two operate() methods, for binary and unary operations?
+* Rename symbol classes to symbol type classes?
+* Check phpdoc comments, especially check for @throws tags
+* Write docs
+* Publish on Packagist
