@@ -22,6 +22,20 @@ To be more precise, there is an intersecting set of syntactical and grammatical 
 There are some exceptions but usually you will be able to write terms for StringCalc 
 by pretending that you are writing PHP code. 
 
+## Usage example
+
+Here is a minimalistic example of PHP code that calculates a term:
+
+```
+$stringCalc = new ChrisKonnertz\StringCalc\StringCalc();
+
+$term = '1+2';
+
+$result = $stringCalc->calculate($term);
+```
+
+> There is also a demo PHP script included. It is located at `dev/demo.php`.
+
 ## Types of symbols
 
 A term consists of symbols that are from a specific type. This section list all available symbol types.
@@ -89,7 +103,20 @@ The `Symbols\AbstractBracket` class is the base class for all brackets. It is ex
 
 ### Constants
 
-...
+Constants in a term typically represent mathematical constants, for example pi.
+ 
+Example:
+```
+pi*2
+```
+
+#### Constant implementation
+
+The `Symbols\AbstractConstant` class is the base class for all constants. 
+There are several concrete constants that extend this class.
+
+Constants classes have a property called `value` that stores the value of the constant. It is possible to overwrite this
+value in a concrete constant class or to overwrite the getter method `getValue`.
 
 ### Operators
 
@@ -137,7 +164,7 @@ min(1,) // Missing argument
 > Attention: The comma character is used exclusively as a separator of function arguments. 
 It is never interpreted as a decimal mark! Example for the former: max(1,2)
 
-#### Functions implementation
+#### Function implementation
 
 The `Symbols\AbstractFunction` class is the base class for all functions. 
 There are several concrete functions that extend this class.
@@ -155,7 +182,7 @@ if (sizeof($arguments) < 1) {
 }
 ```
 
-The items of the $arguments array will always be of type int or float. They will never be null.
+The items of the `$arguments` array will always be of type int or float. They will never be null.
 
 ## Notes
 

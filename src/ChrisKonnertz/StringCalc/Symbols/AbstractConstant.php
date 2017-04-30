@@ -25,6 +25,7 @@ abstract class AbstractConstant extends AbstractSymbol
     protected $value = 0;
 
     /**
+     * Getter for the value property.
      * Typically the value of the constant should be stored in $this->value.
      * However, in case you want to calculate the value at runtime,
      * feel free to overwrite this getter method.
