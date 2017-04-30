@@ -56,6 +56,7 @@ class Calculator
 
         $calculableTerm = [];
 
+        // TODO Remove this code? (If so also remove ResultBag class)
         // Create the $calculableTerm array which is ready for calculation.
         foreach ($nodes as $node) {
             if (is_a($node, SymbolNode::class)) {
@@ -128,7 +129,8 @@ class Calculator
             }
         }
 
-        return $nodes[0];
+        // The only remaining element of the $nodes array contains the overall result
+        return current($nodes);
 
         // TODO Attention: This method will have to deal with separator symbols.
     }
@@ -155,14 +157,14 @@ class Calculator
     {
         $symbol = $node->getSymbol();
 
-        if (is_a($node, AbstractNumber::class)) {
+        if (is_a($symbol, AbstractNumber::class)) {
             $number = $node->getToken()->getValue();
 
             // Convert string to int or float (depending on the type of the number)
             // Attention: The fractional part of a PHP float can only have a limited length.
             // If the number has a longer fractional part, it will be cut.
             $number = 0 + $number;
-        } elseif (is_a($node, AbstractConstant::class)) {
+        } elseif (is_a($symbol, AbstractConstant::class)) {
             /** @var AbstractConstant $symbol */
 
             $number = $symbol->getValue();

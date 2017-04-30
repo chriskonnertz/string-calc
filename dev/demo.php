@@ -18,6 +18,8 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/framy/latest/css/framy.min.css">
 </head>
 <body>
+    <h1>StringCalc Demo</h1>
+
 	<form method="POST">
 		Term:
 		<input id="term" name="term" type="text" value="<?php echo $term !== null ? $term : '1+(2+3)' ?>">
@@ -31,9 +33,9 @@
 
 			$result = $stringCalc->calculate($term);
 
-			var_dump($result);
+			echo 'Result: '.$result. ' (Type: '.gettype($result).')';
 		}
-		
+
 	?>
 </body>
 </html>
