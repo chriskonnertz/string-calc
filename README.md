@@ -8,19 +8,22 @@ StringCalc is a PHP calculator library for mathematical terms (expressions) pass
 ╚═════════════════════════════════════════════════════════════════════════════════════════╝
 ````
 
-## The term
+## Installation
 
-Example, we need an example! Here we go: `2*(pi-abs(-0.4))`
+Through Composer:
 
-This is a mathematical term following syntactical and grammatical rules that StringCalc understands. 
-Syntax and grammar of these terms are very similar to what you would write in PHP code. 
-To be more precise, there is an intersecting set of syntactical and grammatical rules. 
-There are some exceptions but usually you will be able to write terms for StringCalc 
-by pretending that you are writing PHP code. 
+```
+composer require chriskonnertz/string-calc
+```
+
+From now on you can run `composer update` to get the latest version of this library.
+
+It is possible to use this library without using Composer but then it is necessary to register an 
+[autoloader function](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-0.md#example-implementation).
 
 ## Usage example
 
-Here is a minimalistic example of PHP code that calculates a term:
+Here is a minimalistic example of PHP code that calculates a term. It assumes that there is an autoloader.
 
 ```
 $stringCalc = new ChrisKonnertz\StringCalc\StringCalc();
@@ -31,6 +34,16 @@ $result = $stringCalc->calculate($term);
 ```
 
 > There is a demo PHP script included. It is located at `dev/demo.php`.
+
+## The term
+
+Example, we need an example! Here we go: `2*(pi-abs(-0.4))`
+
+This is a mathematical term following syntactical and grammatical rules that StringCalc understands. 
+Syntax and grammar of these terms are very similar to what you would write in PHP code. 
+To be more precise, there is an intersecting set of syntactical and grammatical rules. 
+There are some exceptions but usually you will be able to write terms for StringCalc 
+by pretending that you are writing PHP code. 
 
 ## Types of symbols
 
@@ -201,7 +214,6 @@ look at the implementation.
 
 ## TODO
 
-* Deal with unary operators
 * Grammar checking
 * Add function for 7E-10 numbers?
 * Make injectable grammar checker?
