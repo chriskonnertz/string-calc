@@ -132,7 +132,7 @@ value in a concrete constant class or to overwrite the getter method `getValue()
 ### Operators
 
 Operators in a term can be unary or binary or even both. However, if they are unary, they have to follow
- the prefix notation (example: "-1"). 
+ the prefix notation (example: `-1`). 
  
 Unary operator example: `-1`
 Binary operator example: `2-1`
