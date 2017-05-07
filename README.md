@@ -121,7 +121,7 @@ The `getSymbolContainer()` method is a getter method that returns the symbol con
 The symbol container implements the `Symbols\SymbolContainerInterface` and contains instances of all registered
 symbols. It has several method such as `add()`, `remove()`, `size()` and `getAll()`.
 
-### getSymbolContainer
+### getContainer
 
 The `getContainer()` method is a getter method that returns the service container. 
 Take a look at the notes about the constructor for more details. There is not setter method for the container, 
