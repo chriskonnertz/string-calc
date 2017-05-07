@@ -65,7 +65,7 @@ Here is a list that shows examples with unusual syntax:
 ```
 1 // A term can consist of just a number
 (1+((2))) //  Usage of obsolete brackets is allowed
-00001 // Prefix a number with obsolete zero digits is okay
+00001 // Prefix a number with obsolete zero digits is possible
 .1 // Ommiting a zero digit before a period charcter is okay
 ```
 
@@ -119,7 +119,7 @@ with the symbol type classes.
 
 The `getSymbolContainer()` method is a getter method that returns the symbol container. 
 The symbol container implements the `Symbols\SymbolContainerInterface` and contains instances of all registered
-symbols. It has several method such as `add()`, `remove()`, `size()` and `getAll()`.
+symbols. It has several methods such as `add()`, `remove()`, `size()` and `getAll()`.
 
 ### getContainer
 
