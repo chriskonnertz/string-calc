@@ -45,6 +45,88 @@ To be more precise, there is an intersecting set of syntactical and grammatical 
 There are some exceptions but usually you will be able to write terms for StringCalc 
 by pretending that you are writing PHP code. 
 
+### Term examples
+
+Here are some unspectacular examples:
+
+```
+1+2*3-4
+1 + 2 * 3 - 4
+pi * 2
+PI * 2
+abs(1) + min(1,2) * max(1,2,3)
+min(1+2, abs(-1))
+1 + ((2 - 3) * (5 - 7))
+2 * (-3)
+```
+
+Here is a list that shows examples with unusual syntax:
+
+```
+1 // A term can consist of just a number
+(1+((2))) //  Usage of obsolete brackets is allowed
+00001 // Prefix a number with obsolete zero digits is okay
+.1 // Ommiting a zero digit before a period charcter is okay
+```
+
+## The StringCalc class
+
+The `StrincCalc` is the  is the API frontend of the StringCalc library. 
+This section describes the public methods of this class.
+
+### Constructor
+
+The constructor has one optional parameter named `$container` that implements the `Container\ContainerInterface`. 
+This is the service container used by StringCalc. 
+If no argument is passed, the constructor will create a new container object of type `Container\Container` on its own.
+The container interface ensures that the container implements the 
+[PSR-11 standard](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-11-container.md). Therefore you can
+replace the default container with every other container that implements the PSR-11 standard, but you have to wrap it 
+in a wrapper class that makes it compatible to the `Container\Contaner` class. We recommend to avoid the extra afford 
+and to extend the `Container\Contaner` class instead.
+
+### calculate
+
+The `calculate()` method is the most important method of this class. It expects one parameter of type string called `$term`.
+It returns a number of type float or int. We recommend to wrap any calls of this method in a `try-catch`-block and to
+ write a `catch`-statement that catches all exceptions of type `Exceptions\StringCalcException`.
+ 
+### addSymbol
+
+Call the `addSymbol()` if you want to add custom symbols to the list of symbols. It has two parameters. 
+The first one named `$symbol` is the symbol object. 
+Therefore the object has to extend the abstract class `Symbol\AbstractSymbol`.
+The second parameter named `$replaceSymbol` is optional and allows you to replace a symbol in the symbol list. 
+If you want to use this parameter you have to pass the full name of the class that you want to replace.
+
+Example:
+```
+$symbol = new ExampleClassOne();
+$replaceSymbol = ExampleClassTwo::class;
+$stringCalc->addSymbol($symbol, $replaceSymbol);
+```
+
+The `addSymbol()` method is just a shortcut, you can call this method on the symbol container object as well. 
+This object also has a `remove` method that removes a symbol from the container.
+
+If you want to add a new symbol, it cannot directly extend from the `Symbol\AbstractSymbol` class but has to extend one
+of the abstract symbol type classes that extend the `Symbol\AbstractSymbol` class. The reason for this constraint is
+that these classes have a semantic meaning that is not implemented in the classes themselves but in other classes 
+such as the tokenizer and the parser. Take a look at the [Types of symbols](#Types-of-symbols) section to familiarize 
+with the symbol type classes.
+
+### getSymbolContainer
+
+The `getSymbolContainer()` method is a getter method that returns the symbol container. 
+The symbol container implements the `Symbols\SymbolContainerInterface` and contains instances of all registered
+symbols. It has several method such as `add()`, `remove()`, `size()` and `getAll()`.
+
+### getSymbolContainer
+
+The `getContainer()` method is a getter method that returns the service container. 
+Take a look at the notes about the constructor for more details. There is not setter method for the container, 
+you can only set it via the constructor.
+
 ## Types of symbols
 
 A term consists of symbols that are of a specific type. This section lists all available symbol types.
@@ -197,7 +279,27 @@ The items of the `$arguments` array will always be of type int or float. They wi
 
 ### Separators
 
-...
+A separator separates the arguments of a (mathematical) function. 
+Out-of-the-box there is one separator symbol with one identifier: `,`
+ 
+Good examples:
+ 
+```
+max(1,2)
+max(1,2,3) 
+```
+
+Bad examples:
+ 
+```
+3+1,2 // Usage out of scope / missusage as decimal mark
+max(1,,3) // Missing calculable expression between separators
+```
+
+#### Separator implementation
+
+The `Symbols\AbstractSeparator` class is the base class for all separators. 
+There is only one concrete functions that extend this class: `Symbols\Concrete\Separator`
 
 ## Notes
 
@@ -207,7 +309,10 @@ in StringCalc.
 
 * This class does not offer support for any other numeral system than the decimal numeral system. 
 It is not intended to provide such support so if you need support of other numeral system 
-(such as the binary numeral system) this might not be the library of your choice. 
+(such as the binary numeral system) this might not be the library of your choice.
+ 
+* Namespaces in this documentation are relative. For example the namespace `Exceptions\StringCalcException` refers to
+`ChrisKonnertz\StringCalc\Exceptions\StringCalcException`.
 
 * General advice: The code of this library is well documented. Therefore, do not hesitate to take a closer 
 look at the implementation. 

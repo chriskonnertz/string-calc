@@ -7,7 +7,7 @@ namespace ChrisKonnertz\StringCalc\Exceptions;
  *
  * @package ChrisKonnertz\StringCalc\Exceptions
  */
-class NotFoundException extends \Exception
+class NotFoundException extends StringCalcException
 {
 
 }

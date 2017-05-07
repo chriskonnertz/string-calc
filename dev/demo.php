@@ -34,7 +34,7 @@
 			try {
                 $result = $stringCalc->calculate($term);
 
-                echo 'Result: <code>'.$result.'</code> (Type: '.gettype($result).')';
+                echo 'Result: <code><b>'.$result.'</b></code> (Type: '.gettype($result).')';
             } catch (Exception $exception) {
                 echo $exception->getMessage();
             }

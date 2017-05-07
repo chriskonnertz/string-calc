@@ -7,7 +7,7 @@ namespace ChrisKonnertz\StringCalc\Exceptions;
  *
  * @package ChrisKonnertz\StringCalc\Exceptions
  */
-class ContainerException extends \Exception
+class ContainerException extends StringCalcException
 {
 
 }

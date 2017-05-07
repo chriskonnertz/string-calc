@@ -7,7 +7,7 @@ namespace ChrisKonnertz\StringCalc\Exceptions;
  *
  * @package ChrisKonnertz\StringCalc\Exceptions
  */
-class ParserException extends \Exception
+class ParserException extends StringCalcException
 {
 
 }

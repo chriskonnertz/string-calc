@@ -8,7 +8,7 @@ namespace ChrisKonnertz\StringCalc\Exceptions;
  *
  * @package ChrisKonnertz\StringCalc\Exceptions
  */
-class InvalidIdentifierException extends \Exception
+class InvalidIdentifierException extends StringCalcException
 {
 
 }
