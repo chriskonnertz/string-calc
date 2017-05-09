@@ -7,6 +7,7 @@ use ChrisKonnertz\StringCalc\Symbols\SymbolContainer;
 
 class SymbolContainerServiceProvider extends AbstractSingletonServiceProvider
 {
+    
     /**
      * @inheritdoc
      */
