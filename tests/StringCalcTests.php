@@ -47,7 +47,7 @@ class StringCalcTest extends PHPUnit_Framework_TestCase
             ['-1*-1', 1],
 
             ['1/1', 1],
-            ['2/1', 2.],
+            ['2/1', 2],
             ['1/2', 0.5],
             ['-1/2', -0.5],
 
