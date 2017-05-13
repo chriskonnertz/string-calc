@@ -332,4 +332,4 @@ look at the implementation.
 * Make two operate() methods, for binary and unary operations?
 * Rename symbol classes to symbol type classes?
 * Check phpdoc comments, especially check for @throws tags
-* Finalize docs
+* Finalize documentation
