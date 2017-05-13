@@ -321,6 +321,8 @@ It is not intended to provide such support so if you need support of other numer
 * General advice: The code of this library is well documented. Therefore, do not hesitate to take a closer 
 look at the implementation. 
 
+* Status of this repository: Maintained. Create an issue and you will get a response, usually within 48 hours.
+
 ## TODO
 
 * Grammar checking
