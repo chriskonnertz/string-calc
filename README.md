@@ -142,8 +142,11 @@ $node->traverse(function($node, $level)
 ```
 
 This example code will visualize the syntax tree. It uses the `traverse(Closure $callback)` method to go through all
-node of the tree. The level of the node is visualised by intention and the name of the class of the node 
-object is printed to display the type of the node.
+nodes of the tree. The level of the node is visualised by intention and the name of the class of the node 
+object is printed to display the type of the node. A node implements the abstract `Parser\Nodes\AbstractNode` class.
+There are three types of nodes: Container nodes (representing what is inside brackets), function nodes (representing
+a mathematical function and its arguments) and symbol nodes that represent mathematical symbols of certain types
+8numbers, operators, ...). These classes live in the `Parser\Nodes` namespace.
  
 ### addSymbol
 
