@@ -73,6 +73,9 @@ Here is a list that shows examples with unusual syntax:
 .1 // Ommiting a zero digit before a period charcter is okay
 ```
 
+To see a list of all available types of mathematical symbols (parts of a term) follow this link:
+[Symbols/Concrete classes](chriskonnertz/string-calc/tree/master/src/ChrisKonnertz/StringCalc/Symbols/Concrete)
+
 ## The StringCalc class
 
 The `StrincCalc` is the  is the API frontend of the StringCalc library. 
@@ -378,11 +381,10 @@ look at the implementation.
 
 ## TODO
 
-* Grammar checking
-* Add function for 7E-10 numbers?
+* Add missing grammar checking
 * Make injectable grammar checker?
 * Make exceptions (way more) verbose?
-* Make two operate() methods, for binary and unary operations?
 * Rename symbol classes to symbol type classes?
+* Add more functions and constants
 * Check phpdoc comments, especially check for @throws tags
 * Finalize documentation
