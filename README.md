@@ -74,7 +74,7 @@ Here is a list that shows examples with unusual syntax:
 ```
 
 To see a list of all available types of mathematical symbols (parts of a term) follow this link:
-[Symbols/Concrete classes](chriskonnertz/string-calc/tree/master/src/ChrisKonnertz/StringCalc/Symbols/Concrete)
+[Symbols/Concrete classes](src/ChrisKonnertz/StringCalc/Symbols/Concrete)
 
 ## The StringCalc class
 
