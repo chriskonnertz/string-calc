@@ -83,10 +83,6 @@ class StringCalc
      */
     public function calculate($term)
     {
-        $stringHelper = $this->container->get('stringcalc_stringhelper');
-        $stringHelper->validate($term);
-        $term = strtolower($term);
-
         $tokens = $this->tokenize($term);
         if (sizeof($tokens) == 0) {
             return 0;
@@ -111,8 +107,12 @@ class StringCalc
      * @param string $term
      * @return array
      */
-    protected function tokenize($term)
+    public function tokenize($term)
     {
+        $stringHelper = $this->container->get('stringcalc_stringhelper');
+        $stringHelper->validate($term);
+        $term = strtolower($term);
+
         /** @var InputStreamInterface $inputStream */
         $inputStream = $this->container->get('stringcalc_inputstream');
         $inputStream->setInput($term);
@@ -129,12 +129,12 @@ class StringCalc
     }
 
     /**
-     * Parses an array with tokens. Returns an array of nodes.
+     * Parses an array of tokens. Returns a single node that is a container node.
      *
      * @param Token[] $tokens
      * @return ContainerNode
      */
-    protected function parse(array $tokens)
+    public function parse(array $tokens)
     {
         /** @var SymbolContainerInterface $symbolContainer */
         $symbolContainer = $this->container->get('stringcalc_symbolcontainer');

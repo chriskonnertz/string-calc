@@ -2,6 +2,8 @@
 
 namespace ChrisKonnertz\StringCalc\Parser\Nodes;
 
+use Closure;
+
 /**
  * A parent node is a container for a (sorted) array of nodes.
  * Notice: Do not mix this class up with the service container class.
@@ -77,6 +79,18 @@ class ContainerNode extends AbstractNode
     public function getChildNodes()
     {
         return $this->childNodes;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function traverse(Closure $callback, $level = 0)
+    {
+        $callback($this, $level);
+
+        foreach ($this->childNodes as $childNode) {
+            $childNode->traverse($callback, $level + 1);
+        }
     }
 
 }

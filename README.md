@@ -89,9 +89,59 @@ and to extend the `Container\Contaner` class instead.
 
 ### calculate
 
-The `calculate()` method is the most important method of this class. It expects one parameter of type string called `$term`.
+The `calculate()` method is the most important method of this class. 
+It expects one parameter of type string called `$term`.
 It returns a number of type float or int. We recommend to wrap any calls of this method in a `try-catch`-block and to
  write a `catch`-statement that catches all exceptions of type `Exceptions\StringCalcException`.
+ 
+### tokenize
+
+The `tokenize($term)` method tokenizes the passed term. It returns an array with the tokens. 
+Tokens are the parts of a term or to be more precise the mathematical symbols of a term. A token is an object
+that has the `Tokenizer\Token` class as its parent. it implements the `__toString()` method 
+so you can do something like this:
+
+```
+$term = '1+(2+max(-3,3))';
+
+$tokens = $stringCalc->tokenize($term);
+
+foreach ($tokens as $token) {
+    echo ' '.$token.' ';
+}
+```
+
+This will print the tokens of the term aka a string representation the whole term. A token consists of tree properties: 
+The value, the type and the position. The value is returned by the  `__toString()` method. The type is a constant 
+that represents characters, words or numbers. The position is the index of the value string in the term string.
+Tokens do not have a semantic meaning.
+
+### parse
+
+The `parse(array $tokens)` method parses an array of tokens. It returns an array of nodes. Internally it uses the
+parser aka `Parser\Parser` to parse the tokens. It transforms the tokens to nodes of the syntax tree. These nodes have
+a semantic meaning, for example they are numbers or operators 
+(take a look at the [Types of symbols](#Types-of-symbols) section for a full list of symbol types). 
+Also they have a hierarchy, also known as the tree in the "syntax tree". 
+Brackets in a term create a node in the syntax tree. Usage example:
+
+
+```
+$term = '1+(2+max(-3,3))';
+
+$tokens = $stringCalc->tokenize($term);
+
+$node = $stringCalc->parse($tokens);
+
+$node->traverse(function($node, $level)
+{
+    echo str_repeat('__', $level).' ['.get_class($node).']<br>';
+});
+```
+
+This example code will visualize the syntax tree. It uses the `traverse(Closure $callback)` method to go through all
+node of the tree. The level of the node is visualised by intention and the name of the class of the node 
+object is printed to display the type of the node.
  
 ### addSymbol
 

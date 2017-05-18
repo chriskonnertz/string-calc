@@ -32,9 +32,18 @@
 			$stringCalc = new ChrisKonnertz\StringCalc\StringCalc();
 
 			try {
-                $result = $stringCalc->calculate($term);
+                //$result = $stringCalc->calculate($term);
 
-                echo 'Result: <code><b>'.$result.'</b></code> (Type: '.gettype($result).')';
+                //echo 'Result: <code><b>'.$result.'</b></code> (Type: '.gettype($result).')';
+
+                $tokens = $stringCalc->tokenize($term);
+
+                $node = $stringCalc->parse($tokens);
+
+                $node->traverse(function($node, $level)
+                {
+                    echo str_repeat('__', $level).' ['.get_class($node).']<br>';
+                });
             } catch (Exception $exception) {
                 echo $exception->getMessage();
             }

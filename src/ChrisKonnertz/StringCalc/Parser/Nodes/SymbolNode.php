@@ -5,6 +5,7 @@ namespace ChrisKonnertz\StringCalc\Parser\Nodes;
 use ChrisKonnertz\StringCalc\Symbols\AbstractOperator;
 use ChrisKonnertz\StringCalc\Symbols\AbstractSymbol;
 use ChrisKonnertz\StringCalc\Tokenizer\Token;
+use Closure;
 
 /**
  * A symbol node is a node in the syntax tree.
@@ -121,6 +122,14 @@ class SymbolNode extends AbstractNode
     public function isUnaryOperator()
     {
         return $this->isUnaryOperator;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function traverse(Closure $callback, $level = 0)
+    {
+        $callback($this, $level);
     }
 
 }
