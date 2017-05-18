@@ -34,7 +34,7 @@ class StringCalcTest extends PHPUnit_Framework_TestCase
 
             ['1+0', 1],
             ['1+1', 2],
-            ['-1+1', 1],
+            ['-1+1', 0],
 
             ['1-0', 1],
             ['1-1', 0],
@@ -47,12 +47,12 @@ class StringCalcTest extends PHPUnit_Framework_TestCase
             ['-1*-1', 1],
 
             ['1/1', 1],
-            ['2/1', 2.],
+            ['2/1', 2],
             ['1/2', 0.5],
             ['-1/2', -0.5],
 
             ['abs(2)', 2],
-            ['abs(-2)', -2],
+            ['abs(-2)', 2],
         ];
 
         $this->doCalculations($calculations);
@@ -73,6 +73,9 @@ class StringCalcTest extends PHPUnit_Framework_TestCase
             $expectedResult = $calculation[1];
 
             $calculatedResult = $this->stringCalc->calculate($term);
+
+            // Use the following line to see the current term:
+            //echo $term.' --- ';
 
             $this->assertEquals($calculatedResult, $expectedResult);
         }

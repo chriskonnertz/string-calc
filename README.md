@@ -1,5 +1,7 @@
 # StringCalc
 
+[![unstable](http://badges.github.io/stability-badges/dist/unstable.svg)](http://github.com/badges/stability-badges)
+
 StringCalc is a PHP calculator library for mathematical terms (expressions) passed as strings.
 
 ````
@@ -369,6 +371,8 @@ It is not intended to provide such support so if you need support of other numer
 * General advice: The code of this library is well documented. Therefore, do not hesitate to take a closer 
 look at the implementation. 
 
+* Status of this repository: Maintained. Create an issue and you will get a response, usually within 48 hours.
+
 ## TODO
 
 * Grammar checking
@@ -378,5 +382,4 @@ look at the implementation.
 * Make two operate() methods, for binary and unary operations?
 * Rename symbol classes to symbol type classes?
 * Check phpdoc comments, especially check for @throws tags
-* Write docs
-* Publish on Packagist
+* Finalize documentation
