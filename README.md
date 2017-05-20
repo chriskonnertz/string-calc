@@ -40,6 +40,15 @@ $result = $stringCalc->calculate($term);
 
 > There is a PHP demo script included. It is located at `dev/demo.php`.
 
+## Motivation
+
+Imagine you are building a web application that allows users to enter mathematical terms in a text field.
+ How would you calculate the results of such terms? PHP's [eval](http://php.net/manual/de/function.eval.php) function
+ is not the answer. The official documentation recommends not to use this function: 
+ _The eval() language construct is very dangerous because it allows execution of arbitrary PHP code. 
+ Its use thus is discouraged._ StringCalc has its own parser implementation and therefore is a better and 
+ save alternative.
+
 ## The term
 
 Example, we need an example! Here we go: `2*(pi-abs(-0.4))`
