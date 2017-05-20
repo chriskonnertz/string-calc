@@ -158,7 +158,7 @@ class StringCalc
      */
     public function addSymbol(AbstractSymbol $symbol, $replaceSymbol = null)
     {
-        $this->symbolContainer->addSymbol($symbol, $replaceSymbol);
+        $this->symbolContainer->add($symbol, $replaceSymbol);
     }
 
     /**
