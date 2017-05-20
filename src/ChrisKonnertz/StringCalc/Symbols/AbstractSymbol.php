@@ -17,7 +17,7 @@ abstract class AbstractSymbol
 {
 
     /**
-     * Array with the 1-n (exception: the Number class may have 0)
+     * Array with the 1-n (exception: the Numbers class may have 0)
      * unique identifiers (the textual representation of a symbol)
      * of the symbol. Example: ['/', ':']
      * Attention: The identifiers are case-sensitive, however,

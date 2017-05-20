@@ -1,8 +1,7 @@
 <?php
 
-namespace ChrisKonnertz\StringCalc\Symbols\Concrete;
+namespace ChrisKonnertz\StringCalc\Symbols\Concrete\Functions;
 
-use ChrisKonnertz\StringCalc\Exceptions\InvalidArgumentsException;
 use ChrisKonnertz\StringCalc\Symbols\AbstractFunction;
 
 /**

@@ -2,19 +2,19 @@
 
 namespace ChrisKonnertz\StringCalc\Symbols;
 
-use ChrisKonnertz\StringCalc\Symbols\Concrete\AbsFunction;
-use ChrisKonnertz\StringCalc\Symbols\Concrete\AdditionOperator;
-use ChrisKonnertz\StringCalc\Symbols\Concrete\ClosingBracket;
-use ChrisKonnertz\StringCalc\Symbols\Concrete\DivisionOperator;
-use ChrisKonnertz\StringCalc\Symbols\Concrete\ExponentiationOperator;
-use ChrisKonnertz\StringCalc\Symbols\Concrete\MaxFunction;
-use ChrisKonnertz\StringCalc\Symbols\Concrete\MinFunction;
-use ChrisKonnertz\StringCalc\Symbols\Concrete\MultiplicationOperator;
+use ChrisKonnertz\StringCalc\Symbols\Concrete\Functions\AbsFunction;
+use ChrisKonnertz\StringCalc\Symbols\Concrete\Operators\AdditionOperator;
+use ChrisKonnertz\StringCalc\Symbols\Concrete\Brackets\ClosingBracket;
+use ChrisKonnertz\StringCalc\Symbols\Concrete\Operators\DivisionOperator;
+use ChrisKonnertz\StringCalc\Symbols\Concrete\Operators\ExponentiationOperator;
+use ChrisKonnertz\StringCalc\Symbols\Concrete\Functions\MaxFunction;
+use ChrisKonnertz\StringCalc\Symbols\Concrete\Functions\MinFunction;
+use ChrisKonnertz\StringCalc\Symbols\Concrete\Operators\MultiplicationOperator;
 use ChrisKonnertz\StringCalc\Symbols\Concrete\Number;
-use ChrisKonnertz\StringCalc\Symbols\Concrete\OpeningBracket;
-use ChrisKonnertz\StringCalc\Symbols\Concrete\PiConstant;
+use ChrisKonnertz\StringCalc\Symbols\Concrete\Brackets\OpeningBracket;
+use ChrisKonnertz\StringCalc\Symbols\Concrete\Constants\PiConstant;
 use ChrisKonnertz\StringCalc\Symbols\Concrete\Separator;
-use ChrisKonnertz\StringCalc\Symbols\Concrete\SubtractionOperator;
+use ChrisKonnertz\StringCalc\Symbols\Concrete\Operators\SubtractionOperator;
 
 /**
  * This class has one simple job: It contains an array with the names

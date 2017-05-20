@@ -1,6 +1,6 @@
 <?php
 
-namespace ChrisKonnertz\StringCalc\Symbols\Concrete;
+namespace ChrisKonnertz\StringCalc\Symbols\Concrete\Constants;
 
 use ChrisKonnertz\StringCalc\Symbols\AbstractConstant;
 

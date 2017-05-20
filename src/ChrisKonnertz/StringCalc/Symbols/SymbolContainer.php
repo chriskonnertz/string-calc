@@ -3,6 +3,7 @@
 namespace ChrisKonnertz\StringCalc\Symbols;
 
 use ChrisKonnertz\StringCalc\Exceptions\NotFoundException;
+use ChrisKonnertz\StringCalc\Exceptions\StringCalcException;
 use ChrisKonnertz\StringCalc\Support\StringHelperInterface;
 use ChrisKonnertz\StringCalc\Symbols\Concrete\Number;
 
@@ -45,7 +46,8 @@ class SymbolContainer implements SymbolContainerInterface
      * Even if this validation passes, the symbols still might be corrupt.
      * Will throw an exception if validation fails.
      *
-     * @throws \Exception
+     * @return void
+     * @throws StringCalcException
      */
     protected function validate()
     {
@@ -80,7 +82,7 @@ class SymbolContainer implements SymbolContainerInterface
             $symbol = new $symbolClassName($this->stringHelper);
 
             // Notice: We cannot use add() here, because validation might fail
-            // if we do not add the Number class as the first symbol.
+            // if we do not add the Numbers class as the first symbol.
             $this->symbols[$symbolClassName] = $symbol;
         }
 

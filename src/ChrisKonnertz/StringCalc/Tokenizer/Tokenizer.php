@@ -3,6 +3,7 @@
 namespace ChrisKonnertz\StringCalc\Tokenizer;
 
 use ChrisKonnertz\StringCalc\Exceptions\NotFoundException;
+use ChrisKonnertz\StringCalc\Exceptions\StringCalcException;
 use ChrisKonnertz\StringCalc\Support\StringHelperInterface;
 
 /**
@@ -199,7 +200,7 @@ class Tokenizer
      * beginning of a number.
      *
      * @return string
-     * @throws \Exception
+     * @throws StringCalcException
      */
     protected function readNumber()
     {
@@ -213,7 +214,7 @@ class Tokenizer
             if ($this->isPeriod($char) or $this->isDigit($char)) {
                 if ($this->isPeriod($char)) {
                     if ($foundPeriod) {
-                        throw new \Exception('Error: Number cannot have more than one period');
+                        throw new StringCalcException('Error: A number cannot have more than one period');
                     }
 
                     $foundPeriod = true;

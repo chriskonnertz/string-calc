@@ -1,6 +1,6 @@
 <?php
 
-namespace ChrisKonnertz\StringCalc\Symbols\Concrete;
+namespace ChrisKonnertz\StringCalc\Symbols\Concrete\Brackets;
 
 use ChrisKonnertz\StringCalc\Symbols\AbstractOpeningBracket;
 

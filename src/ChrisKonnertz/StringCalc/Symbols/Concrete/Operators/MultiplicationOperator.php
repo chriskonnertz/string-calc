@@ -1,41 +1,35 @@
 <?php
 
-namespace ChrisKonnertz\StringCalc\Symbols\Concrete;
+namespace ChrisKonnertz\StringCalc\Symbols\Concrete\Operators;
 
 use ChrisKonnertz\StringCalc\Symbols\AbstractOperator;
 
 /**
  * Operator for mathematical multiplication.
- * Example: "1+2" => 3
+ * Example: "2*3" => 6
  * @see https://en.wikipedia.org/wiki/Multiplication
  *
  * @package ChrisKonnertz\StringCalc\Symbols\Concrete
  */
-class SubtractionOperator extends AbstractOperator
+class MultiplicationOperator extends AbstractOperator
 {
 
     /**
      * @inheritdoc
      */
-    protected $identifiers = ['-'];
+    protected $identifiers = ['*'];
 
     /**
      * @inheritdoc
      */
-    const PRECEDENCE = 100;
-
-    /**
-     * @inheritdoc
-     * Notice: The subtraction operator is unary AND binary!
-     */
-    const OPERATES_UNARY = true;
+    const PRECEDENCE = 200;
 
     /**
      * @inheritdoc
      */
     public function operate($leftNumber, $rightNumber)
     {
-        return $leftNumber - $rightNumber;
+        return $leftNumber * $rightNumber;
     }
 
 }

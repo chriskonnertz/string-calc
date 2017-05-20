@@ -1,12 +1,13 @@
 <?php
 
-namespace ChrisKonnertz\StringCalc\Symbols\Concrete;
+namespace ChrisKonnertz\StringCalc\Symbols\Concrete\Functions;
 
 use ChrisKonnertz\StringCalc\Symbols\AbstractFunction;
 
 /**
  * PHP min() function. Expects at least one parameter.
  * Example: "min(1,2,3)" => 1, "min(1,-1)" => -1, "min(0,0)" => 0, "min(2)" => 2
+ * @see http://php.net/manual/en/function.min.php
  */
 class MinFunction extends AbstractFunction
 {

@@ -2,6 +2,7 @@
 
 namespace ChrisKonnertz\StringCalc\Calculator;
 
+use ChrisKonnertz\StringCalc\Exceptions\StringCalcException;
 use ChrisKonnertz\StringCalc\Parser\Nodes\AbstractNode;
 use ChrisKonnertz\StringCalc\Parser\Nodes\ContainerNode;
 use ChrisKonnertz\StringCalc\Parser\Nodes\FunctionNode;
@@ -73,7 +74,7 @@ class Calculator
      *
      * @param ContainerNode $containerNode
      * @return float|int
-     * @throws \Exception
+     * @throws StringCalcException
      */
     protected function calculateContainerNode(ContainerNode $containerNode)
     {

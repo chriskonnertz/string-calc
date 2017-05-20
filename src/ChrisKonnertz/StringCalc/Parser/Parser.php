@@ -72,7 +72,8 @@ class Parser
      *
      * @param Token[] $tokens
      * @return SymbolNode[]
-     * @throws \Exception
+     * @throws NotFoundException
+     * @throws ParserException
      */
     protected function detectSymbols(array $tokens)
     {
