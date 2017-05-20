@@ -3,7 +3,7 @@
 /**
  * Class StringCalcTest for tests with PHPUnit.
  */
-class StringCalcTest extends PHPUnit_Framework_TestCase
+class StringCalcTest extends \PHPUnit_Framework_TestCase
 {
 
     /**
