@@ -1,6 +1,5 @@
 # StringCalc
 
-[![unstable](http://badges.github.io/stability-badges/dist/unstable.svg)](http://github.com/badges/stability-badges)
 [![Build Status](https://travis-ci.org/chriskonnertz/string-calc.png)](https://travis-ci.org/chriskonnertz/string-calc)
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/chriskonnertz/string-calc/master/LICENSE)
 
