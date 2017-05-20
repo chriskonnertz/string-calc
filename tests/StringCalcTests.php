@@ -87,4 +87,66 @@ class StringCalcTest extends \PHPUnit\Framework\TestCase
         }
     }
 
+    public function testTokenize()
+    {
+        $stringCalc = $this->getInstance();
+
+        $term = '1+(2+max(-3,3))';
+
+        $tokens = $stringCalc->tokenize($term);
+
+        $this->assertNotNull($tokens);
+    }
+
+    public function testParseAndTraverse()
+    {
+        $stringCalc = $this->getInstance();
+
+        $term = '1+(2+max(-3,3))';
+
+        $tokens = $stringCalc->tokenize($term);
+
+        $node = $stringCalc->parse($tokens);
+
+        $this->assertNotNull($node);
+
+        $node->traverse(function($node, $level)
+        {
+            // do nothing
+        });
+    }
+
+    public function testGetSymbolContainer()
+    {
+        $stringCalc = $this->getInstance();
+
+        $symbolContainer = $stringCalc->getSymbolContainer();
+
+        $this->assertNotNull($symbolContainer);
+    }
+
+    public function testGetContainer()
+    {
+        $stringCalc = $this->getInstance();
+
+        $container = $stringCalc->getContainer();
+
+        $this->assertNotNull($container);
+    }
+
+    public function testAddSymbol()
+    {
+        $stringCalc = $this->getInstance();
+
+        $container = $stringCalc->getContainer();
+
+        $stringHelper = $container->get('stringcalc_stringhelper');
+
+        $symbol = new ChrisKonnertz\StringCalc\Symbols\Concrete\Constants\PiConstant($stringHelper);
+
+        $replaceSymbol = get_class($symbol);
+
+        $stringCalc->addSymbol($symbol, $replaceSymbol);
+    }
+
 }
