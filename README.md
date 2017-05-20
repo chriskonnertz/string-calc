@@ -1,6 +1,7 @@
 # StringCalc
 
 [![unstable](http://badges.github.io/stability-badges/dist/unstable.svg)](http://github.com/badges/stability-badges)
+[![Build Status](https://travis-ci.org/chriskonnertz/string-calc.png)](https://travis-ci.org/chriskonnertz/string-calc)
 
 StringCalc is a PHP calculator library for mathematical terms (expressions) passed as strings.
 
