@@ -64,7 +64,7 @@ min(1+2, abs(-1))
 2 * (-3)
 ```
 
-Here is a list that shows examples with unusual syntax:
+Here is a list that shows examples with more exotic syntax:
 
 ```
 1 // A term can consist of just a number
@@ -118,8 +118,8 @@ foreach ($tokens as $token) {
 
 This will print the tokens of the term aka a string representation the whole term. A token consists of tree properties: 
 The value, the type and the position. The value is returned by the  `__toString()` method. The type is a constant 
-that represents characters, words or numbers. The position is the index of the value string in the term string.
-Tokens do not have a semantic meaning.
+that represents one of these types: characters, words or numbers. 
+The position is the index of the value string in the term string. Tokens do not have a semantic meaning.
 
 ### parse
 
@@ -127,7 +127,7 @@ The `parse(array $tokens)` method parses an array of tokens. It returns an array
 parser aka `Parser\Parser` to parse the tokens. It transforms the tokens to nodes of the syntax tree. These nodes have
 a semantic meaning, for example they are numbers or operators 
 (take a look at the [Types of symbols](#Types-of-symbols) section for a full list of symbol types). 
-Also they have a hierarchy, also known as the tree in the "syntax tree". 
+Also they have a hierarchy, also known as the "tree" in the "syntax tree". 
 Brackets in a term create a node in the syntax tree. Usage example:
 
 
@@ -149,7 +149,7 @@ nodes of the tree. The level of the node is visualised by intention and the name
 object is printed to display the type of the node. A node implements the abstract `Parser\Nodes\AbstractNode` class.
 There are three types of nodes: Container nodes (representing what is inside brackets), function nodes (representing
 a mathematical function and its arguments) and symbol nodes that represent mathematical symbols of certain types
-8numbers, operators, ...). These classes live in the `Parser\Nodes` namespace.
+(numbers, operators, ...). These classes live in the `Parser\Nodes` namespace.
  
 ### addSymbol
 
