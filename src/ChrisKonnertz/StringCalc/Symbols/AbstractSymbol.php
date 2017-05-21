@@ -134,7 +134,7 @@ abstract class AbstractSymbol
                 $this->validateIdentifier($identifier);
             }
 
-            if (sizeof(array_unique($identifiers)) != sizeof($identifiers) ) {
+            if (sizeof(array_unique($identifiers)) != sizeof($identifiers)) {
                 throw new \DomainException('Error: Identifier duplicate found.');
             }
 

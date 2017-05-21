@@ -52,7 +52,7 @@ class Tokenizer
 
         $tokens = [];
 
-        while($token = $this->readToken()) {
+        while ($token = $this->readToken()) {
             $tokens[] = $token;
         }
 

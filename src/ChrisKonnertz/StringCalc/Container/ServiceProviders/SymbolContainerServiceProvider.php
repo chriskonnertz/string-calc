@@ -5,6 +5,11 @@ namespace ChrisKonnertz\StringCalc\Container\ServiceProviders;
 use ChrisKonnertz\StringCalc\Container\AbstractSingletonServiceProvider;
 use ChrisKonnertz\StringCalc\Symbols\SymbolContainer;
 
+/**
+ * This is a service provider class for the symbol container class.
+ *
+ * @package ChrisKonnertz\StringCalc\Container\ServiceProviders
+ */
 class SymbolContainerServiceProvider extends AbstractSingletonServiceProvider
 {
     
