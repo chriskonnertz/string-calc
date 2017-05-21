@@ -5,21 +5,21 @@ namespace ChrisKonnertz\StringCalc\Symbols\Concrete\Constants;
 use ChrisKonnertz\StringCalc\Symbols\AbstractConstant;
 
 /**
- * PHP M_PI constant
- * Value: 3.14...
+ * PHP M_1_PI constant
+ * Value: 0.31...
  * @see http://php.net/manual/en/math.constants.php
  */
-class PiConstant extends AbstractConstant
+class OnePiConstant extends AbstractConstant
 {
 
     /**
      * @inheritdoc
      */
-    protected $identifiers = ['pi'];
+    protected $identifiers = ['onePi'];
 
     /**
      * @inheritdoc
      */
-    protected $value = M_PI;
+    protected $value = M_1_PI;
 
 }
