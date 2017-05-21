@@ -86,8 +86,8 @@ class Calculator
 
         $orderedOperatorNodes = $this->detectCalculationOrder($nodes);
 
-        // Actually calculate the term. iterates over the ordered operators and
-        // calculates them, then replace the parts of the operation by the result.
+        // Actually calculate the term. Iterates over the ordered operators and
+        // calculates them, then replaces the parts of the operation by the result.
         foreach ($orderedOperatorNodes as $index => $operatorNode) {
             reset($nodes);
             while (key($nodes) !== $index) {
