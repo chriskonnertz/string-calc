@@ -98,7 +98,9 @@ class Container implements ContainerInterface
                 /** @var ContainerException $exception */
                 throw $exception;
             } else {
-                throw new ContainerException('Error: Service provider could not create service.');
+                throw new ContainerException(
+                    'Error: Service provider could not create service. Reason: '.$exception->getMessage()
+                );
             }
         }
 
