@@ -112,7 +112,7 @@ class Container implements ContainerInterface
     }
 
     /**
-     * Returns true if a service exists.
+     * Returns true if a service with the given name exists.
      *
      * @param string $serviceName
      * @return bool
