@@ -388,7 +388,11 @@ It is not intended to provide such support so if you need support of other numer
 * General advice: The code of this library is well documented. Therefore, do not hesitate to take a closer 
 look at the implementation. 
 
-* Status of this repository: Maintained. Create an issue and you will get a response, usually within 48 hours.
+
+* The code of this library is formatted according to the code style defined by the 
+[PSR-2](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-2-coding-style-guide.md) standard.
+
+* Status of this repository: _Maintained_. Create an issue and you will get a response, usually within 48 hours.
 
 ## TODO
 
