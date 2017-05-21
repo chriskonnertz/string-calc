@@ -13,6 +13,7 @@ class StringHelper implements StringHelperInterface
      *
      * @param string $str
      * @return bool
+     * @throws \Exception
      */
     public function containsMultibyteChar($str)
     {
@@ -31,8 +32,9 @@ class StringHelper implements StringHelperInterface
      * - Does not contain multibyte characters
      * Will throw an exception if the validation fails.
      *
-     * @param  mixed|null $str
+     * @param mixed|null $str
      * @return void
+     * @throws \Exception
      */
     public function validate($str)
     {

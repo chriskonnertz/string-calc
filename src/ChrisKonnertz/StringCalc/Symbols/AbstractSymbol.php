@@ -100,13 +100,6 @@ abstract class AbstractSymbol
             throw new InvalidIdentifierException('Error: Identifier cannot contain any digits.');
         }
 
-        // Ensure identifiers are written in lower-case.
-        foreach ($this->identifiers as $identifier) {
-            if (strtolower($identifier) !== $identifier) {
-                throw new InvalidIdentifierException('Error: Identifier is not written in lower-case.');
-            }
-        }
-
         $this->validateIdentifierMore($identifier);
     }
 
@@ -126,25 +119,29 @@ abstract class AbstractSymbol
     }
 
     /**
-     * Getter for the identifiers of the symbol
+     * Getter for the identifiers of the symbol.
+     * Attention: The identifiers will be lower-cased!
      *
      * @return string[]
      */
     final public function getIdentifiers()
     {
+        // Lower-case all identifiers to make it easier to find duplicate identifiers
+        $identifiers = array_map('strtolower', $this->identifiers);
+
         if (! $this->validatedIdentifiers) {
-            foreach ($this->identifiers as $identifier) {
+            foreach ($identifiers as $identifier) {
                 $this->validateIdentifier($identifier);
             }
 
-            if (sizeof(array_unique($this->identifiers)) != sizeof($this->identifiers) ) {
-                throw new \DomainException('Error: Identifier duplicated found.');
+            if (sizeof(array_unique($identifiers)) != sizeof($identifiers) ) {
+                throw new \DomainException('Error: Identifier duplicate found.');
             }
 
             $this->validatedIdentifiers = true;
         }
 
-        return $this->identifiers;
+        return $identifiers;
     }
 
 }
