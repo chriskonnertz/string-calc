@@ -6,9 +6,8 @@ use ChrisKonnertz\StringCalc\Symbols\AbstractClosingBracket;
 
 class ClosingBracket extends AbstractClosingBracket
 {
-
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected $identifiers = [')'];
 }

@@ -7,21 +7,22 @@ namespace ChrisKonnertz\StringCalc\Support;
  */
 class StringHelper implements StringHelperInterface
 {
-
     /**
      * Returns true if a string contains any multibyte characters.
      *
      * @param string $str
+     *
      * @return bool
+     *
      * @throws \Exception
      */
     public function containsMultibyteChar($str)
     {
-        if (! is_string($str)) {
+        if (!is_string($str)) {
             throw new \InvalidArgumentException('Error: Variable must be of type string.');
         }
 
-        return (mb_strlen($str) != strlen($str));
+        return mb_strlen($str) != strlen($str);
     }
 
     /**
@@ -33,7 +34,7 @@ class StringHelper implements StringHelperInterface
      * Will throw an exception if the validation fails.
      *
      * @param mixed|null $str
-     * @return void
+     *
      * @throws \Exception
      */
     public function validate($str)
@@ -41,7 +42,7 @@ class StringHelper implements StringHelperInterface
         if ($str === null) {
             throw new \InvalidArgumentException('Error: String must not be null.');
         }
-        if (! is_string($str)) {
+        if (!is_string($str)) {
             throw new \InvalidArgumentException('Error: String must be of type string.');
         }
         if ($str === '') {

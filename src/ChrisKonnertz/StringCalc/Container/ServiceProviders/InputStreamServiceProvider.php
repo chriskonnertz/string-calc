@@ -7,9 +7,8 @@ use ChrisKonnertz\StringCalc\Tokenizer\InputStream;
 
 class InputStreamServiceProvider extends AbstractSingletonServiceProvider
 {
-
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected function createService()
     {

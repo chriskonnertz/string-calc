@@ -7,18 +7,18 @@ use ChrisKonnertz\StringCalc\Symbols\AbstractConstant;
 /**
  * PHP M_EULER constant
  * Value: 0.57...
+ *
  * @see http://php.net/manual/en/math.constants.php
  */
 class EulerConstant extends AbstractConstant
 {
-
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected $identifiers = ['euler'];
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected $value = M_EULER;
 }

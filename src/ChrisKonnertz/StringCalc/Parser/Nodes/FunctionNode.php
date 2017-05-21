@@ -10,12 +10,9 @@ namespace ChrisKonnertz\StringCalc\Parser\Nodes;
  * It stores its symbol in the $symbolNode property and its
  * arguments in the $childNodes property which is inherited
  * from the ContainerNode class.
- *
- * @package ChrisKonnertz\StringCalc\Parser
  */
 class FunctionNode extends ContainerNode
 {
-
     /**
      * @var SymbolNode
      */

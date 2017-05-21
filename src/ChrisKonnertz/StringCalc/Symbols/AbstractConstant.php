@@ -13,7 +13,6 @@ use ChrisKonnertz\StringCalc\Exceptions\InvalidIdentifierException;
  */
 abstract class AbstractConstant extends AbstractSymbol
 {
-
     /**
      * This is the value of the constant. We use 0 as an example here,
      * but you are supposed to overwrite this in the concrete constant class.
@@ -38,7 +37,7 @@ abstract class AbstractConstant extends AbstractSymbol
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected function validateIdentifierMore($identifier)
     {

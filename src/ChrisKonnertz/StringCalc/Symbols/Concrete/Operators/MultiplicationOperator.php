@@ -6,26 +6,24 @@ use ChrisKonnertz\StringCalc\Symbols\AbstractOperator;
 
 /**
  * Operator for mathematical multiplication.
- * Example: "2*3" => 6
- * @see https://en.wikipedia.org/wiki/Multiplication
+ * Example: "2*3" => 6.
  *
- * @package ChrisKonnertz\StringCalc\Symbols\Concrete
+ * @see https://en.wikipedia.org/wiki/Multiplication
  */
 class MultiplicationOperator extends AbstractOperator
 {
-
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected $identifiers = ['*'];
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     const PRECEDENCE = 200;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function operate($leftNumber, $rightNumber)
     {

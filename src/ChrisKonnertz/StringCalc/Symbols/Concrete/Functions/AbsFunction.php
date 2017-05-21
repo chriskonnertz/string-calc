@@ -6,18 +6,17 @@ use ChrisKonnertz\StringCalc\Symbols\AbstractFunction;
 
 /**
  * PHP abs() function. Expects one parameter.
- * Example: "abs(2)" => 2, "abs(-2)" => 2, "abs(0)" => 0
+ * Example: "abs(2)" => 2, "abs(-2)" => 2, "abs(0)" => 0.
  */
 class AbsFunction extends AbstractFunction
 {
-
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected $identifiers = ['abs'];
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function execute(array $arguments)
     {

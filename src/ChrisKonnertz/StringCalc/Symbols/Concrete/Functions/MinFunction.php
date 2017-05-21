@@ -6,19 +6,19 @@ use ChrisKonnertz\StringCalc\Symbols\AbstractFunction;
 
 /**
  * PHP min() function. Expects at least one parameter.
- * Example: "min(1,2,3)" => 1, "min(1,-1)" => -1, "min(0,0)" => 0, "min(2)" => 2
+ * Example: "min(1,2,3)" => 1, "min(1,-1)" => -1, "min(0,0)" => 0, "min(2)" => 2.
+ *
  * @see http://php.net/manual/en/function.min.php
  */
 class MinFunction extends AbstractFunction
 {
-
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected $identifiers = ['min'];
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function execute(array $arguments)
     {

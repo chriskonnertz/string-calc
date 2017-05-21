@@ -7,9 +7,8 @@ use ChrisKonnertz\StringCalc\Symbols\SymbolContainer;
 
 class SymbolContainerServiceProvider extends AbstractSingletonServiceProvider
 {
-    
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected function createService()
     {

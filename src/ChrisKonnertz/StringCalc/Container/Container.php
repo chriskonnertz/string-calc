@@ -11,12 +11,9 @@ use ChrisKonnertz\StringCalc\Exceptions\NotFoundException;
  * Instead of directly creating objects the library uses services that create these objects.
  * Containers can be replaced from outside the library so they make it easy to replace
  * classes with custom implementations.
- *
- * @package ChrisKonnertz\StringCalc\Container
  */
 class Container implements ContainerInterface
 {
-
     /**
      * Array with the registered service providers.
      * They key of an item is the service name and
@@ -30,13 +27,14 @@ class Container implements ContainerInterface
      * Container constructor.
      *
      * @param ServiceProviderRegistry $serviceProviderRegistry
+     *
      * @throws ContainerException
      */
     public function __construct(ServiceProviderRegistry $serviceProviderRegistry)
     {
         $serviceProviders = $serviceProviderRegistry->getServiceProviders();
 
-        if (! is_array($serviceProviders)) {
+        if (!is_array($serviceProviders)) {
             throw new ContainerException('Error: Service provider registry delivered an invalid result.');
         }
         if (sizeof($serviceProviders) == 0) {
@@ -46,7 +44,7 @@ class Container implements ContainerInterface
         foreach ($serviceProviders as $serviceProvider) {
             // Since $serviceProvider only contains the name of the string and therefore not an object,
             // we have to set $allow_string to true, ofcourse.
-            if (! is_a($serviceProvider, AbstractServiceProvider::class, true)) {
+            if (!is_a($serviceProvider, AbstractServiceProvider::class, true)) {
                 throw new ContainerException('Error: Invalid value for entry in service providers array.');
             }
         }
@@ -58,19 +56,21 @@ class Container implements ContainerInterface
      * Returns a service. The service name has to be registered.
      *
      * @param string $serviceName
+     *
      * @return object
+     *
      * @throws ContainerException
      * @throws NotFoundException
      */
     public function get($serviceName)
     {
-        if (! $this->has($serviceName)) {
+        if (!$this->has($serviceName)) {
             throw new NotFoundException('Error: Could not find service.');
         }
 
         $serviceProvider = $this->serviceProviders[$serviceName];
 
-        if (! is_string($serviceProvider)) {
+        if (!is_string($serviceProvider)) {
             throw new ContainerException(
                 'Error: Expected class name of service provider as string but got something else.'
             );
@@ -84,7 +84,7 @@ class Container implements ContainerInterface
             throw new ContainerException('Error: Could not create service provider via reflection.');
         }
 
-        if (! is_a($serviceProvider, AbstractServiceProvider::class)) {
+        if (!is_a($serviceProvider, AbstractServiceProvider::class)) {
             throw new ContainerException(
                 'Error: Service provider object does not inherit from AbstractServiceProvider.'
             );
@@ -95,7 +95,7 @@ class Container implements ContainerInterface
             $object = $serviceProvider->provide();
         } catch (\Exception $exception) {
             if (is_a($exception, ContainerException::class)) {
-                /** @var ContainerException $exception */
+                /* @var ContainerException $exception */
                 throw $exception;
             } else {
                 throw new ContainerException(
@@ -104,7 +104,7 @@ class Container implements ContainerInterface
             }
         }
 
-        if (! is_object($object)) {
+        if (!is_object($object)) {
             throw new ContainerException('Error: Service provider did not provide a valid service.');
         }
 
@@ -115,6 +115,7 @@ class Container implements ContainerInterface
      * Returns true if a service exists.
      *
      * @param string $serviceName
+     *
      * @return bool
      */
     public function has($serviceName)
@@ -128,7 +129,6 @@ class Container implements ContainerInterface
      *
      * @param string                  $serviceName
      * @param AbstractServiceProvider $serviceProvider
-     * @return void
      */
     public function add($serviceName, AbstractServiceProvider $serviceProvider)
     {
@@ -136,7 +136,7 @@ class Container implements ContainerInterface
     }
 
     /**
-     * Returns the names of all registered services
+     * Returns the names of all registered services.
      *
      * @return string[]
      */
@@ -146,7 +146,7 @@ class Container implements ContainerInterface
     }
 
     /**
-     * Returns the number of services
+     * Returns the number of services.
      *
      * @return int
      */

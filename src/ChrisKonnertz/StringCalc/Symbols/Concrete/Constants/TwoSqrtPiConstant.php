@@ -7,18 +7,18 @@ use ChrisKonnertz\StringCalc\Symbols\AbstractConstant;
 /**
  * PHP M_2_SQRTPI constant
  * Value: 1.12...
+ *
  * @see http://php.net/manual/en/math.constants.php
  */
 class TwoSqrtPiConstant extends AbstractConstant
 {
-
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected $identifiers = ['twoSqrtPi'];
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected $value = M_2_SQRTPI;
 }

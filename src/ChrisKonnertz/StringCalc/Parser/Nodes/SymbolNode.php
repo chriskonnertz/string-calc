@@ -13,12 +13,9 @@ use Closure;
  * (parent nodes can have child nodes). A
  * symbol node represents a mathematical symbol.
  * Nodes are created by the parser.
- *
- * @package ChrisKonnertz\StringCalc\Parser
  */
 class SymbolNode extends AbstractNode
 {
-
     /**
      * The token of the node. It contains the value.
      *
@@ -57,7 +54,7 @@ class SymbolNode extends AbstractNode
     }
 
     /**
-     * Setter for the token
+     * Setter for the token.
      *
      * @param Token $token
      */
@@ -67,7 +64,7 @@ class SymbolNode extends AbstractNode
     }
 
     /**
-     * Getter for the token
+     * Getter for the token.
      *
      * @return Token
      */
@@ -77,7 +74,7 @@ class SymbolNode extends AbstractNode
     }
 
     /**
-     * Setter for the symbol
+     * Setter for the symbol.
      *
      * @param AbstractSymbol $symbol
      */
@@ -87,7 +84,7 @@ class SymbolNode extends AbstractNode
     }
 
     /**
-     * Getter for the symbol
+     * Getter for the symbol.
      *
      * @return AbstractSymbol
      */
@@ -98,13 +95,13 @@ class SymbolNode extends AbstractNode
 
     /**
      * Setter to remember that the node (or to be more precise the
-     * symbol of the node) represents a unary operator
+     * symbol of the node) represents a unary operator.
      *
      * @param bool $isUnaryOperator
      */
     public function setIsUnaryOperator($isUnaryOperator = true)
     {
-        if (! is_a($this->getSymbol(), AbstractOperator::class)) {
+        if (!is_a($this->getSymbol(), AbstractOperator::class)) {
             throw new \InvalidArgumentException(
                 'Error: Cannot mark node as unary operator, because symbol is not an operator.'
             );
@@ -115,7 +112,7 @@ class SymbolNode extends AbstractNode
 
     /**
      * Returns true if the node (or to be more precise the
-     * symbol of the node) represents a unary operator
+     * symbol of the node) represents a unary operator.
      *
      * @return bool
      */
@@ -125,7 +122,7 @@ class SymbolNode extends AbstractNode
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function traverse(Closure $callback, $level = 0)
     {

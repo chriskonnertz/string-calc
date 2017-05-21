@@ -6,26 +6,24 @@ use ChrisKonnertz\StringCalc\Symbols\AbstractOperator;
 
 /**
  * Operator for mathematical exponentiation.
- * Example: "3^2" => 9, "-3^2" => -9, "3^-2" equals "3^(-2)"
- * @see https://en.wikipedia.org/wiki/Exponentiation
+ * Example: "3^2" => 9, "-3^2" => -9, "3^-2" equals "3^(-2)".
  *
- * @package ChrisKonnertz\StringCalc\Symbols\Concrete
+ * @see https://en.wikipedia.org/wiki/Exponentiation
  */
 class ExponentiationOperator extends AbstractOperator
 {
-
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected $identifiers = ['^'];
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     const PRECEDENCE = 300;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function operate($leftNumber, $rightNumber)
     {

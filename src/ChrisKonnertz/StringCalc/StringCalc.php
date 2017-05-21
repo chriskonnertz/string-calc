@@ -19,28 +19,25 @@ use ChrisKonnertz\StringCalc\Tokenizer\Tokenizer;
  * This is the StringCalc base class. It is the API frontend of
  * the StringCalc library. Call its calculate() method to
  * calculate a mathematical term.
- *
- * @package ChrisKonnertz\StringCalc
  */
 class StringCalc
 {
-
     /**
-     * The current version number
+     * The current version number.
      *
      * @const string
      */
     const VERSION = '0.7.3';
 
     /**
-     * The service container
+     * The service container.
      *
      * @var ContainerInterface
      */
     protected $container;
 
     /**
-     * Container that manages all symbols
+     * Container that manages all symbols.
      *
      * @var SymbolContainerInterface
      */
@@ -59,12 +56,12 @@ class StringCalc
             $serviceRegistry = new ServiceProviderRegistry();
             $this->container = new Container($serviceRegistry);
         } else {
-            if (! is_object($container)) {
+            if (!is_object($container)) {
                 throw new \InvalidArgumentException('Error: Passed container parameter is not an object.');
             }
 
             $interfaces = class_implements($container);
-            if (! in_array(ContainerInterface::class, $interfaces)) {
+            if (!in_array(ContainerInterface::class, $interfaces)) {
                 throw new \InvalidArgumentException('Error: Passed container does not implement ContainerInterface.');
             }
 
@@ -79,6 +76,7 @@ class StringCalc
      * Will return 0 if there is nothing to calculate.
      *
      * @param string $term
+     *
      * @return float|int
      */
     public function calculate($term)
@@ -105,6 +103,7 @@ class StringCalc
      * Tokenize the term. Returns an array with the tokens.
      *
      * @param string $term
+     *
      * @return array
      */
     public function tokenize($term)
@@ -132,6 +131,7 @@ class StringCalc
      * Parses an array of tokens. Returns a single node that is a container node.
      *
      * @param Token[] $tokens
+     *
      * @return ContainerNode
      */
     public function parse(array $tokens)
@@ -154,7 +154,6 @@ class StringCalc
      *
      * @param AbstractSymbol $symbol        The new symbol object
      * @param string|null    $replaceSymbol Class name of a known symbol that you want to replace
-     * @return void
      */
     public function addSymbol(AbstractSymbol $symbol, $replaceSymbol = null)
     {
@@ -162,7 +161,7 @@ class StringCalc
     }
 
     /**
-     * Getter for the symbol container
+     * Getter for the symbol container.
      *
      * @return SymbolContainerInterface
      */
@@ -172,7 +171,7 @@ class StringCalc
     }
 
     /**
-     * Getter for the service container
+     * Getter for the service container.
      *
      * @return ContainerInterface
      */

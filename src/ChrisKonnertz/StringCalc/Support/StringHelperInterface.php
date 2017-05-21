@@ -7,12 +7,13 @@ namespace ChrisKonnertz\StringCalc\Support;
  */
 interface StringHelperInterface
 {
-
     /**
      * Returns true if a string contains any multibyte characters.
      *
      * @param string $str
+     *
      * @return bool
+     *
      * @throws \Exception
      */
     public function containsMultibyteChar($str);
@@ -26,7 +27,7 @@ interface StringHelperInterface
      * Will throw an exception if the validation fails.
      *
      * @param mixed|null $str
-     * @return void
+     *
      * @throws \Exception
      */
     public function validate($str);

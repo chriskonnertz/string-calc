@@ -11,11 +11,10 @@ use ChrisKonnertz\StringCalc\Support\StringHelperInterface;
  * - It is extended by a limited number of abstract classes that represent the different
  * types of symbols. These classes have an immutable semantic meaning.
  * - These classes may have child classes that are abstract as well, but are finally extended
- * by concrete classes that represent concrete symbols
+ * by concrete classes that represent concrete symbols.
  */
 abstract class AbstractSymbol
 {
-
     /**
      * Array with the 1-n (exception: the Numbers class may have 0)
      * unique identifiers (the textual representation of a symbol)
@@ -48,6 +47,7 @@ abstract class AbstractSymbol
      * AbstractSymbol constructor.
      *
      * @param StringHelperInterface $stringHelper
+     *
      * @throws InvalidIdentifierException
      */
     public function __construct(StringHelperInterface $stringHelper)
@@ -60,7 +60,7 @@ abstract class AbstractSymbol
      * are allowed except digits and '.'.
      *
      * @param string $identifier
-     * @return void
+     *
      * @throws InvalidIdentifierException
      */
     public function addIdentifier($identifier)
@@ -82,7 +82,7 @@ abstract class AbstractSymbol
      * corrupted by a subclass is too high.
      *
      * @param string $identifier
-     * @return void
+     *
      * @throws InvalidIdentifierException
      */
     final public function validateIdentifier($identifier)
@@ -109,7 +109,7 @@ abstract class AbstractSymbol
      * (such as AbstractOperator) if they need specialised validation.
      *
      * @param string $identifier
-     * @return void
+     *
      * @throws InvalidIdentifierException
      */
     protected function validateIdentifierMore($identifier)
@@ -129,7 +129,7 @@ abstract class AbstractSymbol
         // Lower-case all identifiers to make it easier to find duplicate identifiers
         $identifiers = array_map('strtolower', $this->identifiers);
 
-        if (! $this->validatedIdentifiers) {
+        if (!$this->validatedIdentifiers) {
             foreach ($identifiers as $identifier) {
                 $this->validateIdentifier($identifier);
             }

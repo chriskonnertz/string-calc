@@ -12,12 +12,9 @@ use ChrisKonnertz\StringCalc\Support\StringHelperInterface;
  * The tokenizer operates on the string term and tries to split it into
  * parts (these are the symbols of the term / the tokens).
  * The tokenizer is not very smart, it does not really care for grammar.
- *
- * @package ChrisKonnertz\StringCalc\Tokenizer
  */
 class Tokenizer
 {
-
     /**
      * @var InputStreamInterface
      */
@@ -31,8 +28,8 @@ class Tokenizer
     /**
      * Tokenizer constructor.
      *
-     * @param InputStreamInterface     $inputStream
-     * @param StringHelperInterface    $stringHelper
+     * @param InputStreamInterface  $inputStream
+     * @param StringHelperInterface $stringHelper
      */
     public function __construct(InputStreamInterface $inputStream, StringHelperInterface $stringHelper)
     {
@@ -63,6 +60,7 @@ class Tokenizer
      * Reads a token.
      *
      * @return Token|null
+     *
      * @throws NotFoundException
      */
     protected function readToken()
@@ -97,6 +95,7 @@ class Tokenizer
      * Returns true, if a given character is a letter (a-z and A-Z).
      *
      * @param string $char A single character
+     *
      * @return bool
      */
     protected function isLetter($char)
@@ -110,13 +109,14 @@ class Tokenizer
         $ascii = ord($char);
 
         // ASCII codes: 65 = 'A', 90 = 'Z', 97 = 'a', 122 = 'z'
-        return (($ascii >= 65 and $ascii <= 90) or ($ascii >= 97 and $ascii <= 122));
+        return ($ascii >= 65 and $ascii <= 90) or ($ascii >= 97 and $ascii <= 122);
     }
 
     /**
      * Returns true, if a given character is a digit (0-9).
      *
      * @param string|null $char A single character
+     *
      * @return bool
      */
     protected function isDigit($char)
@@ -130,37 +130,37 @@ class Tokenizer
         $ascii = ord($char);
 
         // ASCII codes: 48 = '0', 57 = '9'
-        return ($ascii >= 48 and $ascii <= 57);
+        return $ascii >= 48 and $ascii <= 57;
     }
 
     /**
      * Returns true, if a given character is a period ('.').
      *
      * @param string|null $char A single character
+     *
      * @return bool
      */
     protected function isPeriod($char)
     {
-        return ($char === '.');
+        return $char === '.';
     }
 
     /**
      * Returns true, if a given character is whitespace.
      * Notice: A null char is not seen as whitespace.
      *
-     * @var string|null $char
+     * @var string|null
+     *
      * @return bool
      */
     protected function isWhitespace($char)
     {
-        return in_array($char, [" ", "\t", "\n"]);
+        return in_array($char, [' ', "\t", "\n"]);
     }
 
     /**
      * Moves the pointer to the next char that is not whitespace.
      * Might be a null char, might not move the pointer at all.
-     *
-     * @return void
      */
     protected function stepOverWhitespace()
     {
@@ -200,6 +200,7 @@ class Tokenizer
      * beginning of a number.
      *
      * @return string
+     *
      * @throws StringCalcException
      */
     protected function readNumber()

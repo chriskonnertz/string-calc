@@ -17,18 +17,16 @@ use ChrisKonnertz\StringCalc\Symbols\AbstractSeparator;
  * The calculator has one important method: calculate()
  * It takes a container node as input and returns the
  * numeric result of the calculation.
- *
- * @package ChrisKonnertz\StringCalc\Calculator
  */
 class Calculator
 {
-
     /**
      * Calculates the numeric result of nodes in the syntax tree.
      * It takes a parser node as input and returns the numeric
      * result of the calculation.
      *
      * @param AbstractNode $rootNode
+     *
      * @return float|int
      */
     public function calculate(AbstractNode $rootNode)
@@ -42,23 +40,24 @@ class Calculator
      * Calculates the numeric value / result of a node of
      * any known and calculable type. (For example symbol
      * nodes with a symbol of type separator are not
-     * calculable.)
+     * calculable.).
      *
      * @param AbstractNode $node
+     *
      * @return float|int
      */
     protected function calculateNode(AbstractNode $node)
     {
         if (is_a($node, SymbolNode::class)) {
-            /** @var SymbolNode $node */
+            /* @var SymbolNode $node */
 
             return $this->calculateSymbolNode($node);
         } elseif (is_a($node, FunctionNode::class)) {
-            /** @var FunctionNode $node */
+            /* @var FunctionNode $node */
 
             return $this->calculateFunctionNode($node);
         } elseif (is_a($node, ContainerNode::class)) {
-            /** @var ContainerNode $node */
+            /* @var ContainerNode $node */
 
             return $this->calculateContainerNode($node);
         } else {
@@ -73,7 +72,9 @@ class Calculator
      * Attention: $node must not be of type FunctionNode!
      *
      * @param ContainerNode $containerNode
+     *
      * @return float|int
+     *
      * @throws StringCalcException
      */
     protected function calculateContainerNode(ContainerNode $containerNode)
@@ -126,7 +127,7 @@ class Calculator
 
         // If the $nodes array did not contain any operator (but only one node) than
         // the result of this node has to be calculated now
-        if (! is_numeric($result)) {
+        if (!is_numeric($result)) {
             return $this->calculateNode($result);
         }
 
@@ -137,6 +138,7 @@ class Calculator
      * Returns the numeric value of a function node.
      *
      * @param FunctionNode $functionNode
+     *
      * @return int|float
      */
     protected function calculateFunctionNode(FunctionNode $functionNode)
@@ -149,7 +151,6 @@ class Calculator
         foreach ($nodes as $node) {
             if (is_a($node, SymbolNode::class)) {
                 /** @var SymbolNode $node */
-
                 if (is_a($node->getSymbol(), AbstractSeparator::class)) {
                     $containerNode = new ContainerNode($argumentChildNodes);
                     $arguments[] = $this->calculateContainerNode($containerNode);
@@ -180,6 +181,7 @@ class Calculator
      * Attention: $node->symbol must not be of type AbstractOperator!
      *
      * @param SymbolNode $symbolNode
+     *
      * @return int|float
      */
     protected function calculateSymbolNode(SymbolNode $symbolNode)
@@ -195,7 +197,6 @@ class Calculator
             $number = 0 + $number;
         } elseif (is_a($symbol, AbstractConstant::class)) {
             /** @var AbstractConstant $symbol */
-
             $number = $symbol->getValue();
         } else {
             throw new \LogicException('Error: Found symbol of unexpected type.');
@@ -211,6 +212,7 @@ class Calculator
      * Returns a new array with ordered symbol nodes.
      *
      * @param AbstractNode[] $nodes
+     *
      * @return SymbolNode[]
      */
     protected function detectCalculationOrder(array $nodes)
@@ -253,6 +255,7 @@ class Calculator
             if ($precedenceOne == $precedenceTwo) {
                 return 0;
             }
+
             return ($precedenceOne < $precedenceTwo) ? 1 : -1;
         });
 

@@ -6,26 +6,24 @@ use ChrisKonnertz\StringCalc\Symbols\AbstractOperator;
 
 /**
  * Operator for mathematical addition.
- * Example: "1+2" => 3
- * @see https://en.wikipedia.org/wiki/Addition
+ * Example: "1+2" => 3.
  *
- * @package ChrisKonnertz\StringCalc\Symbols\Concrete
+ * @see https://en.wikipedia.org/wiki/Addition
  */
 class AdditionOperator extends AbstractOperator
 {
-
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected $identifiers = ['+'];
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     const PRECEDENCE = 100;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function operate($leftNumber, $rightNumber)
     {

@@ -7,12 +7,9 @@ use ChrisKonnertz\StringCalc\Exceptions\ContainerException;
 /**
  * A service provider returns a service object. In particular it creates
  * the service object by caring for its dependencies.
- *
- * @package ChrisKonnertz\StringCalc\Container
  */
 abstract class AbstractServiceProvider
 {
-
     /**
      * The name of the service that pointed to this service provider.
      *
@@ -21,7 +18,7 @@ abstract class AbstractServiceProvider
     private $serviceName;
 
     /**
-     * The service container
+     * The service container.
      *
      * @var ContainerInterface
      */
@@ -64,7 +61,9 @@ abstract class AbstractServiceProvider
      * (infinite loops)! TODO: Try to solve this issue.
      *
      * @param $serviceName
+     *
      * @return mixed
+     *
      * @throws ContainerException
      */
     protected function getService($serviceName)
@@ -77,7 +76,7 @@ abstract class AbstractServiceProvider
     }
 
     /**
-     * Getter for the service name
+     * Getter for the service name.
      *
      * @return string
      */

@@ -7,18 +7,18 @@ use ChrisKonnertz\StringCalc\Symbols\AbstractConstant;
 /**
  * PHP M_SQRT3 constant
  * Value: 1.73...
+ *
  * @see http://php.net/manual/en/math.constants.php
  */
 class SqrtThreeConstant extends AbstractConstant
 {
-
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected $identifiers = ['sqrtThree'];
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected $value = M_SQRT3;
 }

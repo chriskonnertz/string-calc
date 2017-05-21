@@ -11,13 +11,12 @@ namespace ChrisKonnertz\StringCalc\Symbols;
  */
 abstract class AbstractOperator extends AbstractSymbol
 {
-
     /**
      * The operator precedence determines which operators to perform first
      * in order to evaluate a given term.
      * You are supposed to overwrite this constant in the concrete constant class.
      * Take a look at other operator classes to see the precedences of the predefined operators.
-     * 0: default, > 0: higher, < 0: lower
+     * 0: default, > 0: higher, < 0: lower.
      *
      * @const int
      */
@@ -31,7 +30,7 @@ abstract class AbstractOperator extends AbstractSymbol
      * If you want to create a unary operator that operates on the left
      * operand, you should use a function instead. Functions with one
      * parameter execute unary operations in functional notation.
-     * Notice: Operators can be unary AND binary (but this is a rare case)
+     * Notice: Operators can be unary AND binary (but this is a rare case).
      *
      * @const bool
      */
@@ -39,7 +38,7 @@ abstract class AbstractOperator extends AbstractSymbol
 
     /**
      * Usually operators are binary, they operate on two operands (numbers).
-     * Notice: Operators can be unary AND binary (but this is a rare case)
+     * Notice: Operators can be unary AND binary (but this is a rare case).
      *
      * @const bool
      */
@@ -52,8 +51,9 @@ abstract class AbstractOperator extends AbstractSymbol
      * If this class does NOT return a value of type int or float,
      * an exception will be thrown.
      *
-     * @param  int|float $leftNumber  The number that stand left to the operator
-     * @param  int|float $rightNumber The number that stands right to the operator
+     * @param int|float $leftNumber  The number that stand left to the operator
+     * @param int|float $rightNumber The number that stands right to the operator
+     *
      * @return int|float
      */
     abstract public function operate($leftNumber, $rightNumber);
