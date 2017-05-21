@@ -14,5 +14,4 @@ class StringHelperServiceProvider extends AbstractSingletonServiceProvider
     {
         return new StringHelper();
     }
-
 }

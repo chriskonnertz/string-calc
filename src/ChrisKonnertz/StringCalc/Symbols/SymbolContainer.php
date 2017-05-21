@@ -207,5 +207,4 @@ class SymbolContainer implements SymbolContainerInterface
     {
         return $this->symbols;
     }
-
 }

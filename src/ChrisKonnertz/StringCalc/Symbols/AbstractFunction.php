@@ -37,5 +37,4 @@ abstract class AbstractFunction extends AbstractSymbol
             throw new InvalidIdentifierException('Error: Identifier must consist of letters.');
         }
     }
-
 }

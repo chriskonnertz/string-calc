@@ -36,5 +36,4 @@ interface ContainerInterface
      * @return bool
      */
     public function has($id);
-
 }

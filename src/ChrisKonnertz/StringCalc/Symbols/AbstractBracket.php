@@ -10,5 +10,4 @@ namespace ChrisKonnertz\StringCalc\Symbols;
  */
 class AbstractBracket extends AbstractSymbol
 {
-
 }

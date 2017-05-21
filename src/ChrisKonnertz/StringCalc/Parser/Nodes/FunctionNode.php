@@ -51,5 +51,4 @@ class FunctionNode extends ContainerNode
     {
         $this->symbolNode = $symbolNode;
     }
-
 }

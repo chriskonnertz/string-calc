@@ -21,5 +21,4 @@ class SqrtPiConstant extends AbstractConstant
      * @inheritdoc
      */
     protected $value = M_SQRTPI;
-
 }

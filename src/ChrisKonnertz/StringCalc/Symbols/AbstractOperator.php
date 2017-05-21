@@ -93,5 +93,4 @@ abstract class AbstractOperator extends AbstractSymbol
     {
         return static::OPERATES_BINARY;
     }
-
 }

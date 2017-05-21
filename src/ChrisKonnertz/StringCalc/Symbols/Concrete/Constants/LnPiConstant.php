@@ -21,5 +21,4 @@ class LnPiConstant extends AbstractConstant
      * @inheritdoc
      */
     protected $value = M_LNPI;
-
 }

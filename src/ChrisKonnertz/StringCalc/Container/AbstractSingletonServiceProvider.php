@@ -32,5 +32,4 @@ abstract class AbstractSingletonServiceProvider extends AbstractServiceProvider
 
         return $this->service;
     }
-
 }

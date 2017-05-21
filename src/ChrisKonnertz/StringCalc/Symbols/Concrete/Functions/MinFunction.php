@@ -30,5 +30,4 @@ class MinFunction extends AbstractFunction
 
         return $min;
     }
-
 }

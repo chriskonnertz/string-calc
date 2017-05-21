@@ -21,5 +21,4 @@ class PiFourConstant extends AbstractConstant
      * @inheritdoc
      */
     protected $value = M_PI_4;
-
 }

@@ -30,5 +30,4 @@ interface StringHelperInterface
      * @throws \Exception
      */
     public function validate($str);
-
 }

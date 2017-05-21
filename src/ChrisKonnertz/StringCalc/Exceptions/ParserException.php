@@ -9,5 +9,4 @@ namespace ChrisKonnertz\StringCalc\Exceptions;
  */
 class ParserException extends StringCalcException
 {
-
 }

@@ -9,5 +9,4 @@ namespace ChrisKonnertz\StringCalc\Exceptions;
  */
 class NotFoundException extends StringCalcException
 {
-
 }

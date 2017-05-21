@@ -21,5 +21,4 @@ class LogTenEConstant extends AbstractConstant
      * @inheritdoc
      */
     protected $value = M_LOG10E;
-
 }

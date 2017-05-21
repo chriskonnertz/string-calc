@@ -131,5 +131,4 @@ class SymbolNode extends AbstractNode
     {
         $callback($this, $level);
     }
-
 }

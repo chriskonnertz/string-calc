@@ -180,5 +180,4 @@ class StringCalc
     {
         return $this->container;
     }
-
 }

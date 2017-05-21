@@ -62,5 +62,4 @@ interface SymbolContainerInterface
      * @return AbstractSymbol[]
      */
     public function getAll();
-
 }

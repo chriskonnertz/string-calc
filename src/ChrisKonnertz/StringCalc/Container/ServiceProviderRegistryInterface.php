@@ -13,5 +13,4 @@ interface ServiceProviderRegistryInterface
      * @return string[]
      */
     public function getServiceProviders();
-
 }

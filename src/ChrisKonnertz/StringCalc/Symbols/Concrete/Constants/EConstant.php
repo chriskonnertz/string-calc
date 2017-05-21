@@ -21,5 +21,4 @@ class EConstant extends AbstractConstant
      * @inheritdoc
      */
     protected $value = M_E;
-
 }

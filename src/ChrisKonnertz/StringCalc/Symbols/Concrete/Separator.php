@@ -11,7 +11,5 @@ use ChrisKonnertz\StringCalc\Symbols\AbstractSeparator;
  */
 class Separator extends AbstractSeparator
 {
-
     protected $identifiers = [','];
-
 }

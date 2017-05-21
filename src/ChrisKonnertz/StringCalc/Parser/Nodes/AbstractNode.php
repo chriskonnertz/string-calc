@@ -33,9 +33,8 @@ abstract class AbstractNode
      */
     abstract public function traverse(Closure $callback, $level = 0);
 
-    function __toString()
+    public function __toString()
     {
         return get_class($this);
     }
-
 }

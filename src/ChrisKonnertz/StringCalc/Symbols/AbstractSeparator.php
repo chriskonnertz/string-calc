@@ -9,5 +9,4 @@ namespace ChrisKonnertz\StringCalc\Symbols;
  */
 abstract class AbstractSeparator extends AbstractSymbol
 {
-
 }

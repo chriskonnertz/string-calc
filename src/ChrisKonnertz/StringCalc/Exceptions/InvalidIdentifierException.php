@@ -10,5 +10,4 @@ namespace ChrisKonnertz\StringCalc\Exceptions;
  */
 class InvalidIdentifierException extends StringCalcException
 {
-
 }

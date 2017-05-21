@@ -51,5 +51,4 @@ class StringHelper implements StringHelperInterface
             throw new \InvalidArgumentException('Error: String must not contain any multibyte characters.');
         }
     }
-
 }

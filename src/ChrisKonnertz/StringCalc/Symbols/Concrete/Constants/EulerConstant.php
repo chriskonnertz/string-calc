@@ -21,5 +21,4 @@ class EulerConstant extends AbstractConstant
      * @inheritdoc
      */
     protected $value = M_EULER;
-
 }

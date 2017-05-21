@@ -90,5 +90,4 @@ class SymbolRegistry
 
         return $symbols;
     }
-
 }

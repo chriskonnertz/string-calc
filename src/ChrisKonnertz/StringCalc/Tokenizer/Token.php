@@ -134,9 +134,8 @@ class Token
         return $this->position;
     }
 
-    function __toString()
+    public function __toString()
     {
         return $this->value;
     }
-
 }

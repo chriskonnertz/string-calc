@@ -33,5 +33,4 @@ class EnFunction extends AbstractFunction
 
         return $number;
     }
-
 }

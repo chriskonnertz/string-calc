@@ -9,5 +9,4 @@ namespace ChrisKonnertz\StringCalc\Exceptions;
  */
 class StringCalcException extends \Exception
 {
-
 }

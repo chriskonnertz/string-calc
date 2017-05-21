@@ -31,5 +31,4 @@ class AdditionOperator extends AbstractOperator
     {
         return $leftNumber + $rightNumber;
     }
-
 }

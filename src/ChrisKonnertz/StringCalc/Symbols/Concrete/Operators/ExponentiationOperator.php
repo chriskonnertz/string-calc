@@ -31,5 +31,4 @@ class ExponentiationOperator extends AbstractOperator
     {
         return pow($leftNumber, $rightNumber);
     }
-
 }

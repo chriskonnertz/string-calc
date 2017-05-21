@@ -37,5 +37,4 @@ class SubtractionOperator extends AbstractOperator
     {
         return $leftNumber - $rightNumber;
     }
-
 }

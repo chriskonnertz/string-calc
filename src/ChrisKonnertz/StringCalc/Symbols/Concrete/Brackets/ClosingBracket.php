@@ -11,5 +11,4 @@ class ClosingBracket extends AbstractClosingBracket
      * @inheritdoc
      */
     protected $identifiers = [')'];
-
 }

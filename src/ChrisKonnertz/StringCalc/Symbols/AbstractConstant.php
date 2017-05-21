@@ -47,5 +47,4 @@ abstract class AbstractConstant extends AbstractSymbol
             throw new InvalidIdentifierException('Error: Identifier must consist of letters.');
         }
     }
-
 }

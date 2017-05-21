@@ -124,5 +124,4 @@ class InputStream implements InputStreamInterface
     {
         return $this->position;
     }
-
 }

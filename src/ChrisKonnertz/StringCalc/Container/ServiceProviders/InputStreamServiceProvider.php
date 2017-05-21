@@ -17,5 +17,4 @@ class InputStreamServiceProvider extends AbstractSingletonServiceProvider
 
         return new InputStream($stringHelper);
     }
-
 }

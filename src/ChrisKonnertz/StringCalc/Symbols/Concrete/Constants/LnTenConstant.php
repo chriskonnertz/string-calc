@@ -21,5 +21,4 @@ class LnTenConstant extends AbstractConstant
      * @inheritdoc
      */
     protected $value = M_LN10;
-
 }

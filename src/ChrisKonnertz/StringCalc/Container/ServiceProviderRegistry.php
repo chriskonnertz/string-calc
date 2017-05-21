@@ -28,5 +28,4 @@ class ServiceProviderRegistry implements ServiceProviderRegistryInterface
 
         return $serviceProviders;
     }
-
 }

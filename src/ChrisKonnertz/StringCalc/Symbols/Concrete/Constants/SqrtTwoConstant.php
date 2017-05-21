@@ -21,5 +21,4 @@ class SqrtTwoConstant extends AbstractConstant
      * @inheritdoc
      */
     protected $value = M_SQRT2;
-
 }

@@ -30,5 +30,4 @@ class MaxFunction extends AbstractFunction
 
         return $max;
     }
-
 }

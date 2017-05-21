@@ -92,5 +92,4 @@ class ContainerNode extends AbstractNode
             $childNode->traverse($callback, $level + 1);
         }
     }
-
 }

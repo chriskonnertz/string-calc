@@ -319,5 +319,4 @@ class Parser
             }
         }
     }
-
 }

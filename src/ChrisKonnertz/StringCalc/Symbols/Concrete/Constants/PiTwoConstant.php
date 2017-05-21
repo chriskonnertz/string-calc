@@ -21,5 +21,4 @@ class PiTwoConstant extends AbstractConstant
      * @inheritdoc
      */
     protected $value = M_PI_2;
-
 }

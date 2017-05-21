@@ -154,5 +154,4 @@ class Container implements ContainerInterface
     {
         return sizeof($this->serviceProviders);
     }
-
 }

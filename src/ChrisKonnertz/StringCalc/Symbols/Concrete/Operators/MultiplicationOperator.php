@@ -31,5 +31,4 @@ class MultiplicationOperator extends AbstractOperator
     {
         return $leftNumber * $rightNumber;
     }
-
 }

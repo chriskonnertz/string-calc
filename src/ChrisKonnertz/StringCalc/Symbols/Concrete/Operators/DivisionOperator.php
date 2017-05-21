@@ -36,5 +36,4 @@ class DivisionOperator extends AbstractOperator
 
         return $leftNumber / $rightNumber;
     }
-
 }

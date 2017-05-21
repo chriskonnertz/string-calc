@@ -21,5 +21,4 @@ class LogTwoEConstant extends AbstractConstant
      * @inheritdoc
      */
     protected $value = M_LOG2E;
-
 }

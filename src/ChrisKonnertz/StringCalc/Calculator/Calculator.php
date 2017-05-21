@@ -227,8 +227,7 @@ class Calculator
         }
 
         // Using Quicksort to sort the operators according to their precedence. Keeps the indices.
-        uasort($operatorNodes, function(SymbolNode $nodeOne, SymbolNode $nodeTwo)
-        {
+        uasort($operatorNodes, function (SymbolNode $nodeOne, SymbolNode $nodeTwo) {
             // First-level precedence of node one
             /** @var AbstractOperator $symbolOne */
             $symbolOne = $nodeOne->getSymbol();
@@ -259,5 +258,4 @@ class Calculator
 
         return $operatorNodes;
     }
-
 }

@@ -29,5 +29,4 @@ class AbsFunction extends AbstractFunction
 
         return abs($number);
     }
-
 }

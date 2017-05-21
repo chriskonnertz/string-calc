@@ -85,5 +85,4 @@ abstract class AbstractServiceProvider
     {
         return $this->serviceName;
     }
-
 }

@@ -17,5 +17,4 @@ class SymbolContainerServiceProvider extends AbstractSingletonServiceProvider
 
         return new SymbolContainer($stringHelper);
     }
-
 }
