@@ -5,21 +5,21 @@ namespace ChrisKonnertz\StringCalc\Symbols\Concrete\Constants;
 use ChrisKonnertz\StringCalc\Symbols\AbstractConstant;
 
 /**
- * PHP M_LOG2E constant
- * Value: 1.44...
+ * PHP M_LOG10E constant
+ * Value: 0.43...
  * @see http://php.net/manual/en/math.constants.php
  */
-class Log2EConstant extends AbstractConstant
+class LogTenEConstant extends AbstractConstant
 {
 
     /**
      * @inheritdoc
      */
-    protected $identifiers = ['logTwoE'];
+    protected $identifiers = ['logTenE'];
 
     /**
      * @inheritdoc
      */
-    protected $value = M_LOG2E;
+    protected $value = M_LOG10E;
 
 }
