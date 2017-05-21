@@ -30,7 +30,7 @@ class StringCalc
      *
      * @const string
      */
-    const VERSION = '0.7.2';
+    const VERSION = '0.7.3';
 
     /**
      * The service container
