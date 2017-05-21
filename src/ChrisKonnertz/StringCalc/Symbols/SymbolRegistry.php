@@ -37,9 +37,12 @@ use ChrisKonnertz\StringCalc\Symbols\Concrete\Separator;
  * of the initially registered symbols. It does not offer an add()
  * method - but you can add new symbols via the addSymbol() method of
  * the StringCalc class.
+ *
+ * @package ChrisKonnertz\StringCalc\Symbols
  */
 class SymbolRegistry
 {
+
     /**
      * This method has to return an array with the class names of all registered
      * symbols. Symbols have to inherit from the AbstractSymbol class.
@@ -87,4 +90,5 @@ class SymbolRegistry
 
         return $symbols;
     }
+
 }

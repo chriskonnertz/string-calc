@@ -8,4 +8,5 @@ namespace ChrisKonnertz\StringCalc\Symbols;
  */
 abstract class AbstractOpeningBracket extends AbstractBracket
 {
+
 }

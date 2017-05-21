@@ -9,18 +9,21 @@ use ChrisKonnertz\StringCalc\Support\StringHelperInterface;
  * It can read an input stream (in this case a string). Call
  * the readCurrent() method to read the input at the current
  * position.
+ *
+ * @package ChrisKonnertz\StringCalc\Tokenizer
  */
 class InputStream implements InputStreamInterface
 {
+
     /**
-     * This class operates on this string.
+     * This class operates on this string
      *
      * @var string
      */
     protected $input = '';
 
     /**
-     * Current position in the input stream.
+     * Current position in the input stream
      *
      * @var int
      */
@@ -49,7 +52,7 @@ class InputStream implements InputStreamInterface
      */
     public function readNext()
     {
-        ++$this->position;
+        $this->position++;
 
         return $this->readCurrent();
     }
@@ -71,17 +74,19 @@ class InputStream implements InputStreamInterface
     }
 
     /**
-     * Returns true if there is a character at the current position.
+     * Returns true if there is a character at the current position
      *
      * @return bool
      */
     public function hasCurrent()
     {
-        return $this->position < strlen($this->input);
+        return ($this->position < strlen($this->input));
     }
 
     /**
      * Resets the position of the cursor to the beginning of the string.
+     *
+     * @return void
      */
     public function reset()
     {
@@ -89,7 +94,7 @@ class InputStream implements InputStreamInterface
     }
 
     /**
-     * Setter for the input string.
+     * Setter for the input string
      *
      * @param string $input
      */
@@ -101,7 +106,7 @@ class InputStream implements InputStreamInterface
     }
 
     /**
-     * Getter for the input string.
+     * Getter for the input string
      *
      * @return string
      */
@@ -111,7 +116,7 @@ class InputStream implements InputStreamInterface
     }
 
     /**
-     * Getter for the cursor position.
+     * Getter for the cursor position
      *
      * @return int
      */
@@ -119,4 +124,5 @@ class InputStream implements InputStreamInterface
     {
         return $this->position;
     }
+
 }

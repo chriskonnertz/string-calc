@@ -13,4 +13,5 @@ use ChrisKonnertz\StringCalc\Symbols\AbstractNumber;
  */
 final class Number extends AbstractNumber
 {
+
 }

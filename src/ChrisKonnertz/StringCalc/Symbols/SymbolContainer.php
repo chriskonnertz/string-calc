@@ -9,18 +9,21 @@ use ChrisKonnertz\StringCalc\Symbols\Concrete\Number;
 
 /**
  * The symbol container manages an array with all symbol objects.
+ *
+ * @package ChrisKonnertz\StringCalc
  */
 class SymbolContainer implements SymbolContainerInterface
 {
+
     /**
-     * Array with all available symbols.
+     * Array with all available symbols
      *
      * @var AbstractSymbol[]
      */
     protected $symbols;
 
     /**
-     * String helper class.
+     * String helper class
      *
      * @var StringHelperInterface
      */
@@ -43,6 +46,7 @@ class SymbolContainer implements SymbolContainerInterface
      * Even if this validation passes, the symbols still might be corrupt.
      * Will throw an exception if validation fails.
      *
+     * @return void
      * @throws StringCalcException
      */
     protected function validate()
@@ -55,7 +59,7 @@ class SymbolContainer implements SymbolContainerInterface
         }
 
         foreach ($this->symbols as $symbol) {
-            if (sizeof($symbol->getIdentifiers()) == 0 and !is_a($symbol, Number::class)) {
+            if (sizeof($symbol->getIdentifiers()) == 0 and ! is_a($symbol, Number::class)) {
                 throw new \LengthException('Error: Symbol does not have any identifiers.');
             }
         }
@@ -65,6 +69,7 @@ class SymbolContainer implements SymbolContainerInterface
      * Retrieves the list of available symbol classes,
      * creates objects of these classes and stores them.
      *
+     * @return void
      * @throws \LengthException
      */
     protected function prepare()
@@ -90,7 +95,7 @@ class SymbolContainer implements SymbolContainerInterface
      *
      * @param AbstractSymbol $symbol        The new symbol object
      * @param string|null    $replaceSymbol Class name of an known symbol that you want to replace
-     *
+     * @return void
      * @throws \InvalidArgumentException
      */
     public function add(AbstractSymbol $symbol, $replaceSymbol = null)
@@ -108,11 +113,11 @@ class SymbolContainer implements SymbolContainerInterface
 
             $this->symbols[] = $symbol;
         } else {
-            if (!is_string($replaceSymbol)) {
+            if (! is_string($replaceSymbol)) {
                 throw new \InvalidArgumentException('Error: $replaceClass has to be the name of a class.');
             }
 
-            if (!array_key_exists($replaceSymbol, $this->symbols)) {
+            if (! array_key_exists($replaceSymbol, $this->symbols)) {
                 throw new \InvalidArgumentException('Error: Cannot replace the specified class since it is not known.');
             }
 
@@ -125,13 +130,14 @@ class SymbolContainer implements SymbolContainerInterface
     /**
      * Removes a symbol from the array of symbols.
      * It is recommended to only remove custom symbols
-     * (that have been added via the addSymbol() method).
+     * (that have been added via the addSymbol() method)
      *
      * @param AbstractSymbol $symbol
+     * @return void
      */
     public function remove(AbstractSymbol $symbol)
     {
-        if (!in_array($symbol, $this->symbols)) {
+        if (! in_array($symbol, $this->symbols)) {
             throw new \InvalidArgumentException('Error: Cannot remove symbol, because it is unknown.');
         }
 
@@ -145,7 +151,6 @@ class SymbolContainer implements SymbolContainerInterface
      * Returns null if none is found.
      *
      * @param string $identifier
-     *
      * @return AbstractSymbol|null
      */
     public function find($identifier)
@@ -168,7 +173,6 @@ class SymbolContainer implements SymbolContainerInterface
      * Notice: The parent type name will not be validated!
      *
      * @param string $parentTypeName
-     *
      * @return AbstractSymbol[]
      */
     public function findSubtype($parentTypeName)
@@ -203,4 +207,5 @@ class SymbolContainer implements SymbolContainerInterface
     {
         return $this->symbols;
     }
+
 }

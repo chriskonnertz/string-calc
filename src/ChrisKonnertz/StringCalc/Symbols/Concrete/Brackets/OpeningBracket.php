@@ -6,5 +6,7 @@ use ChrisKonnertz\StringCalc\Symbols\AbstractOpeningBracket;
 
 class OpeningBracket extends AbstractOpeningBracket
 {
+
     protected $identifiers = ['('];
+
 }

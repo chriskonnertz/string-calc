@@ -7,8 +7,9 @@ use ChrisKonnertz\StringCalc\Tokenizer\InputStream;
 
 class InputStreamServiceProvider extends AbstractSingletonServiceProvider
 {
+
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     protected function createService()
     {
@@ -16,4 +17,5 @@ class InputStreamServiceProvider extends AbstractSingletonServiceProvider
 
         return new InputStream($stringHelper);
     }
+
 }

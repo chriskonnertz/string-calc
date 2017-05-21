@@ -8,10 +8,11 @@ use ChrisKonnertz\StringCalc\Support\StringHelper;
 class StringHelperServiceProvider extends AbstractSingletonServiceProvider
 {
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     protected function createService()
     {
         return new StringHelper();
     }
+
 }

@@ -6,33 +6,36 @@ use ChrisKonnertz\StringCalc\Symbols\AbstractOperator;
 
 /**
  * Operator for mathematical multiplication.
- * Example: "1+2" => 3.
- *
+ * Example: "1+2" => 3
  * @see https://en.wikipedia.org/wiki/Multiplication
+ *
+ * @package ChrisKonnertz\StringCalc\Symbols\Concrete
  */
 class SubtractionOperator extends AbstractOperator
 {
+
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     protected $identifiers = ['-'];
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     const PRECEDENCE = 100;
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      * Notice: The subtraction operator is unary AND binary!
      */
     const OPERATES_UNARY = true;
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     public function operate($leftNumber, $rightNumber)
     {
         return $leftNumber - $rightNumber;
     }
+
 }

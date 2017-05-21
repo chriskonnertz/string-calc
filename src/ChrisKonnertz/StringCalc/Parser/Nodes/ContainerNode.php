@@ -7,9 +7,12 @@ use Closure;
 /**
  * A parent node is a container for a (sorted) array of nodes.
  * Notice: Do not mix this class up with the service container class.
+ *
+ * @package ChrisKonnertz\StringCalc\Parser
  */
 class ContainerNode extends AbstractNode
 {
+
     /**
      * Array of (sorted) child nodes
      * Notice: The number of child nodes can be 0.
@@ -38,7 +41,7 @@ class ContainerNode extends AbstractNode
     {
         // Ensure integrity of $nodes array
         foreach ($childNodes as $childNode) {
-            if (!is_a($childNode, AbstractNode::class)) {
+            if (! is_a($childNode, AbstractNode::class)) {
                 throw new \InvalidArgumentException('Error: Expected AbstractNode, got something else.');
             }
         }
@@ -65,11 +68,11 @@ class ContainerNode extends AbstractNode
      */
     public function isEmpty()
     {
-        return $this->size() == 0;
+        return ($this->size() == 0);
     }
 
     /**
-     * Getter for the child nodes.
+     * Getter for the child nodes
      *
      * @return AbstractNode[]
      */
@@ -79,7 +82,7 @@ class ContainerNode extends AbstractNode
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     public function traverse(Closure $callback, $level = 0)
     {
@@ -89,4 +92,5 @@ class ContainerNode extends AbstractNode
             $childNode->traverse($callback, $level + 1);
         }
     }
+
 }

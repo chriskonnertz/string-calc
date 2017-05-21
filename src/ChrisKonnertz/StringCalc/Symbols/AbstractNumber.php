@@ -11,4 +11,5 @@ namespace ChrisKonnertz\StringCalc\Symbols;
  */
 abstract class AbstractNumber extends AbstractSymbol
 {
+
 }

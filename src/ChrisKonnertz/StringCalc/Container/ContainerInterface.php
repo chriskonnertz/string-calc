@@ -7,19 +7,20 @@ use ChrisKonnertz\StringCalc\Exceptions\NotFoundException;
 
 /**
  * Describes the interface of a container that exposes methods to read its entries.
- * Source: https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-11-container.md.
+ * Source: https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-11-container.md
  */
 interface ContainerInterface
 {
+
     /**
      * Finds an entry of the container by its identifier and returns it.
      *
-     * @param string $id identifier of the entry to look for
+     * @param string $id Identifier of the entry to look for.
      *
-     * @throws NotFoundException  no entry was found for **this** identifier
-     * @throws ContainerException error while retrieving the entry
+     * @throws NotFoundException  No entry was found for **this** identifier.
+     * @throws ContainerException Error while retrieving the entry.
      *
-     * @return mixed entry
+     * @return mixed Entry.
      */
     public function get($id);
 
@@ -30,9 +31,10 @@ interface ContainerInterface
      * `has($id)` returning true does not mean that `get($id)` will not throw an exception.
      * It does however mean that `get($id)` will not throw a `NotFoundExceptionInterface`.
      *
-     * @param string $id identifier of the entry to look for
+     * @param string $id Identifier of the entry to look for.
      *
      * @return bool
      */
     public function has($id);
+
 }

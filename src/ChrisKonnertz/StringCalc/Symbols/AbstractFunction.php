@@ -10,6 +10,7 @@ use ChrisKonnertz\StringCalc\Exceptions\InvalidIdentifierException;
  */
 abstract class AbstractFunction extends AbstractSymbol
 {
+
     /**
      * This method is called when the function is executed. A function can have 0-n parameters.
      * The implementation of this method is responsible to validate the number of arguments.
@@ -21,14 +22,13 @@ abstract class AbstractFunction extends AbstractSymbol
      * If this class does NOT return a value of type int or float,
      * an exception will be thrown.
      *
-     * @param (int|float)[] $arguments
-     *
+     * @param  (int|float)[] $arguments
      * @return int|float
      */
     abstract public function execute(array $arguments);
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     protected function validateIdentifierMore($identifier)
     {
@@ -37,4 +37,5 @@ abstract class AbstractFunction extends AbstractSymbol
             throw new InvalidIdentifierException('Error: Identifier must consist of letters.');
         }
     }
+
 }

@@ -7,18 +7,19 @@ use ChrisKonnertz\StringCalc\Symbols\AbstractConstant;
 /**
  * PHP M_PI constant
  * Value: 3.14...
- *
  * @see http://php.net/manual/en/math.constants.php
  */
 class PiConstant extends AbstractConstant
 {
+
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     protected $identifiers = ['pi'];
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     protected $value = M_PI;
+
 }

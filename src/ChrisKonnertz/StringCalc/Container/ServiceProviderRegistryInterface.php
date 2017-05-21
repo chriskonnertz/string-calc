@@ -4,6 +4,7 @@ namespace ChrisKonnertz\StringCalc\Container;
 
 interface ServiceProviderRegistryInterface
 {
+
     /**
      * This method has to return an array with the class names of
      * all registered service providers. Service providers have to
@@ -12,4 +13,5 @@ interface ServiceProviderRegistryInterface
      * @return string[]
      */
     public function getServiceProviders();
+
 }

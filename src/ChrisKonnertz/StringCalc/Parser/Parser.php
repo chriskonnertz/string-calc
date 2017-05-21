@@ -21,11 +21,14 @@ use ChrisKonnertz\StringCalc\Tokenizer\Token;
  * It takes an array of tokens as input and
  * returns an array of nodes as output.
  * These nodes are the syntax tree of the term.
+ *
+ * @package ChrisKonnertz\StringCalc\Parser
  */
 class Parser
 {
+
     /**
-     * The symbol container with all possible symbols.
+     * The symbol container with all possible symbols
      *
      * @var SymbolContainerInterface
      */
@@ -46,7 +49,6 @@ class Parser
      * These nodes define a syntax tree.
      *
      * @param Token[] $tokens
-     *
      * @return ContainerNode
      */
     public function parse(array $tokens)
@@ -69,9 +71,7 @@ class Parser
      * Creates a flat array of symbol nodes from tokens.
      *
      * @param Token[] $tokens
-     *
      * @return SymbolNode[]
-     *
      * @throws NotFoundException
      * @throws ParserException
      */
@@ -104,10 +104,10 @@ class Parser
                 }
 
                 if (is_a($symbol, AbstractOpeningBracket::class)) {
-                    ++$openBracketCounter;
+                    $openBracketCounter++;
                 }
                 if (is_a($symbol, AbstractClosingBracket::class)) {
-                    --$openBracketCounter;
+                    $openBracketCounter--;
 
                     // Make sure there are not too many closing brackets
                     if ($openBracketCounter < 0) {
@@ -120,7 +120,7 @@ class Parser
 
             // Make sure a function is not followed by a symbol that is not of type opening bracket
             if ($expectingOpeningBracket) {
-                if (!is_a($symbol, AbstractOpeningBracket::class)) {
+                if (! is_a($symbol, AbstractOpeningBracket::class)) {
                     throw new ParserException(
                         'Error: Expected opening bracket (after a function) but got something else.'
                     );
@@ -162,9 +162,7 @@ class Parser
      * Check the brackets before you call this method.
      *
      * @param SymbolNode[] $symbolNodes
-     *
      * @return AbstractNode[]
-     *
      * @throws ParserException
      */
     protected function createTreeByBrackets(array $symbolNodes)
@@ -174,18 +172,18 @@ class Parser
         $openBracketCounter = 0;
 
         foreach ($symbolNodes as $index => $symbolNode) {
-            if (!is_a($symbolNode, SymbolNode::class)) {
+            if (! is_a($symbolNode, SymbolNode::class)) {
                 throw new ParserException('Error: Expected node, got something else.');
             }
 
             if (is_a($symbolNode->getSymbol(), AbstractOpeningBracket::class)) {
-                ++$openBracketCounter;
+                $openBracketCounter++;
 
                 if ($openBracketCounter > 1) {
                     $nodesInBrackets[] = $symbolNode;
                 }
             } elseif (is_a($symbolNode->getSymbol(), AbstractClosingBracket::class)) {
-                --$openBracketCounter;
+                $openBracketCounter--;
 
                 // Found a closing bracket on level 0
                 if ($openBracketCounter == 0) {
@@ -215,9 +213,7 @@ class Parser
      * Expects the $nodes not including any function nodes (yet).
      *
      * @param AbstractNode[] $nodes
-     *
      * @return AbstractNode[]
-     *
      * @throws ParserException
      */
     protected function transformTreeByFunctions(array $nodes)
@@ -256,10 +252,10 @@ class Parser
     }
 
     /**
-     * Ensures the tree follows the grammar rules for terms.
+     * Ensures the tree follows the grammar rules for terms
      *
      * @param array $nodes
-     *
+     * @return void
      * @throws ParserException
      */
     protected function checkGrammar(array $nodes)
@@ -272,10 +268,12 @@ class Parser
         foreach ($nodes as $index => $node) {
             if (is_a($node, SymbolNode::class)) {
                 /** @var $node SymbolNode */
+
                 $symbol = $node->getSymbol();
 
                 if (is_a($symbol, AbstractOperator::class)) {
                     /** @var $symbol AbstractOperator */
+
                     $posOfRightOperand = $index + 1;
 
                     // Make sure the operator is positioned left of a (potential) operand (=prefix notation).
@@ -303,22 +301,23 @@ class Parser
 
                     // If null, the operator is unary
                     if ($leftOperand === null) {
-                        if (!$symbol->getOperatesUnary()) {
+                        if (! $symbol->getOperatesUnary()) {
                             throw new ParserException('Error: Found operator in unary notation that is not unary.');
                         }
 
                         // Remember that this node represents a unary operator
                         $node->setIsUnaryOperator(true);
                     } else {
-                        if (!$symbol->getOperatesBinary()) {
+                        if (! $symbol->getOperatesBinary()) {
                             throw new ParserException('Error: Found operator in binary notation that is not binary.');
                         }
                     }
                 }
             } else {
-                /* @var $node ContainerNode */
+                /** @var $node ContainerNode */
                 $this->checkGrammar($node->getChildNodes());
             }
         }
     }
+
 }

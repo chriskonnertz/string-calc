@@ -6,24 +6,26 @@ use ChrisKonnertz\StringCalc\Symbols\AbstractOperator;
 
 /**
  * Operator for mathematical division.
- * Example: "6/2" => 3, "6/0" => InvalidArgumentException.
- *
+ * Example: "6/2" => 3, "6/0" => InvalidArgumentException
  * @see https://en.wikipedia.org/wiki/Division_(mathematics)
+ *
+ * @package ChrisKonnertz\StringCalc\Symbols\Concrete
  */
 class DivisionOperator extends AbstractOperator
 {
+
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     protected $identifiers = ['/'];
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     const PRECEDENCE = 200;
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     public function operate($leftNumber, $rightNumber)
     {
@@ -34,4 +36,5 @@ class DivisionOperator extends AbstractOperator
 
         return $leftNumber / $rightNumber;
     }
+
 }

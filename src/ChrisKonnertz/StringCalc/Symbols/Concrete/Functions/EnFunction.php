@@ -14,13 +14,14 @@ use ChrisKonnertz\StringCalc\Symbols\AbstractFunction;
  */
 class EnFunction extends AbstractFunction
 {
+
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     protected $identifiers = ['en'];
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     public function execute(array $arguments)
     {
@@ -32,4 +33,5 @@ class EnFunction extends AbstractFunction
 
         return $number;
     }
+
 }

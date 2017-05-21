@@ -6,13 +6,16 @@ namespace ChrisKonnertz\StringCalc\Tokenizer;
  * The tokenizer splits a term into an array of tokens.
  * Tokens are the parts of a term or to be more precise
  * the mathematical symbols of a term.
+ *
+ * @package ChrisKonnertz\StringCalc\Tokenizer
  */
 class Token
 {
+
     /**
      * Defines the type of a token.
      * Example token value of a token with this type:
-     * 'abs'.
+     * 'abs'
      *
      * @const int
      */
@@ -21,7 +24,7 @@ class Token
     /**
      * Defines the type of a token.
      * Example token value of a token with this type:
-     * '123'.
+     * '123'
      *
      * @const int
      */
@@ -30,7 +33,7 @@ class Token
     /**
      * Defines the type of a token.
      * Example token value of a token with this type:
-     * '+'.
+     * '+'
      *
      * @const int
      */
@@ -45,7 +48,7 @@ class Token
 
     /**
      * The type of the token. One of these constants:
-     * self::TYPE_WORD|self::TYPE_NUMBER|self::TYPE_CHARACTER.
+     * self::TYPE_WORD|self::TYPE_NUMBER|self::TYPE_CHARACTER
      *
      * @var int
      */
@@ -62,25 +65,25 @@ class Token
     /**
      * Token constructor. The position must be >= 0.
      *
-     * @param string $value
-     * @param string $type
-     * @param int    $position
+     * @param string    $value
+     * @param string    $type
+     * @param int       $position
      */
     public function __construct($value, $type, $position)
     {
-        if (!is_string($value)) {
+        if (! is_string($value)) {
             throw new \InvalidArgumentException('Error: Argument "value" has to be of type string.');
         }
         $this->value = $value;
 
-        if (!in_array($type, $this->getAllTypes())) {
+        if (! in_array($type, $this->getAllTypes())) {
             throw new \InvalidArgumentException(
                 'Error: Argument "type" does not have the value of a known token type.'
             );
         }
         $this->type = $type;
 
-        if (!is_int($position)) {
+        if (! is_int($position)) {
             throw new \InvalidArgumentException('Error: Argument "position" has to be of type int.');
         }
         if ($position < 0) {
@@ -92,7 +95,7 @@ class Token
     /**
      * Returns an array that contains the values of all
      * possible types of token type constants:
-     * self::TYPE_WORD|self::TYPE_NUMBER|self::TYPE_CHARACTER.
+     * self::TYPE_WORD|self::TYPE_NUMBER|self::TYPE_CHARACTER
      *
      * @return int[]
      */
@@ -102,7 +105,7 @@ class Token
     }
 
     /**
-     * Getter for the value.
+     * Getter for the value
      *
      * @return string
      */
@@ -112,7 +115,7 @@ class Token
     }
 
     /**
-     * Getter for the type.
+     * Getter for the type
      *
      * @return string
      */
@@ -122,7 +125,7 @@ class Token
     }
 
     /**
-     * Getter for the position.
+     * Getter for the position
      *
      * @return int
      */
@@ -131,8 +134,9 @@ class Token
         return $this->position;
     }
 
-    public function __toString()
+    function __toString()
     {
         return $this->value;
     }
+
 }
