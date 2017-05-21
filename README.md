@@ -88,7 +88,7 @@ To see a list of all available types of mathematical symbols (parts of a term) f
 
 ## The StringCalc class
 
-The `StrincCalc` is the  is the API frontend of the StringCalc library. 
+The `StringCalc` is the  is the API frontend of the StringCalc library. 
 This section describes the public methods of this class.
 
 ### Constructor
