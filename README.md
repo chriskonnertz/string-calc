@@ -174,6 +174,7 @@ Example:
 ```
 $symbol = new ExampleClassOne();
 $replaceSymbol = ExampleClassTwo::class;
+
 $stringCalc->addSymbol($symbol, $replaceSymbol);
 ```
 
