@@ -79,7 +79,7 @@ Here is a list that shows examples with more exotic syntax:
 ```
 1 // A term can consist of just a number
 (1+((2))) //  Usage of obsolete brackets is allowed
-00001 // Prefix a number with obsolete zero digits is possible
+00001 // Prefixing a number with obsolete zero digits is possible
 .1 // Ommiting a zero digit before a period charcter is okay
 ```
 
@@ -203,7 +203,7 @@ A term consists of symbols that are of a specific type. This section lists all a
 
 ### Numbers
 
-Numbers in a term always consist of digits and may include one period. Good examples:
+Numbers in a term always consist of digits and may include one period. Good usage examples:
 
 ```
 0
@@ -213,7 +213,7 @@ Numbers in a term always consist of digits and may include one period. Good exam
 .7
 ```
 
-Bad examples:
+Bad usage examples:
 
 ```
 0.1.2   // Two periods
@@ -240,7 +240,7 @@ there can be classes that implement support for parentheses `()` and square brac
 but they will be treated equally. Therefore this is a valid term even though it might not be valid 
 from a mathematical point of view: `[1+)`
 
-For every opening brackets there must be a closing bracket and vice versa. Good examples:
+For every opening brackets there must be a closing bracket and vice versa. Good usage examples:
                                                                            
 ```
 (1+1)
@@ -248,7 +248,7 @@ For every opening brackets there must be a closing bracket and vice versa. Good 
 ((1+2)*(3+4))
 ```
 
-Bad examples:
+Bad usage examples:
 
 ```
 (1+1    // Missing closing bracket
@@ -266,7 +266,8 @@ The `Symbols\AbstractBracket` class is the base class for all brackets. It is ex
 
 Constants in a term typically represent mathematical constants, for example pi.
  
-Examples:
+Usage examples:
+
 ```
 pi
 PI
@@ -307,7 +308,7 @@ contain 0.
 Functions in a term represent mathematical functions. Typically the textual representation of a function consists of 
 two or more letters, for example: `min`
 
-Good examples of using functions:
+Good usage examples of using functions:
                                                                            
 ```
 abs(-1)
@@ -317,7 +318,7 @@ min(1,2)
 min(1,2,3)
 ```
 
-Bad examples:
+Bad usage examples:
 
 ```
 abs-1 // Missing brackets
@@ -352,14 +353,14 @@ The items of the `$arguments` array will always be of type int or float. They wi
 A separator separates the arguments of a (mathematical) function. 
 Out-of-the-box there is one separator symbol with one identifier: `,`
  
-Good examples:
+Good usage examples:
  
 ```
 max(1,2)
 max(1,2,3) 
 ```
 
-Bad examples:
+Bad usage examples:
  
 ```
 3+1,2 // Usage out of scope / missusage as decimal mark
