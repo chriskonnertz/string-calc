@@ -388,7 +388,7 @@ It is not intended to provide such support so if you need support of other numer
 `ChrisKonnertz\StringCalc\Exceptions\StringCalcException`.
 
 * General advice: The code of this library is well documented. Therefore, do not hesitate to take a closer 
-look at the implementation. 
+look at the [implementation](src/ChrisKonnertz/StringCalc).
 
 * The code of this library is formatted according to the code style defined by the 
 [PSR-2](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-2-coding-style-guide.md) standard.
