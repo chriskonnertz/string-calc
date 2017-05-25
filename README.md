@@ -381,7 +381,7 @@ Therefore - as a rule of thumb - please transfer your knowledge about mathematic
 in StringCalc.  
 
 * This class does not offer support for any other numeral system than the decimal numeral system. 
-It is not intended to provide such support so if you need support of other numeral system 
+It is not intended to provide such support so if you need support of other numeral systems 
 (such as the binary numeral system) this might not be the library of your choice.
  
 * Namespaces in this documentation are relative. For example the namespace `Exceptions\StringCalcException` refers to
