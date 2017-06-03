@@ -399,7 +399,6 @@ and you will get a response, usually within 48 hours.
 ## TODO
 
 * Add missing grammar checking
-* Make injectable grammar checker?
 * Make exceptions (way more) verbose?
 * Check phpdoc comments, especially check for @throws tags
 * Finalize documentation
