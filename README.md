@@ -137,7 +137,7 @@ The position is the index of the value string in the term string. Tokens do not 
 The `parse(array $tokens)` method parses an array of tokens. It returns an array of nodes. Internally it uses the
 parser aka `Parser\Parser` to parse the tokens. It transforms the tokens to nodes of the syntax tree. These nodes have
 a semantic meaning, for example they are numbers or operators 
-(take a look at the [Types of symbols](#Types-of-symbols) section for a full list of symbol types). 
+(take a look at the [Types of symbols](#types-of-symbols) section for a full list of symbol types). 
 Also they have a hierarchy, also known as the "tree" in the "syntax tree". 
 Brackets in a term create a node in the syntax tree. Usage example:
 
