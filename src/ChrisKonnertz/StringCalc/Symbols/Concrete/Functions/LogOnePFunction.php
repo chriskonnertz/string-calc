@@ -5,17 +5,20 @@ namespace ChrisKonnertz\StringCalc\Symbols\Concrete\Functions;
 use ChrisKonnertz\StringCalc\Symbols\AbstractFunction;
 
 /**
- * PHP abs() function. Expects one parameter.
- * Example: "abs(2)" => 2, "abs(-2)" => 2, "abs(0)" => 0
+ * PHP log1p() function aka returns log(1 + number),
+ * computed in a way that is accurate even when
+ * the value of number is close to zero.
+ * Expects one parameter.
+ *
  * @see http://php.net/manual/en/ref.math.php
  */
-class AbsFunction extends AbstractFunction
+class LogOnePFunction extends AbstractFunction
 {
 
     /**
      * @inheritdoc
      */
-    protected $identifiers = ['abs'];
+    protected $identifiers = ['logOneP'];
 
     /**
      * @inheritdoc
@@ -28,7 +31,7 @@ class AbsFunction extends AbstractFunction
 
         $number = $arguments[0];
 
-        return abs($number);
+        return log1p($number);
     }
 
 }

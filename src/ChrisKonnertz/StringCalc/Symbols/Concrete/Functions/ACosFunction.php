@@ -5,17 +5,16 @@ namespace ChrisKonnertz\StringCalc\Symbols\Concrete\Functions;
 use ChrisKonnertz\StringCalc\Symbols\AbstractFunction;
 
 /**
- * PHP abs() function. Expects one parameter.
- * Example: "abs(2)" => 2, "abs(-2)" => 2, "abs(0)" => 0
+ * PHP acos() function aka arc cosine. Expects one parameter.
  * @see http://php.net/manual/en/ref.math.php
  */
-class AbsFunction extends AbstractFunction
+class ACosFunction extends AbstractFunction
 {
 
     /**
      * @inheritdoc
      */
-    protected $identifiers = ['abs'];
+    protected $identifiers = ['acos'];
 
     /**
      * @inheritdoc
@@ -28,7 +27,7 @@ class AbsFunction extends AbstractFunction
 
         $number = $arguments[0];
 
-        return abs($number);
+        return acos($number);
     }
 
 }
