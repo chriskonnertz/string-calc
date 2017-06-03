@@ -401,7 +401,5 @@ and you will get a response, usually within 48 hours.
 * Add missing grammar checking
 * Make injectable grammar checker?
 * Make exceptions (way more) verbose?
-* Rename symbol classes to symbol type classes?
-* Add missing PHP functions
 * Check phpdoc comments, especially check for @throws tags
 * Finalize documentation
