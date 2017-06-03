@@ -2,7 +2,6 @@
 
 namespace ChrisKonnertz\StringCalc;
 
-use ChrisKonnertz\StringCalc\Calculator\Calculator;
 use ChrisKonnertz\StringCalc\Container\Container;
 use ChrisKonnertz\StringCalc\Container\ContainerInterface;
 use ChrisKonnertz\StringCalc\Container\ServiceProviderRegistry;
@@ -30,7 +29,14 @@ class StringCalc
      *
      * @const string
      */
-    const VERSION = '0.8.0';
+    const VERSION = '0.8.1';
+
+    /**
+     * Closure that is called at the end of the grammar checking
+     *
+     * @var \Closure
+     */
+    protected $customGrammarChecker = null;
 
     /**
      * The service container
@@ -139,6 +145,10 @@ class StringCalc
 
         $parser = new Parser($symbolContainer);
 
+        if ($this->customGrammarChecker !== null) {
+            $parser->setCustomGrammarChecker($this->customGrammarChecker);
+        }
+
         $rootNode = $parser->parse($tokens);
 
         return $rootNode;
@@ -156,6 +166,25 @@ class StringCalc
     public function addSymbol(AbstractSymbol $symbol, $replaceSymbol = null)
     {
         $this->symbolContainer->add($symbol, $replaceSymbol);
+    }
+
+    /**
+     * Setter for the custom grammar checker property.
+     * @see Parser::setCustomGrammarChecker()
+     *
+     * @param \Closure $customGrammarChecker
+     */
+    public function setCustomGrammarChecker(\Closure $customGrammarChecker)
+    {
+        $this->customGrammarChecker = $customGrammarChecker;
+    }
+
+    /**
+     * Removes the custom grammar checker.
+     */
+    public function unsetCustomGrammarChecker()
+    {
+        $this->customGrammarChecker = null;
     }
 
     /**

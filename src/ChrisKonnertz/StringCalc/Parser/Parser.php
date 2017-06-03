@@ -15,6 +15,7 @@ use ChrisKonnertz\StringCalc\Symbols\AbstractOperator;
 use ChrisKonnertz\StringCalc\Symbols\Concrete\Number;
 use ChrisKonnertz\StringCalc\Symbols\SymbolContainerInterface;
 use ChrisKonnertz\StringCalc\Tokenizer\Token;
+use Closure;
 
 /**
  * The parsers has one important method: parse()
@@ -33,6 +34,13 @@ class Parser
      * @var SymbolContainerInterface
      */
     protected $symbolContainer;
+
+    /**
+     * Closure that is called at the end of the grammar checking
+     *
+     * @var Closure
+     */
+    protected $customGrammarChecker = null;
 
     /**
      * Parser constructor.
@@ -318,6 +326,43 @@ class Parser
                 $this->checkGrammar($node->getChildNodes());
             }
         }
+
+        if ($this->customGrammarChecker !== null) {
+            $this->customGrammarChecker($nodes);
+        }
+    }
+
+    /**
+     * Setter for the custom grammar checker property.
+     * Expects a function (closure) as a parameter.
+     * This function is called at the end of the
+     * grammar checking. An array with all nodes is
+     * passed as an argument. If grammar checking
+     * fails, the function has to throw a
+     * ParserException.
+     * @param Closure $customGrammarChecker
+     */
+    public function setCustomGrammarChecker(Closure $customGrammarChecker)
+    {
+        $this->customGrammarChecker = $customGrammarChecker;
+    }
+
+    /**
+     * Removes the custom grammar checker.
+     */
+    public function unsetCustomGrammarChecker()
+    {
+        $this->customGrammarChecker = null;
+    }
+
+    /**
+     * Getter for the custom grammar checker property.
+     *
+     * @return Closure
+     */
+    public function getCustomGrammarChecker()
+    {
+        return $this->customGrammarChecker;
     }
 
 }
