@@ -6,12 +6,12 @@ use ChrisKonnertz\StringCalc\Symbols\AbstractFunction;
 
 /**
  * PHP fmod() function aka returns the floating point
- * emainder (modulo) of the division of the arguments.
+ * remainder (modulo) of the division of the arguments.
  * The first is the dividend param, the second is the
  * divisor param.
  * @see http://php.net/manual/en/ref.math.php
  */
-class ATanTwoFunction extends AbstractFunction
+class FModFunction extends AbstractFunction
 {
 
     /**
