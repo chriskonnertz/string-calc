@@ -20,7 +20,7 @@ use ChrisKonnertz\StringCalc\Symbols\AbstractSeparator;
  *
  * @package ChrisKonnertz\StringCalc\Calculator
  */
-class Calculator
+class Calculator implements CalculatorInterface
 {
 
     /**

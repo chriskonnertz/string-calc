@@ -93,8 +93,7 @@ class StringCalc
             return 0;
         }
 
-        // TODO use parser service?
-        $calculator = new Calculator();
+        $calculator = $this->container->get('stringcalc_calculator');
 
         $result = $calculator->calculate($rootNode);
 
@@ -120,7 +119,6 @@ class StringCalc
         /** @var StringHelperInterface $stringHelper */
         $stringHelper = $this->container->get('stringcalc_stringhelper');
 
-        // TODO use tokenizer service?
         $tokenizer = new Tokenizer($inputStream, $stringHelper);
 
         $tokens = $tokenizer->tokenize();
@@ -139,7 +137,6 @@ class StringCalc
         /** @var SymbolContainerInterface $symbolContainer */
         $symbolContainer = $this->container->get('stringcalc_symbolcontainer');
 
-        // TODO use parser service?
         $parser = new Parser($symbolContainer);
 
         $rootNode = $parser->parse($tokens);

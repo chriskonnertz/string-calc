@@ -2,6 +2,7 @@
 
 namespace ChrisKonnertz\StringCalc\Container;
 
+use ChrisKonnertz\StringCalc\Container\ServiceProviders\CalculatorServiceProvider;
 use ChrisKonnertz\StringCalc\Container\ServiceProviders\InputStreamServiceProvider;
 use ChrisKonnertz\StringCalc\Container\ServiceProviders\StringHelperServiceProvider;
 use ChrisKonnertz\StringCalc\Container\ServiceProviders\SymbolContainerServiceProvider;
@@ -24,6 +25,7 @@ class ServiceProviderRegistry implements ServiceProviderRegistryInterface
             'stringcalc_stringhelper'       => StringHelperServiceProvider::class,
             'stringcalc_inputstream'        => InputStreamServiceProvider::class,
             'stringcalc_symbolcontainer'    => SymbolContainerServiceProvider::class,
+            'stringcalc_calculator'         => CalculatorServiceProvider::class,
         ];
 
         return $serviceProviders;
