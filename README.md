@@ -47,7 +47,7 @@ Imagine you are building a web application that allows users to enter mathematic
  is not the answer. The official documentation recommends not to use this function: 
  _The eval() language construct is very dangerous because it allows execution of arbitrary PHP code. 
  Its use thus is discouraged._ StringCalc has its own parser implementation and therefore is a better and 
- save alternative. StringCalc follows modern coding priciples, is extensible and well documented. 
+ save alternative. StringCalc follows modern coding principles, is extensible and well documented. 
  If you have any suggestions how to improve this library, feel free to discuss them in the [issue](https://github.com/chriskonnertz/string-calc/issues) section.
 
 ## The term
