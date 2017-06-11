@@ -205,7 +205,7 @@ class Calculator implements CalculatorInterface
     }
 
     /**
-     * Detected the calculation order of a given array of nodes.
+     * Detect the calculation order of a given array of nodes.
      * Does only care for the precedence of operators.
      * Does not care for child nodes of container nodes.
      * Returns a new array with ordered symbol nodes.
