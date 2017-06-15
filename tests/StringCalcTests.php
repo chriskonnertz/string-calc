@@ -98,6 +98,14 @@ class StringCalcTest extends \PHPUnit\Framework\TestCase
         ];
 
         $this->doCalculations($calculations, 0.0001);
+
+        // Random functions:
+        $this->stringCalc->calculate('getRandMax()');
+        $this->stringCalc->calculate('mTGetRandMax()');
+        $this->stringCalc->calculate('mTRand()');
+        $this->stringCalc->calculate('mTRand(1,2)');
+        $this->stringCalc->calculate('rand()');
+        $this->stringCalc->calculate('rand(1,2)');
     }
 
     /**
