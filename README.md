@@ -123,8 +123,8 @@ try {
 In the example an exception of class `StringCalcException` will be thrown, 
 because the `min` method has to be called with one parameter at least. Exceptions of the type `StringCalcException` 
 are usually thrown when grammar or syntax of a given term are invalid. They have two additional properties: `position` 
-is an integer telling you where the problem occurred in the term, and `subject` that might contain additional data, 
-especially unfiltered user input that you should never print to website without filtering!
+is an integer telling you where the problem occurred in the term, and `subject` is a string that might contain 
+additional data, especially unfiltered user input that you should never print to website without filtering!
  
 ### tokenize
 
@@ -394,7 +394,7 @@ There is only one concrete functions that extend this class: `Symbols\Concrete\S
 
 * Internally this library uses PHP's mathematical constants, operators and functions to calculate the term. 
 Therefore - as a rule of thumb - please transfer your knowledge about mathematics in PHP to the mathematics 
-in StringCalc. The `intdiv`function is missing, because it is not supported by PHP 5.6.
+in StringCalc. PHP's `intdiv`function is missing, because it is not supported by PHP 5.6.
 
 * This class does not offer support for any other numeral system than the decimal numeral system. 
 It is not intended to provide such support so if you need support of other numeral systems 
