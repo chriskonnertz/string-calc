@@ -56,12 +56,16 @@ class StringCalcTest extends \PHPUnit\Framework\TestCase
             ['2/1', 2],
             ['1/2', 0.5],
             ['-1/2', -0.5],
-
-            ['abs(2)', 2],
-            ['abs(-2)', 2],
         ];
 
         $this->doCalculations($calculations);
+
+        $calculations = [
+            ['abs(-2)', 2],
+            ['aCosH(2)', 1.31695]
+        ];
+
+        $this->doCalculations($calculations, 0.0001);
     }
 
     /**
@@ -72,7 +76,7 @@ class StringCalcTest extends \PHPUnit\Framework\TestCase
      *
      * @param array[array] $calculations
      */
-    private function doCalculations(array $calculations)
+    private function doCalculations(array $calculations, $delta = 0)
     {
         foreach ($calculations as $calculation) {
             $term = $calculation[0];
@@ -83,7 +87,7 @@ class StringCalcTest extends \PHPUnit\Framework\TestCase
             // Use the following line to see the current term:
             //echo $term.' --- ';
 
-            $this->assertEquals($calculatedResult, $expectedResult);
+            $this->assertEquals($calculatedResult, $expectedResult, '', $delta);
         }
     }
 
