@@ -62,7 +62,9 @@ class StringCalcTest extends \PHPUnit\Framework\TestCase
 
         $calculations = [
             ['abs(-2)', 2],
-            ['aCosH(2)', 1.31695]
+            ['aCosH(2)', 1.31695],
+            ['aCosH(2)', 1.3168],
+            ['aCosH(2)', 1.316],
         ];
 
         $this->doCalculations($calculations, 0.0001);
