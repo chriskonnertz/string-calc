@@ -31,6 +31,7 @@ class StringCalcTest extends \PHPUnit\Framework\TestCase
     {
         $this->stringCalc = $this->getInstance();
 
+        // Operators
         $calculations = [
             ['0', 0],
             ['1', 1],
@@ -60,6 +61,7 @@ class StringCalcTest extends \PHPUnit\Framework\TestCase
 
         $this->doCalculations($calculations);
 
+        // Functions
         $calculations = [
             ['abs(-2)', 2],
             ['aCos(0.5)', 1.0471975511966],
@@ -96,6 +98,7 @@ class StringCalcTest extends \PHPUnit\Framework\TestCase
             ['tanH(2)', 0.96402758007582],
         ];
 
+        // Will call the ssertEquals method with the delta parameter set
         $this->doCalculations($calculations, 0.0001);
 
         // Random functions:
