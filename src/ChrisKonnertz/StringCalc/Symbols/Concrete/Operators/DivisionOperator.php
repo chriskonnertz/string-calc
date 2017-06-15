@@ -29,11 +29,6 @@ class DivisionOperator extends AbstractOperator
      */
     public function operate($leftNumber, $rightNumber)
     {
-        // TODO: Is this expression true for imprecise floats?
-        if ($rightNumber == 0) {
-            throw new \InvalidArgumentException('Error: Division by zero detected.');
-        }
-
         return $leftNumber / $rightNumber;
     }
 
