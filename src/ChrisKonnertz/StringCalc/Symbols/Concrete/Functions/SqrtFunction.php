@@ -28,6 +28,10 @@ class SqrtFunction extends AbstractFunction
 
         $number = $arguments[0];
 
+        if ($number < 0) {
+            throw new \InvalidArgumentException('Error: Cannot calculate square root of negative number.');
+        }
+
         return sqrt($number);
     }
 

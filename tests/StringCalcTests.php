@@ -86,6 +86,15 @@ class StringCalcTest extends \PHPUnit\Framework\TestCase
             ['logTen(2)', 0.30102999566398],
             ['max(1,2.2)', 2.2],
             ['min(2,1.1)', 1.1],
+            ['pow(2,3)', 8],
+            ['radToDeg(2)', 114.59155902616],
+            ['round(1.8)', 2],
+            ['round(1.84,1)', 1.8],
+            ['sin(2)', 0.90929742682568],
+            ['sinH(2)', 3.626860407847],
+            ['sqrt(2)', 1.4142135623731],
+            ['tan(2)', -2.1850398632615],
+            ['tanH(2)', 0.96402758007582],
         ];
 
         $this->doCalculations($calculations, 0.0001);
