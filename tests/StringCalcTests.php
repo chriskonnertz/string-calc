@@ -79,7 +79,6 @@ class StringCalcTest extends \PHPUnit\Framework\TestCase
             ['floor(2.8)', 2],
             ['fMod(2.2,2.1)', 0.1],
             ['hypot(2,2)', 2.8284271247462],
-            ['intdiv(11,5)', 2],
             ['log(2)', 0.69314718055995],
             ['log(2,2)', 1],
             ['logOneP(2)', 1.0986122886681],
