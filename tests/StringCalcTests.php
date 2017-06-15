@@ -77,6 +77,15 @@ class StringCalcTest extends \PHPUnit\Framework\TestCase
             ['exp(2)', 7.3890560989307],
             ['expMOne(2)', 6.3890560989307],
             ['floor(2.8)', 2],
+            ['fMod(2.2,2.1)', 0.1],
+            ['hypot(2,2)', 2.8284271247462],
+            ['intdiv(11,5)', 2],
+            ['log(2)', 0.69314718055995],
+            ['log(2,2)', 1],
+            ['logOneP(2)', 1.0986122886681],
+            ['logTen(2)', 0.30102999566398],
+            ['max(1,2.2)', 2.2],
+            ['min(2,1.1)', 1.1],
         ];
 
         $this->doCalculations($calculations, 0.0001);
