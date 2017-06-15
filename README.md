@@ -400,4 +400,3 @@ and you will get a response, usually within 48 hours.
 
 * Add missing grammar checking
 * Make exceptions (way more) verbose?
-* Check phpdoc comments, especially check for @throws tags
