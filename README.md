@@ -107,8 +107,22 @@ and to extend the `Container\Contaner` class instead.
 
 The `calculate()` method is the most important method of this class. 
 It expects one parameter of type string called `$term`.
-It returns a number of type float or int. We recommend to wrap any calls of this method in a `try-catch`-block and to
- write a `catch`-statement that catches all exceptions of type `Exceptions\StringCalcException`.
+It returns a number of type float or int. We strongly recommend to wrap any calls of this method in a `try-catch`-block 
+and to write a `catch`-statement that catches all exceptions of type `Exceptions\StringCalcException`.
+ 
+```
+try {
+    $result = $stringCalc->calculate('min()');
+} catch (Exceptions\StringCalcException $exception) {
+    ... // Handle exception
+} catch (\Exception $exception) {
+    ... // Handle exception. 
+}
+```
+
+In the example an exception of class `StringCalcException` will be thrown, 
+because the `min` method has to be called with one parameter at least. Exceptions of the type `StringCalcException` 
+are usually thrown when grammar or syntax of a given term are invalid.
  
 ### tokenize
 
@@ -378,7 +392,7 @@ There is only one concrete functions that extend this class: `Symbols\Concrete\S
 
 * Internally this library uses PHP's mathematical constants, operators and functions to calculate the term. 
 Therefore - as a rule of thumb - please transfer your knowledge about mathematics in PHP to the mathematics 
-in StringCalc.  
+in StringCalc. The `intdiv`function is missing, because it is not supported by PHP 5.6.
 
 * This class does not offer support for any other numeral system than the decimal numeral system. 
 It is not intended to provide such support so if you need support of other numeral systems 

@@ -8,6 +8,7 @@ use ChrisKonnertz\StringCalc\Parser\Nodes\AbstractNode;
 use ChrisKonnertz\StringCalc\Parser\Nodes\ContainerNode;
 use ChrisKonnertz\StringCalc\Parser\Nodes\FunctionNode;
 use ChrisKonnertz\StringCalc\Parser\Nodes\SymbolNode;
+use ChrisKonnertz\StringCalc\Support\UtilityTrait;
 use ChrisKonnertz\StringCalc\Symbols\AbstractClosingBracket;
 use ChrisKonnertz\StringCalc\Symbols\AbstractFunction;
 use ChrisKonnertz\StringCalc\Symbols\AbstractOpeningBracket;
@@ -27,6 +28,8 @@ use Closure;
  */
 class Parser
 {
+
+    use UtilityTrait;
 
     /**
      * The symbol container with all possible symbols
@@ -98,7 +101,12 @@ class Parser
                 $symbol = $this->symbolContainer->find($identifier);
 
                 if ($symbol === null) {
-                    throw new NotFoundException('Error: Detected unknown or invalid string identifier.');
+                    $this->throwException(
+                        NotFoundException::class,
+                        'Error: Detected unknown or invalid string identifier.',
+                        $token->getPosition(),
+                        $identifier
+                    );
                 }
             } elseif ($type == Token::TYPE_NUMBER) {
                 // Notice: Numbers do not have an identifier
@@ -108,7 +116,12 @@ class Parser
                 $symbol = $this->symbolContainer->find($identifier);
 
                 if ($symbol === null) {
-                    throw new NotFoundException('Error: Detected unknown or invalid character identifier.');
+                    $this->throwException(
+                        NotFoundException::class,
+                        'Error: Detected unknown or invalid character identifier.',
+                        $token->getPosition(),
+                        $identifier
+                    );
                 }
 
                 if (is_a($symbol, AbstractOpeningBracket::class)) {
@@ -119,8 +132,11 @@ class Parser
 
                     // Make sure there are not too many closing brackets
                     if ($openBracketCounter < 0) {
-                        throw new ParserException(
-                            'Error: Found closing bracket that does not have an opening bracket.'
+                        $this->throwException(
+                            ParserException::class,
+                            'Error: Found closing bracket that does not have an opening bracket.',
+                            $token->getPosition(),
+                            $identifier
                         );
                     }
                 }
@@ -129,8 +145,11 @@ class Parser
             // Make sure a function is not followed by a symbol that is not of type opening bracket
             if ($expectingOpeningBracket) {
                 if (! is_a($symbol, AbstractOpeningBracket::class)) {
-                    throw new ParserException(
-                        'Error: Expected opening bracket (after a function) but got something else.'
+                    $this->throwException(
+                        ParserException::class,
+                        'Error: Expected opening bracket (after a function) but got something else.',
+                        $token->getPosition(),
+                        get_class($symbol)
                     );
                 }
 
