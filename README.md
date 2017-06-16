@@ -15,7 +15,7 @@ StringCalc is a PHP calculator library for mathematical terms (expressions) pass
 
 Through Composer:
 
-```
+```php
 composer require chriskonnertz/string-calc
 ```
 
@@ -30,7 +30,7 @@ It is possible to use this library without using Composer but then it is necessa
 
 Here is a minimalistic example of PHP code that calculates a term. It assumes that there is an autoloader.
 
-```
+```php
 $stringCalc = new ChrisKonnertz\StringCalc\StringCalc();
 
 $term = '1+2';
@@ -77,7 +77,7 @@ min(1+2, abs(-1))
 
 Here is a list that shows examples with more exotic syntax:
 
-```
+```php
 1 // A term can consist of just a number
 (1+((2))) //  Usage of obsolete brackets is allowed
 00001 // Prefixing a number with obsolete zero digits is possible
@@ -110,7 +110,7 @@ It expects one parameter of type string called `$term`.
 It returns a number of type float or int. We strongly recommend to wrap any calls of this method in a `try-catch`-block 
 and to write a `catch`-statement that catches all exceptions of type `Exceptions\StringCalcException`.
  
-```
+```php
 try {
     $result = $stringCalc->calculate('min()');
 } catch (Exceptions\StringCalcException $exception) {
@@ -133,7 +133,7 @@ Tokens are the parts of a term or to be more precise the mathematical symbols of
 that has the `Tokenizer\Token` class as its parent. it implements the `__toString()` method 
 so you can do something like this:
 
-```
+```php
 $term = '1+(2+max(-3,3))';
 
 $tokens = $stringCalc->tokenize($term);
@@ -158,7 +158,7 @@ Also they have a hierarchy, also known as the "tree" in the "syntax tree".
 Brackets in a term create a node in the syntax tree. Usage example:
 
 
-```
+```php
 $term = '1+(2+max(-3,3))';
 
 $tokens = $stringCalc->tokenize($term);
@@ -187,7 +187,7 @@ The second parameter named `$replaceSymbol` is optional and allows you to replac
 If you want to use this parameter you have to pass the full name of the class that you want to replace.
 
 Example:
-```
+```php
 $symbol = new ExampleClassOne();
 $replaceSymbol = ExampleClassTwo::class;
 
@@ -358,7 +358,7 @@ Function classes implement the `execute(array $arguments)` method. The arguments
 The size of the arguments array can be 0-n. The implementation of this method is responsible to validate the number of 
 arguments. Example:
 
-```
+```php
 if (sizeof($arguments) < 1) {
     throw new \InvalidArgumentException('Error: Expected at least one argument, none given.');
 }
