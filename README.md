@@ -77,7 +77,7 @@ min(1+2, abs(-1))
 
 Here is a list that shows examples with more exotic syntax:
 
-```php
+```
 1 // A term can consist of just a number
 (1+((2))) //  Usage of obsolete brackets is allowed
 00001 // Prefixing a number with obsolete zero digits is possible
