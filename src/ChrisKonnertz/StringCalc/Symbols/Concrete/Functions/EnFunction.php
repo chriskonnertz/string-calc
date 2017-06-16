@@ -26,7 +26,7 @@ class EnFunction extends AbstractFunction
     public function execute(array $arguments)
     {
         if (sizeof($arguments) != 2) {
-            throw new \InvalidArgumentException('Error: Expected two arguments, '.sizeof($arguments).' given.');
+            throw new \InvalidArgumentException('Error: Expected two arguments, '.sizeof($arguments).' given');
         }
 
         $number = $arguments[0] * pow(10, $arguments[1]);

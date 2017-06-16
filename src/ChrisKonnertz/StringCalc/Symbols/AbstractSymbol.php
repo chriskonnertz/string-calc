@@ -68,7 +68,7 @@ abstract class AbstractSymbol
         $this->validateIdentifier($identifier);
 
         if (in_array($identifier, $this->identifiers)) {
-            throw new InvalidIdentifierException('Error: Cannot add the identifier "'.$identifier.'" twice.');
+            throw new InvalidIdentifierException('Error: Cannot add the identifier "'.$identifier.'" twice');
         }
 
         $this->identifiers[] = $identifier;
@@ -90,14 +90,14 @@ abstract class AbstractSymbol
         $this->stringHelper->validate($identifier);
 
         if (strpos($identifier, '.') !== false) {
-            throw new InvalidIdentifierException('Error: Identifier cannot contain period characters.');
+            throw new InvalidIdentifierException('Error: Identifier cannot contain period characters');
         }
 
         // Use regular expression to search for characters that are digits
         // Regex is true when there are  0-n non-digits chars and then one digit
         // (it does not matter what is behind the digit)
         if (preg_match('/(\D*)\d/', $identifier) === 1) {
-            throw new InvalidIdentifierException('Error: Identifier cannot contain any digits.');
+            throw new InvalidIdentifierException('Error: Identifier cannot contain any digits');
         }
 
         $this->validateIdentifierMore($identifier);
@@ -135,7 +135,7 @@ abstract class AbstractSymbol
             }
 
             if (sizeof(array_unique($identifiers)) != sizeof($identifiers)) {
-                throw new \DomainException('Error: Identifier duplicate found.');
+                throw new \DomainException('Error: Identifier duplicate found');
             }
 
             $this->validatedIdentifiers = true;

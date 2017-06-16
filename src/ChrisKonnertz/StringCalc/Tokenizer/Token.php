@@ -72,7 +72,7 @@ class Token
     public function __construct($value, $type, $position)
     {
         if (! is_string($value)) {
-            throw new \InvalidArgumentException('Error: Argument "value" has to be of type string.');
+            throw new \InvalidArgumentException('Error: Argument "value" has to be of type string');
         }
         $this->value = $value;
 
@@ -84,10 +84,10 @@ class Token
         $this->type = $type;
 
         if (! is_int($position)) {
-            throw new \InvalidArgumentException('Error: Argument "position" has to be of type int.');
+            throw new \InvalidArgumentException('Error: Argument "position" has to be of type int');
         }
         if ($position < 0) {
-            throw new \InvalidArgumentException('Error: Value of parameter "position" has to be >= zero.');
+            throw new \InvalidArgumentException('Error: Value of parameter "position" has to be >= zero');
         }
         $this->position = $position;
     }

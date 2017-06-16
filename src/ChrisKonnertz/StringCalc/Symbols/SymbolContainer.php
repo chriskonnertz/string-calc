@@ -60,7 +60,7 @@ class SymbolContainer implements SymbolContainerInterface
 
         foreach ($this->symbols as $symbol) {
             if (sizeof($symbol->getIdentifiers()) == 0 and ! is_a($symbol, Number::class)) {
-                throw new \LengthException('Error: Symbol does not have any identifiers.');
+                throw new \LengthException('Error: Symbol does not have any identifiers');
             }
         }
     }
@@ -101,24 +101,24 @@ class SymbolContainer implements SymbolContainerInterface
     public function add(AbstractSymbol $symbol, $replaceSymbol = null)
     {
         if (sizeof($symbol->getIdentifiers()) == 0) {
-            throw new \LengthException('Error: Symbol does not have any identifiers.');
+            throw new \LengthException('Error: Symbol does not have any identifiers');
         }
 
         if ($replaceSymbol === null) {
             if (array_key_exists(get_class($symbol), $this->symbols)) {
                 throw new \InvalidArgumentException(
-                    'Error: Trying to replace a symbol without using $replaceClass parameter.'
+                    'Error: Trying to replace a symbol without using $replaceClass parameter'
                 );
             }
 
             $this->symbols[] = $symbol;
         } else {
             if (! is_string($replaceSymbol)) {
-                throw new \InvalidArgumentException('Error: $replaceClass has to be the name of a class.');
+                throw new \InvalidArgumentException('Error: $replaceClass has to be the name of a class');
             }
 
             if (! array_key_exists($replaceSymbol, $this->symbols)) {
-                throw new \InvalidArgumentException('Error: Cannot replace the specified class since it is not known.');
+                throw new \InvalidArgumentException('Error: Cannot replace the specified class since it is not known');
             }
 
             $this->symbols[$replaceSymbol] = $symbol;
@@ -138,7 +138,7 @@ class SymbolContainer implements SymbolContainerInterface
     public function remove(AbstractSymbol $symbol)
     {
         if (! in_array($symbol, $this->symbols)) {
-            throw new \InvalidArgumentException('Error: Cannot remove symbol, because it is unknown.');
+            throw new \InvalidArgumentException('Error: Cannot remove symbol, because it is unknown');
         }
 
         unset($this->symbols[get_class($symbol)]);

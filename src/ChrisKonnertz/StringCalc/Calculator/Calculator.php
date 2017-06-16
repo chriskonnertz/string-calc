@@ -79,7 +79,7 @@ class Calculator implements CalculatorInterface
     protected function calculateContainerNode(ContainerNode $containerNode)
     {
         if (is_a($containerNode, FunctionNode::class)) {
-            throw new \InvalidArgumentException('Error: Expected container node but got a function node.');
+            throw new \InvalidArgumentException('Error: Expected container node but got a function node');
         }
 
         $nodes = $containerNode->getChildNodes();

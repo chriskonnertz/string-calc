@@ -42,7 +42,7 @@ class Container implements ContainerInterface
             );
         }
         if (sizeof($serviceProviders) == 0) {
-            throw new ContainerException('Error: Service provider registry delivered zero service providers.');
+            throw new ContainerException('Error: Service provider registry delivered zero service providers');
         }
 
         foreach ($serviceProviders as $serviceProvider) {
@@ -86,7 +86,7 @@ class Container implements ContainerInterface
             /** @var AbstractServiceProvider $serviceProvider */
             $serviceProvider = new $serviceProvider($serviceName, $this);
         } catch (\Exception $exception) {
-            throw new ContainerException('Error: Could not create service provider via reflection.');
+            throw new ContainerException('Error: Could not create service provider via reflection');
         }
 
         if (! is_a($serviceProvider, AbstractServiceProvider::class)) {
@@ -110,7 +110,7 @@ class Container implements ContainerInterface
         }
 
         if (! is_object($object)) {
-            throw new ContainerException('Error: Service provider did not provide a valid service object.');
+            throw new ContainerException('Error: Service provider did not provide a valid service object');
         }
 
         return $object;

@@ -66,12 +66,12 @@ class StringCalc
             $this->container = new Container($serviceRegistry);
         } else {
             if (! is_object($container)) {
-                throw new \InvalidArgumentException('Error: Passed container parameter is not an object.');
+                throw new \InvalidArgumentException('Error: Passed container parameter is not an object');
             }
 
             $interfaces = class_implements($container);
             if (! in_array(ContainerInterface::class, $interfaces)) {
-                throw new \InvalidArgumentException('Error: Passed container does not implement ContainerInterface.');
+                throw new \InvalidArgumentException('Error: Passed container does not implement ContainerInterface');
             }
 
             $this->container = $container;
