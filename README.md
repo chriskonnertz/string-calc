@@ -15,7 +15,7 @@ StringCalc is a PHP calculator library for mathematical terms (expressions) pass
 
 Through Composer:
 
-```php
+```
 composer require chriskonnertz/string-calc
 ```
 
