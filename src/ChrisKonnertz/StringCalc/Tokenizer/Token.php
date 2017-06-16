@@ -72,13 +72,15 @@ class Token
     public function __construct($value, $type, $position)
     {
         if (! is_string($value)) {
-            throw new \InvalidArgumentException('Error: Argument "value" has to be of type string');
+            throw new \InvalidArgumentException(
+                'Error: Argument "value" has to be of type string but is of type "'.gettype($value).'"'
+            );
         }
         $this->value = $value;
 
         if (! in_array($type, $this->getAllTypes())) {
             throw new \InvalidArgumentException(
-                'Error: Argument "type" does not have the value of a known token type.'
+                'Error: Argument "type" does not have the value of a known token type'
             );
         }
         $this->type = $type;

@@ -106,7 +106,8 @@ class SymbolNode extends AbstractNode
     {
         if (! is_a($this->getSymbol(), AbstractOperator::class)) {
             throw new \InvalidArgumentException(
-                'Error: Cannot mark node as unary operator, because symbol is not an operator.'
+                'Error: Cannot mark node as unary operator, because symbol is not an operator but of type "'.
+                gettype($this->getSymbol()).'"'
             );
         }
 

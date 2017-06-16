@@ -51,7 +51,7 @@ class Container implements ContainerInterface
             if (! is_a($serviceProvider, AbstractServiceProvider::class, true)) {
                 throw new ContainerException(
                     'Error: Invalid value for entry in service providers array. '.
-                    'Expected service provider class name but got something else.'
+                    'Expected service provider class name but got something else'
                 );
             }
         }
@@ -70,7 +70,7 @@ class Container implements ContainerInterface
     public function get($serviceName)
     {
         if (! $this->has($serviceName)) {
-            throw new NotFoundException('Error: Could not find service.');
+            throw new NotFoundException('Error: Could not find service');
         }
 
         $serviceProvider = $this->serviceProviders[$serviceName];
@@ -91,7 +91,7 @@ class Container implements ContainerInterface
 
         if (! is_a($serviceProvider, AbstractServiceProvider::class)) {
             throw new ContainerException(
-                'Error: Service provider object does not inherit from AbstractServiceProvider.'
+                'Error: Service provider object does not inherit from AbstractServiceProvider'
             );
         }
 

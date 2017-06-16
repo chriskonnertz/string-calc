@@ -168,14 +168,14 @@ class Parser
         // Make sure the term does not end with the name of a function but without an opening bracket
         if ($expectingOpeningBracket) {
             throw new ParserException(
-                'Error: Expected opening bracket (after a function) but reached the end of the term.'
+                'Error: Expected opening bracket (after a function) but reached the end of the term'
             );
         }
 
         // Make sure there are not too many opening brackets
         if ($openBracketCounter > 0) {
             throw new ParserException(
-                'Error: There is at least one opening bracket that does not have a closing bracket.'
+                'Error: There is at least one opening bracket that does not have a closing bracket'
             );
         }
 
