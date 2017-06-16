@@ -397,7 +397,7 @@ Therefore - as a rule of thumb - please transfer your knowledge about mathematic
 in StringCalc. 
 
 * PHP's `intdiv`function is missing, because it is not supported by PHP 5.6. 
-In case you need it, you may want to take a look at the [original implementation](https://github.com/chriskonnertz/string-calc/blob/ed7dda7ec9f36b35eec22d2af6c7fbac620bb382/src/ChrisKonnertz/StringCalc/Symbols/Concrete/Functions/IntDivFunction.php).
+In case you need it, you may want to take a look at its [original implementation](https://github.com/chriskonnertz/string-calc/blob/ed7dda7ec9f36b35eec22d2af6c7fbac620bb382/src/ChrisKonnertz/StringCalc/Symbols/Concrete/Functions/IntDivFunction.php).
 
 * This class does not offer support for any other numeral system than the decimal numeral system. 
 It is not intended to provide such support so if you need support of other numeral systems 
