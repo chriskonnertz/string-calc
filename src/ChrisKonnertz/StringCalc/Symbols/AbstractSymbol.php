@@ -68,7 +68,7 @@ abstract class AbstractSymbol
         $this->validateIdentifier($identifier);
 
         if (in_array($identifier, $this->identifiers)) {
-            throw new InvalidIdentifierException('Error: Cannot add an identifier twice');
+            throw new InvalidIdentifierException('Error: Cannot add the identifier "'.$identifier.'" twice.');
         }
 
         $this->identifiers[] = $identifier;
@@ -90,7 +90,7 @@ abstract class AbstractSymbol
         $this->stringHelper->validate($identifier);
 
         if (strpos($identifier, '.') !== false) {
-            throw new InvalidIdentifierException('Error: Identifier cannot contain period character');
+            throw new InvalidIdentifierException('Error: Identifier cannot contain period characters.');
         }
 
         // Use regular expression to search for characters that are digits

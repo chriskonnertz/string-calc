@@ -18,7 +18,9 @@ class StringHelper implements StringHelperInterface
     public function containsMultibyteChar($str)
     {
         if (! is_string($str)) {
-            throw new \InvalidArgumentException('Error: Variable must be of type string.');
+            throw new \InvalidArgumentException(
+                'Error: Variable must be of type string but is of type "'.gettype($str).'"'
+            );
         }
 
         return (mb_strlen($str) != strlen($str));
@@ -42,7 +44,9 @@ class StringHelper implements StringHelperInterface
             throw new \InvalidArgumentException('Error: String must not be null.');
         }
         if (! is_string($str)) {
-            throw new \InvalidArgumentException('Error: String must be of type string.');
+            throw new \InvalidArgumentException(
+                'Error: String must be of type string but is of type "'.gettype($str).'"'
+            );
         }
         if ($str === '') {
             throw new \InvalidArgumentException('Error: String must not be empty.');

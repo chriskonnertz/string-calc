@@ -70,7 +70,7 @@ abstract class AbstractServiceProvider
     protected function getService($serviceName)
     {
         if ($serviceName === $this->serviceName) {
-            throw new ContainerException('Error: Service provider cannot depend on provided service.');
+            throw new ContainerException('Error: Service provider "'.$serviceName.'" cannot depend on itself.');
         }
 
         return $this->container->get($serviceName);

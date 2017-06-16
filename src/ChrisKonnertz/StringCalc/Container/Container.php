@@ -37,7 +37,9 @@ class Container implements ContainerInterface
         $serviceProviders = $serviceProviderRegistry->getServiceProviders();
 
         if (! is_array($serviceProviders)) {
-            throw new ContainerException('Error: Service provider registry delivered an invalid result.');
+            throw new ContainerException(
+                'Error: Service provider registry did not return an array but "'.gettype($serviceProviders).'"'
+            );
         }
         if (sizeof($serviceProviders) == 0) {
             throw new ContainerException('Error: Service provider registry delivered zero service providers.');
@@ -45,9 +47,12 @@ class Container implements ContainerInterface
 
         foreach ($serviceProviders as $serviceProvider) {
             // Since $serviceProvider only contains the name of the string and therefore not an object,
-            // we have to set $allow_string to true, ofcourse.
+            // we have to set $allow_string to true, of course.
             if (! is_a($serviceProvider, AbstractServiceProvider::class, true)) {
-                throw new ContainerException('Error: Invalid value for entry in service providers array.');
+                throw new ContainerException(
+                    'Error: Invalid value for entry in service providers array. '.
+                    'Expected service provider class name but got something else.'
+                );
             }
         }
 
@@ -72,7 +77,7 @@ class Container implements ContainerInterface
 
         if (! is_string($serviceProvider)) {
             throw new ContainerException(
-                'Error: Expected class name of service provider as string but got something else.'
+                'Error: Expected class name of service provider as string but got "'.gettype($serviceProvider).'"'
             );
         }
 
@@ -105,7 +110,7 @@ class Container implements ContainerInterface
         }
 
         if (! is_object($object)) {
-            throw new ContainerException('Error: Service provider did not provide a valid service.');
+            throw new ContainerException('Error: Service provider did not provide a valid service object.');
         }
 
         return $object;

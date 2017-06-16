@@ -200,7 +200,7 @@ class Parser
 
         foreach ($symbolNodes as $index => $symbolNode) {
             if (! is_a($symbolNode, SymbolNode::class)) {
-                throw new ParserException('Error: Expected node, got something else.');
+                throw new ParserException('Error: Expected symbol node, but got "'.gettype($symbolNode).'"');
             }
 
             if (is_a($symbolNode->getSymbol(), AbstractOpeningBracket::class)) {
@@ -271,7 +271,7 @@ class Parser
                     $transformedNodes[] = $node;
                 }
             } else {
-                throw new ParserException('Error: Expected array node or symbol node, got something else.');
+                throw new ParserException('Error: Expected array node or symbol node, got "'.gettype($node).'"');
             }
         }
 
@@ -306,7 +306,12 @@ class Parser
                     // Make sure the operator is positioned left of a (potential) operand (=prefix notation).
                     // Example term: "-1"
                     if ($posOfRightOperand >= sizeof($nodes)) {
-                        throw new ParserException('Error: Found operator that does not stand before an operand.');
+                        $this->throwException(
+                            ParserException::class,
+                            'Error: Found operator that does not stand before an operand.',
+                            $node->getToken()->getValue(),
+                            $node->getToken()->getPosition()
+                        );
                     }
 
                     $posOfLeftOperand = $index - 1;
@@ -329,14 +334,24 @@ class Parser
                     // If null, the operator is unary
                     if ($leftOperand === null) {
                         if (! $symbol->getOperatesUnary()) {
-                            throw new ParserException('Error: Found operator in unary notation that is not unary.');
+                            $this->throwException(
+                                ParserException::class,
+                                'Error: Found operator in unary notation that is not unary.',
+                                $node->getToken()->getValue(),
+                                $node->getToken()->getPosition()
+                            );
                         }
 
                         // Remember that this node represents a unary operator
                         $node->setIsUnaryOperator(true);
                     } else {
                         if (! $symbol->getOperatesBinary()) {
-                            throw new ParserException('Error: Found operator in binary notation that is not binary.');
+                            $this->throwException(
+                                ParserException::class,
+                                'Error: Found operator in binary notation that is not binary.',
+                                $node->getToken()->getValue(),
+                                $node->getToken()->getPosition()
+                            );
                         }
                     }
                 }
@@ -347,7 +362,10 @@ class Parser
         }
 
         if ($this->customGrammarChecker !== null) {
-            $this->customGrammarChecker($nodes);
+            $customGrammarChecker = $this->customGrammarChecker;
+
+            // Execute custom grammar checker function
+            $customGrammarChecker($nodes);
         }
     }
 

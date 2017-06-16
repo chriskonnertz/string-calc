@@ -35,7 +35,9 @@ trait UtilityTrait
             }
         }
         if (! $exception instanceof \Exception) {
-            throw new StringCalcException('Error: Invalid call of the throwException method.');
+            throw new StringCalcException(
+                'Error: Invalid call of the throwException method. Expected exception but got "'.gettype($exception).'"'
+            );
         }
 
         throw $exception;

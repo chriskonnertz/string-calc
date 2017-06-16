@@ -62,7 +62,7 @@ class Calculator implements CalculatorInterface
 
             return $this->calculateContainerNode($node);
         } else {
-            throw new \InvalidArgumentException('Error: Cannot calculate node of unknown type.');
+            throw new \InvalidArgumentException('Error: Cannot calculate node of unknown type "'.get_class($node).'"');
         }
     }
 
@@ -198,7 +198,7 @@ class Calculator implements CalculatorInterface
 
             $number = $symbol->getValue();
         } else {
-            throw new \LogicException('Error: Found symbol of unexpected type.');
+            throw new \LogicException('Error: Found symbol of unexpected type "'.gettype($symbol).'"');
         }
 
         return $number;

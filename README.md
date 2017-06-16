@@ -415,4 +415,3 @@ and you will get a response, usually within 48 hours.
 ## TODO
 
 * Add missing grammar checking
-* Make exceptions (way more) verbose?
