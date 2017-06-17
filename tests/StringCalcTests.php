@@ -31,14 +31,17 @@ class StringCalcTest extends \PHPUnit\Framework\TestCase
     {
         $this->stringCalc = $this->getInstance();
 
-        // Operators
-        $calculations = [
+        // Numbers
+        $numbers = [
             ['0', 0],
             ['1', 1],
             ['1337', 1337],
             ['1.0', 1.0],
             ['1.23456789', 1.23456789],
+        ];
 
+        // Operators
+        $operators = [
             ['1+0', 1],
             ['1+1', 2],
             ['-1+1', 0],
@@ -59,10 +62,25 @@ class StringCalcTest extends \PHPUnit\Framework\TestCase
             ['-1/2', -0.5],
         ];
 
-        $this->doCalculations($calculations);
+        // Brackets
+        $brackets = [
+            ['()', 0],
+            ['(2)', 2],
+            ['((3))', 3],
+            ['(1+2)', 3],
+            ['(-2)', -2],
+            ['((1+2)*(3+4))', 21],
+        ];
 
-        // Functions
-        $calculations = [
+        $this->doCalculations($numbers + $operators + $brackets);
+
+        // Constants
+        $constants = [
+            ['(e)', M_E],
+        ];
+
+        // Functions (and Separators)
+        $functions = [
             ['abs(-2)', 2],
             ['aCos(0.5)', 1.0471975511966],
             ['aCosH(2)', 1.3169578969248],
@@ -98,8 +116,10 @@ class StringCalcTest extends \PHPUnit\Framework\TestCase
             ['tanH(2)', 0.96402758007582],
         ];
 
+        // Constants
+
         // Will call the assertEquals method with the delta parameter set
-        $this->doCalculations($calculations, 0.0001);
+        $this->doCalculations($constants + $functions, 0.0001);
 
         // Random functions:
         $this->stringCalc->calculate('getRandMax()');
@@ -126,9 +146,6 @@ class StringCalcTest extends \PHPUnit\Framework\TestCase
             $expectedResult = $calculation[1];
 
             $calculatedResult = $this->stringCalc->calculate($term);
-
-            // Use the following line to see the current term:
-            //echo $term.' --- ';
 
             $this->assertEquals($calculatedResult, $expectedResult, '', $delta);
         }
