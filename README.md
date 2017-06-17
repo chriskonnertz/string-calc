@@ -9,7 +9,7 @@ StringCalc is a PHP calculator library for mathematical terms (expressions) pass
 
 Through Composer:
 
-```php
+```
 composer require chriskonnertz/string-calc
 ```
 
@@ -166,7 +166,7 @@ $node->traverse(function($node, $level)
 ```
 
 This example code will visualize the syntax tree. It uses the `traverse(Closure $callback)` method to go through all
-nodes of the tree. The level of the node is visualised by intention and the name of the class of the node 
+nodes of the tree. The level of the node is visualised by indentation and the name of the class of the node 
 object is printed to display the type of the node. A node implements the abstract `Parser\Nodes\AbstractNode` class.
 There are three types of nodes: Container nodes (representing what is inside brackets), function nodes (representing
 a mathematical function and its arguments) and symbol nodes that represent mathematical symbols of certain types
@@ -388,7 +388,10 @@ There is only one concrete functions that extend this class: `Symbols\Concrete\S
 
 * Internally this library uses PHP's mathematical constants, operators and functions to calculate the term. 
 Therefore - as a rule of thumb - please transfer your knowledge about mathematics in PHP to the mathematics 
-in StringCalc. PHP's `intdiv`function is missing, because it is not supported by PHP 5.6.
+in StringCalc. 
+
+* PHP's `intdiv`function is missing, because it is not supported by PHP 5.6. 
+In case you need it, you may want to take a look at its [original implementation](https://github.com/chriskonnertz/string-calc/blob/ed7dda7ec9f36b35eec22d2af6c7fbac620bb382/src/ChrisKonnertz/StringCalc/Symbols/Concrete/Functions/IntDivFunction.php).
 
 * This class does not offer support for any other numeral system than the decimal numeral system. 
 It is not intended to provide such support so if you need support of other numeral systems 
