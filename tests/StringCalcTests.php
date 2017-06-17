@@ -86,7 +86,7 @@ class StringCalcTest extends \PHPUnit\Framework\TestCase
             ['onePi', M_1_PI],
             ['pi', M_PI],
             ['piFour', M_PI_4],
-            ['piTwo', M_PI_2],
+            ['piTwos', M_PI_2],
             ['sqrtOneTwo', M_SQRT1_2],
             ['sqrtPi', M_SQRTPI],
             ['sqrtThree', M_SQRT3],
