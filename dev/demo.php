@@ -34,8 +34,18 @@
 			try {
                 $result = $stringCalc->calculate($term);
 
-                echo 'Result: <code><b>'.$result.'</b></code> (Type: '.gettype($result).')';
-            } catch (Exception $exception) {
+                echo 'Result: <code><b>' . $result . '</b></code> (Type: ' . gettype($result) . ')';
+            } catch (ChrisKonnertz\StringCalc\Exceptions\StringCalcException $exception)
+            {
+                echo $exception->getMessage();
+                if ($exception->getPosition()) {
+                    echo ' at position <b>'.$exception->getPosition().'</b>';
+                }
+                if ($exception->getSubject()) {
+                    echo ' with subject "<b>'.$exception->getSubject().'</b>"';
+                }
+            } catch (Exception $exception)
+            {
                 echo $exception->getMessage();
             }
 		}

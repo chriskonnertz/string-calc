@@ -5,12 +5,6 @@
 
 StringCalc is a PHP calculator library for mathematical terms (expressions) passed as strings.
 
-````
-╔══════════════════════════════════════════════╗
-║ This library is not yet ready for production ║
-╚══════════════════════════════════════════════╝
-````
-
 ## Installation
 
 Through Composer:
@@ -411,7 +405,3 @@ look at the [implementation](src/ChrisKonnertz/StringCalc).
 
 * Status of this repository: _Maintained_. Create an [issue](https://github.com/chriskonnertz/string-calc/issues) 
 and you will get a response, usually within 48 hours.
-
-## TODO
-
-* Add missing grammar checking

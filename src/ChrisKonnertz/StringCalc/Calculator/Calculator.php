@@ -2,11 +2,13 @@
 
 namespace ChrisKonnertz\StringCalc\Calculator;
 
+use ChrisKonnertz\StringCalc\Exceptions\CalculatorException;
 use ChrisKonnertz\StringCalc\Exceptions\StringCalcException;
 use ChrisKonnertz\StringCalc\Parser\Nodes\AbstractNode;
 use ChrisKonnertz\StringCalc\Parser\Nodes\ContainerNode;
 use ChrisKonnertz\StringCalc\Parser\Nodes\FunctionNode;
 use ChrisKonnertz\StringCalc\Parser\Nodes\SymbolNode;
+use ChrisKonnertz\StringCalc\Support\UtilityTrait;
 use ChrisKonnertz\StringCalc\Symbols\AbstractConstant;
 use ChrisKonnertz\StringCalc\Symbols\AbstractFunction;
 use ChrisKonnertz\StringCalc\Symbols\AbstractNumber;
@@ -22,6 +24,8 @@ use ChrisKonnertz\StringCalc\Symbols\AbstractSeparator;
  */
 class Calculator implements CalculatorInterface
 {
+
+    use UtilityTrait;
 
     /**
      * Calculates the numeric result of nodes in the syntax tree.
@@ -121,6 +125,10 @@ class Calculator implements CalculatorInterface
             }
         }
 
+        if (sizeof($nodes) > 1) {
+            $this->throwException(CalculatorException::class, 'Error: Missing operators between parts of the term.');
+        }
+
         // The only remaining element of the $nodes array contains the overall result
         $result = end($nodes);
 
@@ -198,7 +206,12 @@ class Calculator implements CalculatorInterface
 
             $number = $symbol->getValue();
         } else {
-            throw new \LogicException('Error: Found symbol of unexpected type "'.gettype($symbol).'"');
+            $this->throwException(
+                CalculatorException::class,
+                'Error: Found symbol of unexpected type "'.get_class($symbol).'"',
+                $symbolNode->getToken()->getPosition(),
+                $symbolNode->getToken()->getValue()
+            );
         }
 
         return $number;

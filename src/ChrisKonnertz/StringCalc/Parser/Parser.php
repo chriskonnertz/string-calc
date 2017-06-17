@@ -287,10 +287,8 @@ class Parser
      */
     protected function checkGrammar(array $nodes)
     {
-        /*
-         * TODO implement the missing parts of this method:
-         * - make sure that separators are only in the child nodes of the array node of a function node
-         */
+        // TODO Make sure that separators are only in the child nodes of the array node of a function node
+        // (If this happens the calculator will throw an exception)
 
         foreach ($nodes as $index => $node) {
             if (is_a($node, SymbolNode::class)) {
