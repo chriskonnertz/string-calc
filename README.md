@@ -400,7 +400,7 @@ It is not intended to provide such support so if you need support of other numer
 * Namespaces in this documentation are relative. For example the namespace `Exceptions\StringCalcException` refers to
 `ChrisKonnertz\StringCalc\Exceptions\StringCalcException`.
 
-* [Releases](releases) of this library are 100% free of _known_ bugs. 
+* [Releases](https://github.com/chriskonnertz/string-calc/releases) of this library are 100% free of _known_ bugs. 
 There are some TODO notes in the code but these refer to possible improvements, not to bugs. 
 
 * General advice: The code of this library is well documented. Therefore, do not hesitate to take a closer 
