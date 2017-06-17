@@ -76,7 +76,23 @@ class StringCalcTest extends \PHPUnit\Framework\TestCase
 
         // Constants
         $constants = [
-            ['(e)', M_E],
+            ['e', M_E],
+            ['euler', M_EULER],
+            ['lnPi', M_LNPI],
+            ['lnTen', M_LN10],
+            ['lnTwo', M_LN2],
+            ['logTenE', M_LOG10E],
+            ['logTwoE', M_LOG2E],
+            ['onePi', M_1_PI],
+            ['pi', M_PI],
+            ['piFour', M_PI_4],
+            ['piTwo', M_PI_2],
+            ['sqrtOneTwo', M_SQRT1_2],
+            ['sqrtPi', M_SQRTPI],
+            ['sqrtThree', M_SQRT3],
+            ['sqrtTwo', M_SQRT2],
+            ['twoPi', M_2_PI],
+            ['twoSqrtPi', M_2_SQRTPI],
         ];
 
         // Functions (and Separators)
