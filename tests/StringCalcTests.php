@@ -86,7 +86,7 @@ class StringCalcTest extends \PHPUnit\Framework\TestCase
             ['onePi', M_1_PI],
             ['pi', M_PI],
             ['piFour', M_PI_4],
-            ['piTwos', M_PI_2],
+            ['piTwo+1', M_PI_2],
             ['sqrtOneTwo', M_SQRT1_2],
             ['sqrtPi', M_SQRTPI],
             ['sqrtThree', M_SQRT3],
@@ -134,7 +134,8 @@ class StringCalcTest extends \PHPUnit\Framework\TestCase
 
         // Constants
 
-        // Will call the assertEquals method with the delta parameter set
+        // Will call the assertEquals method with the delta parameter set which means assertEquals
+        // will report an error if result and expected result  are not within $delta of each other
         $this->doCalculations($constants + $functions, 0.0001);
 
         // Random functions:
