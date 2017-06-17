@@ -149,8 +149,9 @@ parser aka `Parser\Parser` to parse the tokens. It transforms the tokens to node
 a semantic meaning, for example they are numbers or operators 
 (take a look at the [Types of symbols](#types-of-symbols) section for a full list of symbol types). 
 Also they have a hierarchy, also known as the "tree" in the "syntax tree". 
-Brackets in a term create a node in the syntax tree. Usage example:
+Brackets in a term create a node in the syntax tree. 
 
+Usage example:
 
 ```php
 $term = '1+(2+max(-3,3))';
