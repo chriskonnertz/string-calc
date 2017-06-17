@@ -158,9 +158,9 @@ $term = '1+(2+max(-3,3))';
 
 $tokens = $stringCalc->tokenize($term);
 
-$node = $stringCalc->parse($tokens);
+$rootNode = $stringCalc->parse($tokens);
 
-$node->traverse(function($node, $level)
+$rootNode->traverse(function($node, $level)
 {
     echo str_repeat('__', $level).' ['.get_class($node).']<br>';
 });
