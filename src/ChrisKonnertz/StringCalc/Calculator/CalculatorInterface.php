@@ -21,6 +21,7 @@ interface CalculatorInterface
      *
      * @param AbstractNode $rootNode
      * @return float|int
+     * @throw \Exception
      */
     public function calculate(AbstractNode $rootNode);
 
