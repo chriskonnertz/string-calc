@@ -399,7 +399,7 @@ It is not intended to provide such support so if you need support of other numer
 (such as the binary numeral system) this might not be the library of your choice.
  
 * Namespaces in this documentation are relative. For example the namespace `Exceptions\StringCalcException` refers to
-`ChrisKonnertz\StringCalc\Exceptions\StringCalcException`.
+`\ChrisKonnertz\StringCalc\Exceptions\StringCalcException`.
 
 * [Releases](https://github.com/chriskonnertz/string-calc/releases) of this library are 100% free of _known_ bugs. 
 There are some TODO notes in the code but these refer to possible improvements, not to bugs. 
