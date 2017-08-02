@@ -118,7 +118,7 @@ In the example an exception of class `StringCalcException` will be thrown,
 because the `min` method has to be called with one parameter at least. Exceptions of the type `StringCalcException` 
 are usually thrown when grammar or syntax of a given term are invalid. They have two additional properties: `position` 
 is an integer telling you where the problem occurred in the term, and `subject` is a string that might contain 
-additional data, especially unfiltered user input that you should never print to website without filtering!
+additional data, especially unfiltered user input that you should never print to a website without filtering!
  
 ### tokenize
 
