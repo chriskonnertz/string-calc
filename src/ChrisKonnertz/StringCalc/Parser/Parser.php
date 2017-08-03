@@ -219,6 +219,7 @@ class Parser
                     // Subtree can be empty for example if the term looks like this: "()" or "functioname()"
                     // But this is okay, we need to allow this so we can call functions without a parameter
                     $tree[] = new ContainerNode($subTree);
+                    $nodesInBrackets = [];
                 } else {
                     $nodesInBrackets[] = $symbolNode;
                 }
