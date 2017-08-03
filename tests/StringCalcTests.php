@@ -67,7 +67,6 @@ class StringCalcTest extends \PHPUnit\Framework\TestCase
 
         // Brackets
         $brackets = [
-            ['()', 0],
             ['(2)', 2],
             ['((3))', 3],
             ['(1+2)', 3],

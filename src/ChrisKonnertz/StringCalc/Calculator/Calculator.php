@@ -125,6 +125,12 @@ class Calculator implements CalculatorInterface
             }
         }
 
+        if (sizeof($nodes) == 0) {
+            $this->throwException(
+                CalculatorException::class, 'Error: Missing calculable subterm. Are there empty brackets?'
+            );
+        }
+
         if (sizeof($nodes) > 1) {
             $this->throwException(CalculatorException::class, 'Error: Missing operators between parts of the term.');
         }

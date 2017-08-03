@@ -264,6 +264,7 @@ For every opening brackets there must be a closing bracket and vice versa. Good 
 Bad usage examples:
 
 ```
+()      // Empty brackets
 (1+1    // Missing closing bracket
 1+1)    // Missing opening bracket
 )1+1(   // Missing opening bracket for the closing bracket, missing closing bracket for the open bracket
