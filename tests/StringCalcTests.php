@@ -74,7 +74,7 @@ class StringCalcTest extends \PHPUnit\Framework\TestCase
             ['((1+2)*(3+4))', 21],
         ];
 
-        $this->doCalculations($numbers + $operators + $brackets);
+        $this->doCalculations(array_merge($numbers, $operators, $brackets));
 
         // Constants
         $constants = [
@@ -138,7 +138,7 @@ class StringCalcTest extends \PHPUnit\Framework\TestCase
 
         // Will call the assertEquals method with the delta parameter set which means assertEquals
         // will report an error if result and expected result  are not within $delta of each other
-        $this->doCalculations($constants + $functions, 0.0001);
+        $this->doCalculations(array_merge($constants, $functions), 0.0001);
 
         // Random functions:
         $this->stringCalc->calculate('getRandMax()');
