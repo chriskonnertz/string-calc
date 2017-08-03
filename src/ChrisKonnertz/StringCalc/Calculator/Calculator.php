@@ -239,7 +239,8 @@ class Calculator implements CalculatorInterface
             }
         }
 
-        // Using Quicksort to sort the operators according to their precedence. Keeps the indices.
+        // Using Quicksort algorithm to sort the operators according to their precedence. Keeps the indices.
+        // Returning 1 means $nodeTwo before $nodeOne, returning -1 means $nodeOne before $nodeTwo.
         uasort($operatorNodes, function(SymbolNode $nodeOne, SymbolNode $nodeTwo)
         {
             // First-level precedence of node one
@@ -264,8 +265,11 @@ class Calculator implements CalculatorInterface
                 $precedenceTwo = $symbolTwo->getPrecedence();
             }
 
+            // If the second-level precedence is the same, we have to ensure that the sorting algorithm does
+            // insert the node / token that is left in the term before the node / token that is right.
+            // Therefore we cannot return 0 but compare the positions and return 1 / -1.
             if ($precedenceOne == $precedenceTwo) {
-                return 0;
+                return ($nodeOne->getToken()->getPosition() < $nodeTwo->getToken()->getPosition()) ? -1 : 1;
             }
             return ($precedenceOne < $precedenceTwo) ? 1 : -1;
         });
