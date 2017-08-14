@@ -3,11 +3,15 @@ Grammar draft
 
 _Draft for a grammar for terms that StringCalc can process._
 
-**Wording**
+**Grammar vs Implementation**
 
-expression := calculable (sub term)
+It is important that you notice that the implementations of the 
+parser (`Parser\Parser` class) and the calculator (`Calculator\Calculator` class) 
+do not mimic the production rules defined below exactly.
+So don't be irritated if you compare the actual implementation with the
+grammar rules.
 
-**Grammar definition**
+**Grammar Definition**
 
 expression := number | constant | function
 expression := openingBracket expression closingBracket
