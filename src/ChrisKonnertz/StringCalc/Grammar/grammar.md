@@ -13,6 +13,8 @@ grammar rules.
 
 **Grammar Definition**
 
+S := expression
+
 expression := number | constant | function
 expression := openingBracket expression closingBracket
 expression := [unaryOperator] expression (operator [unaryOperator] expression)*
