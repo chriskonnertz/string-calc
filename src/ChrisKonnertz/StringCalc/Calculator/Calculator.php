@@ -214,7 +214,7 @@ class Calculator implements CalculatorInterface
         } else {
             $this->throwException(
                 CalculatorException::class,
-                'Error: Found symbol of unexpected type "'.get_class($symbol).'"',
+                'Error: Found symbol of unexpected type "'.get_class($symbol).'", expected number or constant',
                 $symbolNode->getToken()->getPosition(),
                 $symbolNode->getToken()->getValue()
             );
