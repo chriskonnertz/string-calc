@@ -13,6 +13,7 @@ grammar rules.
 
 **Grammar Definition**
 
+````
 S := expression
 
 expression := number | constant | function
@@ -21,8 +22,4 @@ expression := [unaryOperator] expression (operator [unaryOperator] expression)*
 
 function := functionBody openingBracket closingBracket
 function := functionBody openingBracket expression (argumentSeparator expression)* closingBracket
-
-
-
-
-
+````
