@@ -13,6 +13,8 @@ expression := number | constant | function
 expression := openingBracket expression closingBracket
 expression := [unaryOperator] expression (operator [unaryOperator] expression)*
 
+function := functionBody openingBracket closingBracket
+function := functionBody openingBracket expression (argumentSeparator expression)* closingBracket
 
 
 
