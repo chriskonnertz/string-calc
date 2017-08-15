@@ -1,5 +1,10 @@
 <?php
 
+    /**
+     * Minimal class autoloader
+     *
+     * @param string $class
+     */
     function miniAutoloader($class)
     {
         require __DIR__ . '/../src/' . $class . '.php';
