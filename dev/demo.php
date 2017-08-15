@@ -73,7 +73,7 @@
     <div class="block grammar">
         <?php
 
-            $grammar = new \ChrisKonnertz\StringCalc\Grammar\Grammar();
+            $grammar = new \ChrisKonnertz\StringCalc\Grammar\StringCalcGrammar();
             echo '<h4>Grammar rules</h4><pre>'.$grammar->__toString().'</pre>';
 
         ?>

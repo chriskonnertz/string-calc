@@ -29,7 +29,7 @@ class StringCalc
      *
      * @const string
      */
-    const VERSION = '1.0.3';
+    const VERSION = '1.0.4';
 
     /**
      * Closure that is called at the end of the grammar checking

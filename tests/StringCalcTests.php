@@ -219,7 +219,7 @@ class StringCalcTest extends \PHPUnit\Framework\TestCase
     public function testRandomCalculations()
     {
         $this->stringCalc = $this->getInstance();
-        $grammar = new \ChrisKonnertz\StringCalc\Grammar\Grammar();
+        $grammar = new \ChrisKonnertz\StringCalc\Grammar\StringCalcGrammar();
 
         $numberOfCalculations = 100;
         $calculations = [];
