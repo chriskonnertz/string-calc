@@ -9,6 +9,12 @@ use ChrisKonnertz\StringCalc\Grammar\Expressions\OrExpression;
 use ChrisKonnertz\StringCalc\Grammar\Expressions\RepeatedAndExpression;
 use ChrisKonnertz\StringCalc\Grammar\Expressions\SymbolExpression;
 
+/**
+ * This class represents a grammar. It also is a container for the rules
+ * that define this grammar.
+ *
+ * @package ChrisKonnertz\StringCalc\Grammar
+ */
 class Grammar
 {
 
@@ -18,6 +24,14 @@ class Grammar
      * @var Rule[]
      */
     protected $rules = [];
+
+    /**
+     * The name of the symbol that defines
+     * the start for the production rules
+     *
+     * @var string
+     */
+    protected $start = null;
 
     public function __construct()
     {
@@ -51,6 +65,9 @@ class Grammar
             new RepeatedAndExpression(0, PHP_INT_MAX, $argumentSeparator, $expression),
             $closingBracket
         ));
+
+        // Define the start
+        $this->start = $expression->getSymbolName();
     }
 
     /**
@@ -59,13 +76,25 @@ class Grammar
      * @param string $symbolName The name of the nonterminal symbol on the left side of the rule
      * @param AbstractExpression $expression The expression that represents the right side of the rule
      */
-    public function addRule($symbolName, $expression)
+    public function addRule($symbolName, AbstractExpression $expression)
     {
         $rule = new Rule($symbolName, $expression);
         $this->rules[] = $rule;
     }
 
     /**
+     * Setter fot the start property
+     *
+     * @param $symbolName
+     */
+    public function setStart($symbolName)
+    {
+        $this->start = $symbolName;
+    }
+
+    /**
+     * Getter for the rules
+     *
      * @return Rule[]
      */
     public function getRules()
@@ -73,6 +102,11 @@ class Grammar
         return $this->rules;
     }
 
+    /**
+     * Returns the whole grammar (or to be more precise, its rules) as a string
+     *
+     * @return string
+     */
     public function __toString()
     {
         $parts = [];

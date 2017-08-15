@@ -388,7 +388,7 @@ There is only one concrete functions that extend this class: `Symbols\Concrete\S
 
 ## Grammar
 
-The grammar for terms that StringCalc can process.
+This section deals with the grammar for terms that StringCalc can process.
 
 ### Grammar vs Implementation
 
@@ -411,9 +411,7 @@ function := functionBody openingBracket closingBracket
 function := functionBody openingBracket expression (argumentSeparator expression)* closingBracket
 ````
 
-
-
-## Notes
+## General notes
 
 * Internally this library uses PHP's mathematical constants, operators and functions to calculate the term. 
 Therefore - as a rule of thumb - please transfer your knowledge about mathematics in PHP to the mathematics 

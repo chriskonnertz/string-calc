@@ -34,6 +34,9 @@
 
     <?php
 
+        $g = new \ChrisKonnertz\StringCalc\Grammar\Grammar();
+        echo '<pre>'.$g->__toString().'</pre>';
+
         if ($term !== null) {
             $stringCalc = new ChrisKonnertz\StringCalc\StringCalc();
 

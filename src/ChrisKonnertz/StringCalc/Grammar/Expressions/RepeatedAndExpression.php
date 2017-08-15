@@ -4,7 +4,7 @@ namespace ChrisKonnertz\StringCalc\Grammar\Expressions;
 
 /**
  * This is a container expression. The expressions that it contains are
- * linked with an AND. They (as a whole) will be repeated for min n and max m times.
+ * linked with an AND. They (as a whole) will be repeated for given times.
  *
  * @package ChrisKonnertz\StringCalc\Grammar\Expressions
  */
@@ -27,8 +27,8 @@ class RepeatedAndExpression extends AbstractContainerExpression
     /**
      * RepeatedAndExpression constructor.
      *
-     * @param int $min
-     * @param int $max
+     * @param int $min 0...PHP_INT_MAX, must be <= $max
+     * @param int $max 0...PHP_INT_MAX, must be >= $min
      * @param AbstractExpression[] ...$expressions
      */
     public function __construct($min, $max, ...$expressions)

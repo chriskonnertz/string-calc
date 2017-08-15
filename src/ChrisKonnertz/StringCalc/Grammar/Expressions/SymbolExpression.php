@@ -3,7 +3,7 @@
 namespace ChrisKonnertz\StringCalc\Grammar\Expressions;
 
 /**
- *
+ * This class represents language symbols.
  *
  * @package ChrisKonnertz\StringCalc\Grammar\Expressions
  */
