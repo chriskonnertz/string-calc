@@ -60,7 +60,7 @@ class SymbolContainer implements SymbolContainerInterface
 
         foreach ($this->symbols as $symbol) {
             if (sizeof($symbol->getIdentifiers()) == 0 and ! is_a($symbol, Number::class)) {
-                throw new \LengthException('Error: Symbol does not have any identifiers');
+                throw new \LengthException('Error: AbstractSymbol does not have any identifiers');
             }
         }
     }
@@ -101,7 +101,7 @@ class SymbolContainer implements SymbolContainerInterface
     public function add(AbstractSymbol $symbol, $replaceSymbol = null)
     {
         if (sizeof($symbol->getIdentifiers()) == 0) {
-            throw new \LengthException('Error: Symbol does not have any identifiers');
+            throw new \LengthException('Error: AbstractSymbol does not have any identifiers');
         }
 
         if ($replaceSymbol === null) {

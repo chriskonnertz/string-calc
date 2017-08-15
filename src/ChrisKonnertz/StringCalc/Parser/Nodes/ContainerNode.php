@@ -43,7 +43,7 @@ class ContainerNode extends AbstractNode
         foreach ($childNodes as $childNode) {
             if (! is_a($childNode, AbstractNode::class)) {
                 throw new \InvalidArgumentException(
-                    'Error: Expected AbstractNode, got something "'.gettype($childNode).'"'
+                    'Error: Expected AbstractNode, but got "'.gettype($childNode).'"'
                 );
             }
         }

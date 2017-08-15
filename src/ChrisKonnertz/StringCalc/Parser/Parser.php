@@ -195,7 +195,7 @@ class Parser
     protected function createTreeByBrackets(array $symbolNodes)
     {
         $tree = [];
-        $nodesInBrackets = []; // Symbol nodes inside level-0-brackets
+        $nodesInBrackets = []; // AbstractSymbol nodes inside level-0-brackets
         $openBracketCounter = 0;
 
         foreach ($symbolNodes as $index => $symbolNode) {

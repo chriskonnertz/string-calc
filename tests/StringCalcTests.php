@@ -13,6 +13,11 @@ class StringCalcTest extends \PHPUnit\Framework\TestCase
 {
 
     /**
+     * Used as parameter for the doCalculations() method
+     */
+    const RESULT_DELTA = 0.0001;
+
+    /**
      * @var \ChrisKonnertz\StringCalc\StringCalc|null
      */
     private $stringCalc = null;
@@ -25,6 +30,68 @@ class StringCalcTest extends \PHPUnit\Framework\TestCase
     protected function getInstance()
     {
         return new ChrisKonnertz\StringCalc\StringCalc();
+    }
+
+    public function testTokenize()
+    {
+        $stringCalc = $this->getInstance();
+
+        $term = '1+(2+max(-3,3))';
+
+        $tokens = $stringCalc->tokenize($term);
+
+        $this->assertNotNull($tokens);
+    }
+
+    public function testParseAndTraverse()
+    {
+        $stringCalc = $this->getInstance();
+
+        $term = '1+(2+max(-3,3))';
+
+        $tokens = $stringCalc->tokenize($term);
+
+        $node = $stringCalc->parse($tokens);
+
+        $this->assertNotNull($node);
+
+        $node->traverse(function($node, $level)
+        {
+            // do nothing
+        });
+    }
+
+    public function testGetSymbolContainer()
+    {
+        $stringCalc = $this->getInstance();
+
+        $symbolContainer = $stringCalc->getSymbolContainer();
+
+        $this->assertNotNull($symbolContainer);
+    }
+
+    public function testGetContainer()
+    {
+        $stringCalc = $this->getInstance();
+
+        $container = $stringCalc->getContainer();
+
+        $this->assertNotNull($container);
+    }
+
+    public function testAddSymbol()
+    {
+        $stringCalc = $this->getInstance();
+
+        $container = $stringCalc->getContainer();
+
+        $stringHelper = $container->get('stringcalc_stringhelper');
+
+        $symbol = new ChrisKonnertz\StringCalc\Symbols\Concrete\Constants\PiConstant($stringHelper);
+
+        $replaceSymbol = get_class($symbol);
+
+        $stringCalc->addSymbol($symbol, $replaceSymbol);
     }
 
     public function testCalculations()
@@ -137,8 +204,8 @@ class StringCalcTest extends \PHPUnit\Framework\TestCase
         // Constants
 
         // Will call the assertEquals method with the delta parameter set which means assertEquals
-        // will report an error if result and expected result  are not within $delta of each other
-        $this->doCalculations(array_merge($constants, $functions), 0.0001);
+        // will report an error if result and expected result are not within $delta of each other
+        $this->doCalculations(array_merge($constants, $functions), self::RESULT_DELTA);
 
         // Random functions:
         $this->stringCalc->calculate('getRandMax()');
@@ -147,6 +214,27 @@ class StringCalcTest extends \PHPUnit\Framework\TestCase
         $this->stringCalc->calculate('mTRand(1,2)');
         $this->stringCalc->calculate('rand()');
         $this->stringCalc->calculate('rand(1,2)');
+    }
+
+    public function testRandomCalculations()
+    {
+        $this->stringCalc = $this->getInstance();
+        $grammar = new \ChrisKonnertz\StringCalc\Grammar\Grammar();
+
+        $numberOfCalculations = 100;
+        $calculations = [];
+
+        for ($i = 0; $i < $numberOfCalculations; $i++) {
+            $term = '';
+            $result = eval($term);
+
+            $calculation = [$term, $result];
+            $calculations[] = $calculation;
+        }
+
+        // Will call the assertEquals method with the delta parameter set which means assertEquals
+        // will report an error if result and expected result are not within $delta of each other
+        $this->doCalculations($calculations, self::RESULT_DELTA);
     }
 
     /**
@@ -168,68 +256,6 @@ class StringCalcTest extends \PHPUnit\Framework\TestCase
 
             $this->assertEquals($calculatedResult, $expectedResult, 'Term: '.$term, $delta);
         }
-    }
-
-    public function testTokenize()
-    {
-        $stringCalc = $this->getInstance();
-
-        $term = '1+(2+max(-3,3))';
-
-        $tokens = $stringCalc->tokenize($term);
-
-        $this->assertNotNull($tokens);
-    }
-
-    public function testParseAndTraverse()
-    {
-        $stringCalc = $this->getInstance();
-
-        $term = '1+(2+max(-3,3))';
-
-        $tokens = $stringCalc->tokenize($term);
-
-        $node = $stringCalc->parse($tokens);
-
-        $this->assertNotNull($node);
-
-        $node->traverse(function($node, $level)
-        {
-            // do nothing
-        });
-    }
-
-    public function testGetSymbolContainer()
-    {
-        $stringCalc = $this->getInstance();
-
-        $symbolContainer = $stringCalc->getSymbolContainer();
-
-        $this->assertNotNull($symbolContainer);
-    }
-
-    public function testGetContainer()
-    {
-        $stringCalc = $this->getInstance();
-
-        $container = $stringCalc->getContainer();
-
-        $this->assertNotNull($container);
-    }
-
-    public function testAddSymbol()
-    {
-        $stringCalc = $this->getInstance();
-
-        $container = $stringCalc->getContainer();
-
-        $stringHelper = $container->get('stringcalc_stringhelper');
-
-        $symbol = new ChrisKonnertz\StringCalc\Symbols\Concrete\Constants\PiConstant($stringHelper);
-
-        $replaceSymbol = get_class($symbol);
-
-        $stringCalc->addSymbol($symbol, $replaceSymbol);
     }
 
 }
