@@ -6,7 +6,7 @@ use ChrisKonnertz\StringCalc\Grammar\Expressions\AbstractExpression;
 
 /**
  * This abstract class represents a grammar. It also is a container for the rules
- * that define this grammar. You may use the constructor of a concrete StringCalcGrammar class
+ * that define this grammar. You may use the constructor of a concrete grammar class
  * as a place to add concrete rules.
  *
  * @package ChrisKonnertz\StringCalc\Grammar

@@ -9,8 +9,8 @@ use ChrisKonnertz\StringCalc\Grammar\Expressions\RepeatedAndExpression;
 use ChrisKonnertz\StringCalc\Grammar\Expressions\SymbolExpression;
 
 /**
- * This class represents a grammar. It also is a container for the rules
- * that define this grammar.
+ * This class represents the concrete grammar of StringCalc.
+ * It also is a container for the rules that define this grammar.
  *
  * @package ChrisKonnertz\StringCalc\Grammar
  */
