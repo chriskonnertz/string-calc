@@ -386,6 +386,33 @@ max(1,,3) // Missing calculable expression between separators
 The `Symbols\AbstractSeparator` class is the base class for all separators. 
 There is only one concrete functions that extend this class: `Symbols\Concrete\Separator`
 
+## Grammar
+
+The grammar for terms that StringCalc can process.
+
+### Grammar vs Implementation
+
+It is important that you notice that the implementations of the 
+parser (`Parser\Parser` class) and the calculator (`Calculator\Calculator` class) 
+do not mimic the production rules defined below exactly.
+So don't be irritated if you compare the actual implementation with the
+grammar rules.
+
+### Grammar Definition
+
+````
+S := expression
+
+expression := number | constant | function
+expression := openingBracket expression closingBracket
+expression := [unaryOperator] expression (operator [unaryOperator] expression)*
+
+function := functionBody openingBracket closingBracket
+function := functionBody openingBracket expression (argumentSeparator expression)* closingBracket
+````
+
+
+
 ## Notes
 
 * Internally this library uses PHP's mathematical constants, operators and functions to calculate the term. 
