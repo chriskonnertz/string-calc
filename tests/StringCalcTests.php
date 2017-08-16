@@ -101,10 +101,14 @@ class StringCalcTest extends \PHPUnit\Framework\TestCase
         // Numbers
         $numbers = [
             ['0', 0],
+            ['00', 00],
             ['1', 1],
+            ['00001', 1],
             ['1337', 1337],
             ['1.0', 1.0],
             ['1.23456789', 1.23456789],
+            ['.1', 0.1],
+            ['.7', 0.7],
         ];
 
         // Operators
@@ -130,6 +134,14 @@ class StringCalcTest extends \PHPUnit\Framework\TestCase
             ['2/1', 2],
             ['1/2', 0.5],
             ['-1/2', -0.5],
+
+            ['1%1', 0],
+            ['2%1', 0],
+            ['2%2', 0],
+            ['5%3', 2],
+            ['5%5', 0],
+            ['5%(-3)', 2],
+            ['(-5)%(-3)', -2],
         ];
 
         // Brackets
@@ -137,6 +149,7 @@ class StringCalcTest extends \PHPUnit\Framework\TestCase
             ['(2)', 2],
             ['((3))', 3],
             ['(1+2)', 3],
+            ['(1+((2)))', 3],
             ['(-2)', -2],
             ['((1+2)*(3+4))', 21],
         ];
@@ -188,8 +201,12 @@ class StringCalcTest extends \PHPUnit\Framework\TestCase
             ['log(2,2)', 1],
             ['logOneP(2)', 1.0986122886681],
             ['logTen(2)', 0.30102999566398],
+            ['max(1)', 1],
             ['max(1,2.2)', 2.2],
+            ['max(1,2,3)', 3],
+            ['min(2)', 2],
             ['min(2,1.1)', 1.1],
+            ['min(1,2,3)', 1],
             ['pow(2,3)', 8],
             ['radToDeg(2)', 114.59155902616],
             ['round(1.8)', 2],

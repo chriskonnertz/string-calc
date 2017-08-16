@@ -5,19 +5,19 @@ namespace ChrisKonnertz\StringCalc\Symbols\Concrete\Operators;
 use ChrisKonnertz\StringCalc\Symbols\AbstractOperator;
 
 /**
- * Operator for mathematical multiplication.
- * Example: "2*3" => 6
- * @see https://en.wikipedia.org/wiki/Multiplication
+ * Operator for mathematical modulo operation.
+ * Example: "5%3" => 2
+ * @see https://en.wikipedia.org/wiki/Modulo_operation
  *
  * @package ChrisKonnertz\StringCalc\Symbols\Concrete\Operators
  */
-class MultiplicationOperator extends AbstractOperator
+class ModuloOperator extends AbstractOperator
 {
 
     /**
      * @inheritdoc
      */
-    protected $identifiers = ['*'];
+    protected $identifiers = ['%'];
 
     /**
      * @inheritdoc
@@ -29,7 +29,7 @@ class MultiplicationOperator extends AbstractOperator
      */
     public function operate($leftNumber, $rightNumber)
     {
-        return $leftNumber * $rightNumber;
+        return $leftNumber % $rightNumber;
     }
 
 }

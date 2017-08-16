@@ -60,6 +60,7 @@ use ChrisKonnertz\StringCalc\Symbols\Concrete\Number;
 use ChrisKonnertz\StringCalc\Symbols\Concrete\Operators\AdditionOperator;
 use ChrisKonnertz\StringCalc\Symbols\Concrete\Operators\DivisionOperator;
 use ChrisKonnertz\StringCalc\Symbols\Concrete\Operators\ExponentiationOperator;
+use ChrisKonnertz\StringCalc\Symbols\Concrete\Operators\ModuloOperator;
 use ChrisKonnertz\StringCalc\Symbols\Concrete\Operators\MultiplicationOperator;
 use ChrisKonnertz\StringCalc\Symbols\Concrete\Operators\SubtractionOperator;
 use ChrisKonnertz\StringCalc\Symbols\Concrete\Separator;
@@ -112,6 +113,7 @@ class SymbolRegistry
             AdditionOperator::class,
             DivisionOperator::class,
             ExponentiationOperator::class,
+            ModuloOperator::class,
             MultiplicationOperator::class,
             SubtractionOperator::class,
 

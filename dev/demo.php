@@ -46,9 +46,9 @@
     <div class="block result">
         <?php
 
-            if ($term !== null) {
-                $stringCalc = new ChrisKonnertz\StringCalc\StringCalc();
+            $stringCalc = new ChrisKonnertz\StringCalc\StringCalc();
 
+            if ($term !== null) {
                 try {
                     $result = $stringCalc->calculate($term);
 
@@ -73,7 +73,8 @@
     <div class="block grammar">
         <?php
 
-            $grammar = new \ChrisKonnertz\StringCalc\Grammar\StringCalcGrammar();
+            $grammar = new \ChrisKonnertz\StringCalc\Grammar\StringCalcGrammar($stringCalc->getContainer());
+            echo $grammar->produceRandomWord();
             echo '<h4>Grammar rules</h4><pre>'.$grammar->__toString().'</pre>';
 
         ?>

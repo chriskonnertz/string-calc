@@ -9,7 +9,7 @@ use ChrisKonnertz\StringCalc\Symbols\AbstractOperator;
  * Example: "6/2" => 3, "6/0" => InvalidArgumentException
  * @see https://en.wikipedia.org/wiki/Division_(mathematics)
  *
- * @package ChrisKonnertz\StringCalc\Symbols\Concrete
+ * @package ChrisKonnertz\StringCalc\Symbols\Concrete\Operators
  */
 class DivisionOperator extends AbstractOperator
 {

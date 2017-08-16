@@ -9,7 +9,7 @@ use ChrisKonnertz\StringCalc\Symbols\AbstractOperator;
  * Example: "3^2" => 9, "-3^2" => -9, "3^-2" equals "3^(-2)"
  * @see https://en.wikipedia.org/wiki/Exponentiation
  *
- * @package ChrisKonnertz\StringCalc\Symbols\Concrete
+ * @package ChrisKonnertz\StringCalc\Symbols\Concrete\Operators
  */
 class ExponentiationOperator extends AbstractOperator
 {

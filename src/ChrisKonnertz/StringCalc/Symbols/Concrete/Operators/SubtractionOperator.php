@@ -9,7 +9,7 @@ use ChrisKonnertz\StringCalc\Symbols\AbstractOperator;
  * Example: "1+2" => 3
  * @see https://en.wikipedia.org/wiki/Multiplication
  *
- * @package ChrisKonnertz\StringCalc\Symbols\Concrete
+ * @package ChrisKonnertz\StringCalc\Symbols\Concrete\Operators
  */
 class SubtractionOperator extends AbstractOperator
 {
