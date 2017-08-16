@@ -2,6 +2,7 @@
 
 namespace ChrisKonnertz\StringCalc\Symbols\Concrete\Functions;
 
+use ChrisKonnertz\StringCalc\Exceptions\NumberOfArgumentsException;
 use ChrisKonnertz\StringCalc\Symbols\AbstractFunction;
 
 /**
@@ -26,7 +27,7 @@ class HypotFunction extends AbstractFunction
     public function execute(array $arguments)
     {
         if (sizeof($arguments) != 2) {
-            throw new \InvalidArgumentException('Error: Expected two argument, got '.sizeof($arguments));
+            throw new NumberOfArgumentsException('Error: Expected two arguments, got '.sizeof($arguments));
         }
 
         $firstNumber = $arguments[0];

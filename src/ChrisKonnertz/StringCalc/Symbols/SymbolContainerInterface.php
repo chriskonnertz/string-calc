@@ -47,7 +47,7 @@ interface SymbolContainerInterface
      * @param string $parentTypeName
      * @return AbstractSymbol[]
      */
-    public function findSubtype($parentTypeName);
+    public function findSubtypes($parentTypeName);
 
     /**
      * Returns the number of managed symbols.

@@ -352,11 +352,11 @@ If an operator does not seem suitable for a purpose, a function might be an appr
 
 Function classes implement the `execute(array $arguments)` method. The arguments are passed as an array to this method. 
 The size of the arguments array can be 0-n. The implementation of this method is responsible to validate the number of 
-arguments. Example:
+arguments. If the number of arguments is improper, throw an `Exceptions\NumberOfArgumentsException`. Example:
 
 ```php
 if (sizeof($arguments) < 1) {
-    throw new \InvalidArgumentException('Error: Expected at least one argument, none given.');
+    throw new NumberOfArgumentsException('Error: Expected at least one argument, none given.');
 }
 ```
 

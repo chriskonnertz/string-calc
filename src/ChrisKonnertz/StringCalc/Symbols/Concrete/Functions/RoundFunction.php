@@ -2,6 +2,7 @@
 
 namespace ChrisKonnertz\StringCalc\Symbols\Concrete\Functions;
 
+use ChrisKonnertz\StringCalc\Exceptions\NumberOfArgumentsException;
 use ChrisKonnertz\StringCalc\Symbols\AbstractFunction;
 
 /**
@@ -26,7 +27,7 @@ class RoundFunction extends AbstractFunction
     public function execute(array $arguments)
     {
         if (sizeof($arguments) == 0 or sizeof($arguments) > 2) {
-            throw new \InvalidArgumentException('Error: Expected one or two arguments, got '.sizeof($arguments));
+            throw new NumberOfArgumentsException('Error: Expected one or two arguments, got '.sizeof($arguments));
         }
 
         $number = $arguments[0];

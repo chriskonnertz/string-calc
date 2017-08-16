@@ -2,6 +2,7 @@
 
 namespace ChrisKonnertz\StringCalc\Symbols\Concrete\Functions;
 
+use ChrisKonnertz\StringCalc\Exceptions\NumberOfArgumentsException;
 use ChrisKonnertz\StringCalc\Symbols\AbstractFunction;
 
 /**
@@ -26,7 +27,7 @@ class EnFunction extends AbstractFunction
     public function execute(array $arguments)
     {
         if (sizeof($arguments) != 2) {
-            throw new \InvalidArgumentException('Error: Expected two arguments, '.sizeof($arguments).' given');
+            throw new NumberOfArgumentsException('Error: Expected two arguments, got '.sizeof($arguments));
         }
 
         $number = $arguments[0] * pow(10, $arguments[1]);

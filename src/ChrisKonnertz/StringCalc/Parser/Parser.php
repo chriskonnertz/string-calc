@@ -110,7 +110,7 @@ class Parser
                 }
             } elseif ($type == Token::TYPE_NUMBER) {
                 // Notice: Numbers do not have an identifier
-                $symbol = $this->symbolContainer->findSubtype(Number::class)[0];
+                $symbol = $this->symbolContainer->findSubtypes(Number::class)[0];
             } else { // Type Token::TYPE_CHARACTER:
                 $identifier = $token->getValue();
                 $symbol = $this->symbolContainer->find($identifier);

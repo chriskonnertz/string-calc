@@ -2,6 +2,7 @@
 
 namespace ChrisKonnertz\StringCalc\Symbols\Concrete\Functions;
 
+use ChrisKonnertz\StringCalc\Exceptions\NumberOfArgumentsException;
 use ChrisKonnertz\StringCalc\Symbols\AbstractFunction;
 
 /**
@@ -23,7 +24,7 @@ class CeilFunction extends AbstractFunction
     public function execute(array $arguments)
     {
         if (sizeof($arguments) != 1) {
-            throw new \InvalidArgumentException('Error: Expected one argument, got '.sizeof($arguments));
+            throw new NumberOfArgumentsException('Error: Expected one argument, got '.sizeof($arguments));
         }
 
         $number = $arguments[0];

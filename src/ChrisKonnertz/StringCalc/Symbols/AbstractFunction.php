@@ -14,7 +14,8 @@ abstract class AbstractFunction extends AbstractSymbol
     /**
      * This method is called when the function is executed. A function can have 0-n parameters.
      * The implementation of this method is responsible to validate the number of arguments.
-     * The $arguments array contains these arguments.
+     * The $arguments array contains these arguments. If the number of arguments is improper,
+     * the method has to throw a Exceptions\NumberOfArgumentsException exception.
      * The items of the $arguments array will always be of type int or float. They will never be null.
      * They keys will be integers starting at 0 and representing the positions of the arguments
      * in ascending order.

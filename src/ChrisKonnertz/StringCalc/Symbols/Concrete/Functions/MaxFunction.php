@@ -2,6 +2,7 @@
 
 namespace ChrisKonnertz\StringCalc\Symbols\Concrete\Functions;
 
+use ChrisKonnertz\StringCalc\Exceptions\NumberOfArgumentsException;
 use ChrisKonnertz\StringCalc\Symbols\AbstractFunction;
 
 /**
@@ -23,7 +24,7 @@ class MaxFunction extends AbstractFunction
     public function execute(array $arguments)
     {
         if (sizeof($arguments) < 1) {
-            throw new \InvalidArgumentException('Error: Expected at least one argument, none given');
+            throw new NumberOfArgumentsException('Error: Expected at least one argument, none given');
         }
 
         $max = max($arguments);

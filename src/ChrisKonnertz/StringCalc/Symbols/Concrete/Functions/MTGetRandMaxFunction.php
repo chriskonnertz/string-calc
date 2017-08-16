@@ -2,6 +2,7 @@
 
 namespace ChrisKonnertz\StringCalc\Symbols\Concrete\Functions;
 
+use ChrisKonnertz\StringCalc\Exceptions\NumberOfArgumentsException;
 use ChrisKonnertz\StringCalc\Symbols\AbstractFunction;
 
 /**
@@ -24,7 +25,7 @@ class MTGetRandMaxFunction extends AbstractFunction
     public function execute(array $arguments)
     {
         if (sizeof($arguments) > 0) {
-            throw new \InvalidArgumentException('Error: Expected no arguments, got '.sizeof($arguments));
+            throw new NumberOfArgumentsException('Error: Expected no arguments, got '.sizeof($arguments));
         }
 
         return mt_getrandmax();
