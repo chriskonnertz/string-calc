@@ -405,7 +405,11 @@ S := expression
 
 expression := number | constant | function
 expression := openingBracket expression closingBracket
-expression := [unaryOperator] expression (operator [unaryOperator] expression)*
+expression := [unaryOperator] simpleExpression (operator [unaryOperator] simpleExpression)*
+
+simpleExpression := number | constant | function
+simpleExpression := openingBracket expression closingBracket
+simpleExpression := simpleExpression (operator [unaryOperator] simpleExpression)*
 
 function := functionBody openingBracket closingBracket
 function := functionBody openingBracket expression (argumentSeparator expression)* closingBracket
