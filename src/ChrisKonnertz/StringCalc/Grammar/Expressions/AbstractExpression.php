@@ -11,13 +11,9 @@ abstract class AbstractExpression
 {
 
     /**
-     * ATTENTION: Child classes have to overwrite this method with their own implementation!
-     *
-     * @throws \Exception
+     * The grammar has to be printable so child classes have
+     * to overwrite this method with their own implementation
      */
     abstract public function __toString();
-//    {
-//        throw new \Exception('Error: Child class did not overwrite the __toString() method!');
-    //}
 
 }
