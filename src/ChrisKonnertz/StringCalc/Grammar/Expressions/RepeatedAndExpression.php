@@ -88,7 +88,7 @@ class RepeatedAndExpression extends AbstractContainerExpression
         $max = (int) $max;
 
         if ($max < $this->min) {
-            throw new \InvalidArgumentException('Error: maximum cannot be smaller than maximum');
+            throw new \InvalidArgumentException('Error: Maximum cannot be smaller than minimum');
         }
 
         $this->max = $max;
