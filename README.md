@@ -216,7 +216,7 @@ A term consists of symbols that are of a specific type. This section lists all a
 
 ### Numbers
 
-Numbers in a term always consist of digits and may include one period. Good usage examples:
+Numbers in a term always consist of digits and may include exactly one period. Good usage examples:
 
 ```
 0
@@ -229,9 +229,11 @@ Numbers in a term always consist of digits and may include one period. Good usag
 Bad usage examples:
 
 ```
-0.1.2   // Two periods
-2.2e3   // "e" will work in PHP code but not in a term
-7E-10   // "E" will work in PHP code but not in a term
+0.1.2         // Two periods
+2.2e3         // "e" will work in PHP code but not in a term
+7E-10         // "E" will work in PHP code but not in a term
+0xf4c3b00c    // Hexadecimal notation is not allowed
+0b10100111001 // Binary notation is not allowed
 ```
 
 Just for your information: From the tokenizer's point of view, numbers in a term are always positive. 
