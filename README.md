@@ -234,6 +234,7 @@ Bad usage examples:
 7E-10         // "E" will work in PHP code but not in a term
 0xf4c3b00c    // Hexadecimal notation is not allowed
 0b10100111001 // Binary notation is not allowed
+-1            // This is not a number but the "-" operator plus the number "1"
 ```
 
 Just for your information: From the tokenizer's point of view, numbers in a term are always positive. 
@@ -416,6 +417,8 @@ simpleExpression := simpleExpression (operator [unaryOperator] simpleExpression)
 function := functionBody openingBracket closingBracket
 function := functionBody openingBracket expression (argumentSeparator expression)* closingBracket
 ````
+
+Remember that numbers are always positive! The term "-1" consists of an unary operator followed by a number.
 
 ## General notes
 
