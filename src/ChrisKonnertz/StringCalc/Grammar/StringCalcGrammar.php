@@ -21,7 +21,8 @@ class StringCalcGrammar extends AbstractGrammar
     {
         // Define the symbols
         $expression = new SymbolExpression('expression');
-        $number = new SymbolExpression('number');
+        $simpleExpression = new SymbolExpression('simpleExpression');
+        $number = new SymbolExpression('number'); // Note: A number cannot be negative!
         $constant = new SymbolExpression('constant');
         $function = new SymbolExpression('function');
         $openingBracket = new SymbolExpression('openingBracket');
@@ -36,7 +37,19 @@ class StringCalcGrammar extends AbstractGrammar
         $this->addRule($expression->getSymbolName(), new AndExpression($openingBracket, $expression, $closingBracket));
         $this->addRule($expression->getSymbolName(), new AndExpression(
             new OptionalAndExpression($unaryOperator),
+            $simpleExpression,
+            new RepeatedAndExpression(
+                0, PHP_INT_MAX, $operator, new OptionalAndExpression($unaryOperator), $simpleExpression
+            )
+        ));
+        $this->addRule($simpleExpression->getSymbolName(), new OrExpression($number, $constant, $function));
+        $this->addRule($simpleExpression->getSymbolName(), new AndExpression(
+            $openingBracket,
             $expression,
+            $closingBracket
+        ));
+        $this->addRule($simpleExpression->getSymbolName(), new AndExpression(
+            $simpleExpression,
             new RepeatedAndExpression(
                 0, PHP_INT_MAX, $operator, new OptionalAndExpression($unaryOperator), $expression
             )

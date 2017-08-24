@@ -24,9 +24,26 @@ class SymbolExpression extends AbstractExpression
      */
     public function __construct($symbolName)
     {
-        $this->symbolName = $symbolName;
+        $this->setSymbolMame($symbolName);
     }
 
+    /**
+     * Setter for the symbol name
+     *
+     * @param string $symbolName
+     */
+    public function setSymbolMame($symbolName)
+    {
+        if (! is_string($symbolName)) {
+            throw new \InvalidArgumentException('Error: Expected string but got '.gettype($symbolName));
+        }
+        if (trim($symbolName) === '') {
+            throw new \InvalidArgumentException('Error: Expected name but got empty string ro white space');
+        }
+
+        $this->symbolName = $symbolName;
+    }
+    
     /**
      * Getter for the symbol name
      *
