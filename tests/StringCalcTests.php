@@ -263,7 +263,7 @@ class StringCalcTest extends \PHPUnit\Framework\TestCase
      * value on is a string with the term, value two is the expected result (float or int).
      * Notice: These terms have to be valid!
      *
-     * @param array $calculations [array] $calculations
+     * @param array $calculations Array with the calculations (term and expected result)
      * @param float $delta
      */
     private function doCalculations(array $calculations, $delta = 0.0)
