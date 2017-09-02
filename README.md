@@ -72,10 +72,10 @@ min(1+2, abs(-1))
 Here is a list that shows examples with more exotic syntax:
 
 ```
-1 // A term can consist of just a number
-(1+((2))) //  Usage of obsolete brackets is allowed
-00001 // Prefixing a number with obsolete zero digits is possible
-.1 // Ommiting a zero digit before a period charcter is okay
+1         // A term can consist of just a number
+(1+((2))) // Usage of obsolete brackets is allowed
+00001     // Prefixing a number with obsolete zero digits is possible
+.1        // Ommiting a zero digit before a period charcter is okay
 ```
 
 To see a list of all available types of mathematical symbols (parts of a term) follow this link:
