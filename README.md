@@ -380,7 +380,7 @@ max(1,2,3)
 Bad usage examples:
  
 ```
-3+1,2 // Usage out of scope / missusage as decimal mark
+3+1,2     // Usage out of scope / missusage as decimal mark
 max(1,,3) // Missing calculable expression between separators
 ```
 
