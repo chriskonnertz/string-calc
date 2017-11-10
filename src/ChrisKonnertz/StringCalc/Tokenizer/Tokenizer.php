@@ -11,7 +11,7 @@ use ChrisKonnertz\StringCalc\Support\StringHelperInterface;
  * sections of a string of input characters" (Source: Wikipedia)
  * The tokenizer operates on the string term and tries to split it into
  * parts (these are the symbols of the term / the tokens).
- * The tokenizer is not very smart, it does not really care for grammar.
+ * The tokenizer is not very smart, it does not care for grammar.
  *
  * @package ChrisKonnertz\StringCalc\Tokenizer
  */
