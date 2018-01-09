@@ -14,7 +14,7 @@ abstract class AbstractNode
 {
 
     /**
-     * Call this method - especially on the root node of a syntx tree -
+     * Call this method - especially on the root node of a syntax tree -
      * if you want to traverse it and all of it child nodes, no matter
      * how deep they are nested in the tree. You only have to pass a closure,
      * you do not have to pass an argument for the level parameter.
