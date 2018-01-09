@@ -81,6 +81,81 @@ Here is a list that shows examples with more exotic syntax:
 To see a list of all available types of mathematical symbols (parts of a term) follow this link:
 [Symbols/Concrete classes](src/ChrisKonnertz/StringCalc/Symbols/Concrete)
 
+## List of symbols
+
+Operators:
+````
++
+-
++
+/
+
+````
+
+Functions:
+````
+abs
+aCos
+aCosH
+aSin
+aSinH
+aTan
+aTanH
+aTanTwo
+ceil
+cos
+cosH
+degToRad
+en
+exp
+expMOne
+floor
+fMod
+hypot
+log
+logOneP
+logTen
+max
+min
+pow
+radToDeg
+round
+sin
+sinH
+sqrt
+tan
+tanH
+````
+
+Constants:
+````
+e
+euler
+lnPi
+lnTen
+lnTwo
+logTenE
+logTwoE
+onePi
+pi
+piFour
+piTwo
+sqrtOneTwo
+sqrtPi
+sqrtThree
+sqrtTwo
+twoPi
+twoSqrtPi
+````
+
+Others:
+````
+(
+)
+,
+.
+````
+
 ## The StringCalc class
 
 The `StringCalc` is the  is the API frontend of the StringCalc library. 
