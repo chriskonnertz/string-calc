@@ -6,7 +6,7 @@ use ChrisKonnertz\StringCalc\Symbols\AbstractOperator;
 
 /**
  * Operator for mathematical division.
- * Example: "6/2" => 3, "6/0" => InvalidArgumentException
+ * Example: "6/2" => 3, "6/0" => http://php.net/manual/en/class.divisionbyzeroerror.php
  * @see https://en.wikipedia.org/wiki/Division_(mathematics)
  *
  * @package ChrisKonnertz\StringCalc\Symbols\Concrete\Operators
