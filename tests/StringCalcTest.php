@@ -2,8 +2,26 @@
 
 // Ensure backward compatibility
 // @see http://stackoverflow.com/questions/42811164/class-phpunit-framework-testcase-not-found#answer-42828632
+use ChrisKonnertz\StringCalc\Container\Container;
+use ChrisKonnertz\StringCalc\Parser\Nodes\ContainerNode;
+use ChrisKonnertz\StringCalc\Symbols\AbstractFunction;
+use ChrisKonnertz\StringCalc\Symbols\SymbolContainer;
+
 if (!class_exists('\PHPUnit\Framework\TestCase')) {
     class_alias('\PHPUnit_Framework_TestCase', '\PHPUnit\Framework\TestCase');
+}
+
+/**
+ * Custom test function
+ */
+class TestFunction extends AbstractFunction
+{
+    protected $identifiers = ['test'];
+
+    public function execute(array $arguments)
+    {
+        return 2;
+    }
 }
 
 /**
@@ -22,16 +40,6 @@ class StringCalcTest extends \PHPUnit\Framework\TestCase
      */
     private $stringCalc = null;
 
-    /**
-     * Creates and returns an instance of the main class
-     *
-     * @return \ChrisKonnertz\StringCalc\StringCalc
-     */
-    protected function getInstance()
-    {
-        return new ChrisKonnertz\StringCalc\StringCalc();
-    }
-
     public function testTokenize()
     {
         $stringCalc = $this->getInstance();
@@ -41,6 +49,16 @@ class StringCalcTest extends \PHPUnit\Framework\TestCase
         $tokens = $stringCalc->tokenize($term);
 
         $this->assertNotNull($tokens);
+    }
+
+    /**
+     * Creates and returns an instance of the main class
+     *
+     * @return \ChrisKonnertz\StringCalc\StringCalc
+     */
+    protected function getInstance()
+    {
+        return new ChrisKonnertz\StringCalc\StringCalc();
     }
 
     public function testParseAndTraverse()
@@ -53,12 +71,13 @@ class StringCalcTest extends \PHPUnit\Framework\TestCase
 
         $node = $stringCalc->parse($tokens);
 
-        $this->assertNotNull($node);
+        $this->assertInstanceOf(ContainerNode::class, $node);
 
-        $node->traverse(function($node, $level)
-        {
-            // do nothing
-        });
+        $node->traverse(
+            function ($node, $level) {
+                // do nothing
+            }
+        );
     }
 
     public function testGetSymbolContainer()
@@ -67,7 +86,7 @@ class StringCalcTest extends \PHPUnit\Framework\TestCase
 
         $symbolContainer = $stringCalc->getSymbolContainer();
 
-        $this->assertNotNull($symbolContainer);
+        $this->assertInstanceOf(SymbolContainer::class, $symbolContainer);
     }
 
     public function testGetContainer()
@@ -76,22 +95,18 @@ class StringCalcTest extends \PHPUnit\Framework\TestCase
 
         $container = $stringCalc->getContainer();
 
-        $this->assertNotNull($container);
+        $this->assertInstanceOf(Container::class, $container);
     }
 
     public function testAddSymbol()
     {
-        $stringCalc = $this->getInstance();
-
-        $container = $stringCalc->getContainer();
-
+        $stringCalc   = $this->getInstance();
+        $container    = $stringCalc->getContainer();
         $stringHelper = $container->get('stringcalc_stringhelper');
+        $symbol       = new TestFunction($stringHelper);
+        $stringCalc->addSymbol($symbol);
 
-        $symbol = new ChrisKonnertz\StringCalc\Symbols\Concrete\Constants\PiConstant($stringHelper);
-
-        $replaceSymbol = get_class($symbol);
-
-        $stringCalc->addSymbol($symbol, $replaceSymbol);
+        $this->assertEquals(6, $stringCalc->calculate('3 * test()'));
     }
 
     public function testCalculations()
@@ -233,30 +248,6 @@ class StringCalcTest extends \PHPUnit\Framework\TestCase
         $this->stringCalc->calculate('rand(1,2)');
     }
 
-    public function testRandomCalculations()
-    {
-        $this->stringCalc = $this->getInstance();
-        $grammar = new \ChrisKonnertz\StringCalc\Grammar\StringCalcGrammar();
-
-        $numberOfCalculations = 100;
-        $calculations = [];
-
-        // TODO Implement the rest of this method
-        return;
-
-        for ($i = 0; $i < $numberOfCalculations; $i++) {
-            $term = '';
-            $result = eval($term);
-
-            $calculation = [$term, $result];
-            $calculations[] = $calculation;
-        }
-
-        // Will call the assertEquals method with the delta parameter set which means assertEquals
-        // will report an error if result and expected result are not within $delta of each other
-        $this->doCalculations($calculations, self::RESULT_DELTA);
-    }
-
     /**
      * Performs the calculations.
      * $calculations is an array of arrays with two values:
@@ -269,13 +260,37 @@ class StringCalcTest extends \PHPUnit\Framework\TestCase
     private function doCalculations(array $calculations, $delta = 0.0)
     {
         foreach ($calculations as $calculation) {
-            $term = $calculation[0];
+            $term           = $calculation[0];
             $expectedResult = $calculation[1];
 
             $calculatedResult = $this->stringCalc->calculate($term);
 
             $this->assertEquals($calculatedResult, $expectedResult, 'Term: '.$term, $delta);
         }
+    }
+
+    public function _testRandomCalculations()
+    {
+        $this->stringCalc = $this->getInstance();
+        $grammar          = new \ChrisKonnertz\StringCalc\Grammar\StringCalcGrammar();
+
+        $numberOfCalculations = 100;
+        $calculations         = [];
+
+        // TODO Implement the rest of this method (and remove the underscore from method name to re-enable this test)
+        return;
+
+        for ($i = 0; $i < $numberOfCalculations; $i++) {
+            $term   = '';
+            $result = eval($term);
+
+            $calculation    = [$term, $result];
+            $calculations[] = $calculation;
+        }
+
+        // Will call the assertEquals method with the delta parameter set which means assertEquals
+        // will report an error if result and expected result are not within $delta of each other
+        $this->doCalculations($calculations, self::RESULT_DELTA);
     }
 
 }

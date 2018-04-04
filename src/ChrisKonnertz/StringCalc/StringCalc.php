@@ -147,15 +147,10 @@ class StringCalc
      * @param Token[] $tokens
      *
      * @return ContainerNode
-     * @throws Exceptions\ContainerException
-     * @throws Exceptions\NotFoundException
      */
     public function parse(array $tokens)
     {
-        /** @var SymbolContainerInterface $symbolContainer */
-        $symbolContainer = $this->container->get('stringcalc_symbolcontainer');
-
-        $parser = new Parser($symbolContainer);
+        $parser = new Parser($this->symbolContainer);
 
         if ($this->customGrammarChecker !== null) {
             $parser->setCustomGrammarChecker($this->customGrammarChecker);
