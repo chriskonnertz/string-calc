@@ -56,6 +56,9 @@ class StringCalc
      * StringCalc constructor.
      *
      * @param ContainerInterface $container
+     *
+     * @throws Exceptions\ContainerException If the passed container parameter is not an object
+     * @throws Exceptions\ContainerException If the passed container parameter does not implement ContainerInterface
      */
     public function __construct($container = null)
     {
@@ -85,7 +88,10 @@ class StringCalc
      * Will return 0 if there is nothing to calculate.
      *
      * @param string $term
+     *
      * @return float|int
+     * @throws Exceptions\ContainerException
+     * @throws Exceptions\NotFoundException
      */
     public function calculate($term)
     {
@@ -110,7 +116,10 @@ class StringCalc
      * Tokenize the term. Returns an array with the tokens.
      *
      * @param string $term
+     *
      * @return array
+     * @throws Exceptions\ContainerException
+     * @throws Exceptions\NotFoundException
      */
     public function tokenize($term)
     {
@@ -136,14 +145,12 @@ class StringCalc
      * Parses an array of tokens. Returns a single node that is a container node.
      *
      * @param Token[] $tokens
+     *
      * @return ContainerNode
      */
     public function parse(array $tokens)
     {
-        /** @var SymbolContainerInterface $symbolContainer */
-        $symbolContainer = $this->container->get('stringcalc_symbolcontainer');
-
-        $parser = new Parser($symbolContainer);
+        $parser = new Parser($this->symbolContainer);
 
         if ($this->customGrammarChecker !== null) {
             $parser->setCustomGrammarChecker($this->customGrammarChecker);
