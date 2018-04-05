@@ -258,7 +258,16 @@ If you want to use this parameter you have to pass the full name of the class th
 
 Example:
 ```php
-$symbol = new ExampleClassOne();
+class ExampleClassOne extends AbstractConstant
+{
+    protected $identifiers = ['exampleConst'];
+
+    protected $value = 123;
+}
+
+// The AbstractSymbol clas has this dependency:
+$stringHelper = $container->get('stringcalc_stringhelper'); 
+$symbol = new ExampleClassOne($stringHelper);
 $replaceSymbol = ExampleClassTwo::class;
 
 $stringCalc->addSymbol($symbol, $replaceSymbol);
