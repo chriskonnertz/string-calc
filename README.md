@@ -32,7 +32,7 @@ $term = '1+2';
 $result = $stringCalc->calculate($term);
 ```
 
-> There is a PHP demo script included. It is located at `dev/demo.php`.
+> There is an interactive PHP demo script included. It is located at `dev/demo.php`.
 
 ## Motivation
 
