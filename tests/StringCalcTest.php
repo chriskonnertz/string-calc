@@ -1,12 +1,12 @@
 <?php
 
-// Ensure backward compatibility
-// @see http://stackoverflow.com/questions/42811164/class-phpunit-framework-testcase-not-found#answer-42828632
 use ChrisKonnertz\StringCalc\Container\Container;
 use ChrisKonnertz\StringCalc\Parser\Nodes\ContainerNode;
 use ChrisKonnertz\StringCalc\Symbols\AbstractFunction;
 use ChrisKonnertz\StringCalc\Symbols\SymbolContainer;
 
+// Ensure backward compatibility
+// @see http://stackoverflow.com/questions/42811164/class-phpunit-framework-testcase-not-found#answer-42828632
 if (!class_exists('\PHPUnit\Framework\TestCase')) {
     class_alias('\PHPUnit_Framework_TestCase', '\PHPUnit\Framework\TestCase');
 }
@@ -16,12 +16,20 @@ if (!class_exists('\PHPUnit\Framework\TestCase')) {
  */
 class TestFunction extends AbstractFunction
 {
+
+    /**
+     * @inheritdoc
+     */
     protected $identifiers = ['test'];
 
+    /**
+     * @inheritdoc
+     */
     public function execute(array $arguments)
     {
         return 2;
     }
+
 }
 
 /**
@@ -75,7 +83,7 @@ class StringCalcTest extends \PHPUnit\Framework\TestCase
 
         $node->traverse(
             function ($node, $level) {
-                // do nothing
+                // Do nothing
             }
         );
     }
@@ -101,12 +109,18 @@ class StringCalcTest extends \PHPUnit\Framework\TestCase
     public function testAddSymbol()
     {
         $stringCalc   = $this->getInstance();
+
         $container    = $stringCalc->getContainer();
         $stringHelper = $container->get('stringcalc_stringhelper');
         $symbol       = new TestFunction($stringHelper);
         $stringCalc->addSymbol($symbol);
 
         $this->assertEquals(6, $stringCalc->calculate('3 * test()'));
+
+        $symbol = new ChrisKonnertz\StringCalc\Symbols\Concrete\Constants\PiConstant($stringHelper);
+        $replaceSymbol = get_class($symbol);
+
+        $stringCalc->addSymbol($symbol, $replaceSymbol);
     }
 
     public function testCalculations()
@@ -267,30 +281,6 @@ class StringCalcTest extends \PHPUnit\Framework\TestCase
 
             $this->assertEquals($calculatedResult, $expectedResult, 'Term: '.$term, $delta);
         }
-    }
-
-    public function _testRandomCalculations()
-    {
-        $this->stringCalc = $this->getInstance();
-        $grammar          = new \ChrisKonnertz\StringCalc\Grammar\StringCalcGrammar();
-
-        $numberOfCalculations = 100;
-        $calculations         = [];
-
-        // TODO Implement the rest of this method (and remove the underscore from method name to re-enable this test)
-        return;
-
-        for ($i = 0; $i < $numberOfCalculations; $i++) {
-            $term   = '';
-            $result = eval($term);
-
-            $calculation    = [$term, $result];
-            $calculations[] = $calculation;
-        }
-
-        // Will call the assertEquals method with the delta parameter set which means assertEquals
-        // will report an error if result and expected result are not within $delta of each other
-        $this->doCalculations($calculations, self::RESULT_DELTA);
     }
 
 }

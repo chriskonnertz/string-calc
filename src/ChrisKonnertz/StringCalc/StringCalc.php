@@ -29,7 +29,7 @@ class StringCalc
      *
      * @const string
      */
-    const VERSION = '1.0.9';
+    const VERSION = '1.0.10';
 
     /**
      * Closure that is called at the end of the grammar checking
@@ -57,8 +57,8 @@ class StringCalc
      *
      * @param ContainerInterface $container
      *
-     * @throws Exceptions\ContainerException If the passed container parameter is not an object
-     * @throws Exceptions\ContainerException If the passed container parameter does not implement ContainerInterface
+     * @throws Exceptions\ContainerException If the passed container parameter is not an object or
+     *                                       if the passed container parameter does not implement ContainerInterface
      */
     public function __construct($container = null)
     {
@@ -88,7 +88,6 @@ class StringCalc
      * Will return 0 if there is nothing to calculate.
      *
      * @param string $term
-     *
      * @return float|int
      * @throws Exceptions\ContainerException
      * @throws Exceptions\NotFoundException
@@ -116,7 +115,6 @@ class StringCalc
      * Tokenize the term. Returns an array with the tokens.
      *
      * @param string $term
-     *
      * @return array
      * @throws Exceptions\ContainerException
      * @throws Exceptions\NotFoundException
@@ -177,6 +175,7 @@ class StringCalc
 
     /**
      * Setter for the custom grammar checker property.
+     *
      * @see Parser::setCustomGrammarChecker()
      *
      * @param \Closure $customGrammarChecker
