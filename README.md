@@ -265,7 +265,7 @@ class ExampleClassOne extends AbstractConstant
     protected $value = 123;
 }
 
-// The AbstractSymbol clas has this dependency:
+// The AbstractSymbol class has this dependency:
 $stringHelper = $container->get('stringcalc_stringhelper'); 
 $symbol = new ExampleClassOne($stringHelper);
 $replaceSymbol = ExampleClassTwo::class;
