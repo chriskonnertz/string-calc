@@ -512,7 +512,7 @@ in StringCalc. This is also true about PHP's problems with floating point precis
 For example `(0.1 + 0.7) * 10` is not 8 or 8.0 but 7.9999999999999991118... in PHP in general and in StringCalc.
 
 * PHP's `intdiv` function is missing, because it is not supported by PHP 5.6. 
-In case you need it, you may want to take a look at its [original implementation](https://github.com/chriskonnertz/string-calc/blob/ed7dda7ec9f36b35eec22d2af6c7fbac620bb382/src/ChrisKonnertz/StringCalc/Symbols/Concrete/Functions/IntDivFunction.php).
+In case you need it, you may want to take a look at [this implementation](https://github.com/chriskonnertz/string-calc/blob/ed7dda7ec9f36b35eec22d2af6c7fbac620bb382/src/ChrisKonnertz/StringCalc/Symbols/Concrete/Functions/IntDivFunction.php).
 
 * This class does not offer support for any other numeral system than the decimal numeral system. 
 It is not intended to provide such support so if you need support of other numeral systems 
