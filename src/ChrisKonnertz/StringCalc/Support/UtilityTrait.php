@@ -18,7 +18,7 @@ trait UtilityTrait
      * @param string        $type The class name of the exception
      * @param string        $message The message f the exception. Must not contain unfiltered user input!
      * @param int|null      $position The position of the problem in the term
-     * @param string|null   $subject Additional data. May contain unfiltered user input!
+     * @param string|null   $subject Additional data. ATTENTION: May contain unfiltered user input!
      * @throws \Exception
      */
     protected function throwException($type, $message, $position = null, $subject = null)
