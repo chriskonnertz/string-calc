@@ -374,8 +374,7 @@ class Parser
      * This function is called at the end of the
      * grammar checking. An array with all nodes is
      * passed as an argument. If grammar checking
-     * fails, the function has to throw a
-     * ParserException.
+     * fails, the function has to throw a ParserException.
      * @param Closure $customGrammarChecker
      */
     public function setCustomGrammarChecker(Closure $customGrammarChecker)
