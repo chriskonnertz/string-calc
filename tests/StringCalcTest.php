@@ -269,7 +269,7 @@ class StringCalcTest extends \PHPUnit\Framework\TestCase
      * Notice: These terms have to be valid!
      *
      * @param array $calculations Array with the calculations (term and expected result)
-     * @param float $delta
+     * @param float $delta        Add this amount of fuzziness to the assertEquals() comparison
      */
     private function doCalculations(array $calculations, $delta = 0.0)
     {
