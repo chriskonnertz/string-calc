@@ -236,6 +236,8 @@ class StringCalcTest extends \PHPUnit\Framework\TestCase
             ['min(2)', 2],
             ['min(2,1.1)', 1.1],
             ['min(1,2,3)', 1],
+            ['min(-5, -10)', -10],
+            ['min(-10, -5)', -10],
             ['pow(2,3)', 8],
             ['radToDeg(2)', 114.59155902616],
             ['round(1.8)', 2],
