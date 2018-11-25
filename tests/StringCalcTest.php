@@ -245,6 +245,8 @@ class StringCalcTest extends \PHPUnit\Framework\TestCase
             ['sqrt(2)', 1.4142135623731],
             ['tan(2)', -2.1850398632615],
             ['tanH(2)', 0.96402758007582],
+            ['min(-5, -10)', -10],
+            ['min(-10, -5)', -10],
         ];
 
         // Constants
