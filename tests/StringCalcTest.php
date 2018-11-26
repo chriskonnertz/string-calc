@@ -262,6 +262,16 @@ class StringCalcTest extends \PHPUnit\Framework\TestCase
         $this->stringCalc->calculate('mTRand(1,2)');
         $this->stringCalc->calculate('rand()');
         $this->stringCalc->calculate('rand(1,2)');
+
+        // Complex terms
+        $complexTerms = [
+            ['-1*max(1,2+3-4*5)/5-10', -10.2],
+            ['tan(2)*sqrtPi-e/sin(3)+1234-5000', -3789.1350823853],
+            ['min(-pi-(sqrt(64)),euler+(euler+euler))', -11.14159265359],
+            ['(((2*(3+(4+(6+(8+9)))))))', 60],
+        ];
+
+        $this->doCalculations($complexTerms);
     }
 
     /**
