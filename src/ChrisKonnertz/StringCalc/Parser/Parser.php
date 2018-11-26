@@ -13,6 +13,7 @@ use ChrisKonnertz\StringCalc\Symbols\AbstractClosingBracket;
 use ChrisKonnertz\StringCalc\Symbols\AbstractFunction;
 use ChrisKonnertz\StringCalc\Symbols\AbstractOpeningBracket;
 use ChrisKonnertz\StringCalc\Symbols\AbstractOperator;
+use ChrisKonnertz\StringCalc\Symbols\AbstractSeparator;
 use ChrisKonnertz\StringCalc\Symbols\Concrete\Number;
 use ChrisKonnertz\StringCalc\Symbols\SymbolContainerInterface;
 use ChrisKonnertz\StringCalc\Tokenizer\Token;
@@ -323,7 +324,10 @@ class Parser
 
                         if (is_a($leftOperand, SymbolNode::class)) {
                             /** @var $leftOperand SymbolNode */
-                            if (is_a($leftOperand->getSymbol(), AbstractOperator::class)) {
+                            if (is_a($leftOperand->getSymbol(), AbstractOperator::class)
+                                ||
+                                is_a($leftOperand->getSymbol(), AbstractSeparator::class)
+                            ) {
                                 // Operator is unary if positioned right to another operator
                                 $leftOperand = null;
                             }
