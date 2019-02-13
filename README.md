@@ -249,7 +249,7 @@ a mathematical function and its arguments) and symbol nodes that represent mathe
  
 ### addSymbol
 
-Call the `addSymbol()` if you want to add custom symbols to the list of symbols. It has two parameters. 
+Call the `addSymbol()` method if you want to add custom symbols to the list of symbols. It has two parameters. 
 The first one named `$symbol` is the symbol object. 
 Therefore the object has to extend the abstract class `Symbol\AbstractSymbol`.
 The second parameter named `$replaceSymbol` is optional and allows you to replace a symbol in the symbol list. 
