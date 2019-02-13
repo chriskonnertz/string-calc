@@ -168,8 +168,8 @@ If no argument is passed, the constructor will create a new container object of 
 The container interface ensures that the container implements the 
 [PSR-11 standard](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-11-container.md). Therefore you can
 replace the default container with every other container that implements the PSR-11 standard, but you have to wrap it 
-in a wrapper class that makes it compatible to the `Container\Contaner` class. We recommend to avoid the extra afford 
-and to extend the `Container\Contaner` class instead.
+in a wrapper class that makes it compatible to the `Container\Container` class. We recommend to avoid the extra afford 
+and to extend the `Container\Container` class instead.
 
 ### calculate
 
