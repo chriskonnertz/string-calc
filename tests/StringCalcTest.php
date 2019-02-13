@@ -277,7 +277,7 @@ class StringCalcTest extends \PHPUnit\Framework\TestCase
     /**
      * Performs the calculations.
      * $calculations is an array of arrays with two values:
-     * value on is a string with the term, value two is the expected result (float or int).
+     * value one is a string with the term, value two is the expected result (float or int).
      * Notice: These terms have to be valid!
      *
      * @param array $calculations Array with the calculations (term and expected result)
