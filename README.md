@@ -198,7 +198,7 @@ additional data, **especially unfiltered user input that you should never print 
 
 The `tokenize($term)` method tokenizes the passed term. It returns an array with the tokens. 
 Tokens are the parts of a term or to be more precise the mathematical symbols of a term. A token is an object
-that has the `Tokenizer\Token` class as its parent. it implements the `__toString()` method 
+that has the `Tokenizer\Token` class as its parent. It implements the `__toString()` method 
 so you can do something like this:
 
 ```php
