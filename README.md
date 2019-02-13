@@ -29,7 +29,7 @@ $stringCalc = new ChrisKonnertz\StringCalc\StringCalc();
 
 $term = '1+2';
 
-$result = $stringCalc->calculate($term);
+$result = $stringCalc->calculate($term); // $result will contain 3
 ```
 
 > There is an interactive PHP demo script included. It is located at `dev/demo.php`.
