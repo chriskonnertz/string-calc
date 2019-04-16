@@ -1,7 +1,9 @@
 # StringCalc
 
-[![Build Status](https://travis-ci.org/chriskonnertz/string-calc.png)](https://travis-ci.org/chriskonnertz/string-calc)
-[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/chriskonnertz/string-calc/master/LICENSE)
+[![Build Status
+](https://img.shields.io/travis/chriskonnertz/string-calc.svg?style=flat-square)](https://travis-ci.org/chriskonnertz/string-calc)
+[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](https://raw.githubusercontent.com/chriskonnertz/string-calc/master/LICENSE)
+[![Source](https://img.shields.io/badge/source-chriskonnertz%2Fstring--calc-blue.svg?style=flat-square)](https://github.com/chriskonnertz/string-calc)
 
 StringCalc is a PHP calculator library for mathematical terms (expressions) passed as strings. 
 
