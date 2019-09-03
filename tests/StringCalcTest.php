@@ -291,7 +291,7 @@ class StringCalcTest extends \PHPUnit\Framework\TestCase
 
             $calculatedResult = $this->stringCalc->calculate($term);
 
-            if (method_exists($this, assertEqualsWithDelta)) {
+            if (method_exists($this, 'assertEqualsWithDelta')) {
                 $this->assertEqualsWithDelta($calculatedResult, $expectedResult, $delta, 'Term: '.$term);
             } else {
                 $this->assertEquals($calculatedResult, $expectedResult, 'Term: '.$term, $delta); // PHP 5.6
