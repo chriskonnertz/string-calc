@@ -291,7 +291,7 @@ class StringCalcTest extends \PHPUnit\Framework\TestCase
 
             $calculatedResult = $this->stringCalc->calculate($term);
 
-            $this->assertEquals($calculatedResult, $expectedResult, 'Term: '.$term, $delta);
+            $this->assertEqualsWithDelta($calculatedResult, $expectedResult, 'Term: '.$term, $delta);
         }
     }
 
