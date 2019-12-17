@@ -87,7 +87,7 @@ Comparison and logical operators and if function:
 123&&23         // 1 - int/float operators are converted to bool before operator execution
 !1||0           // 0 - 'Not' operates as unary
 13<15           // 1
-if(1!=2, 3, 4)  // 4 - if function in excel style
+if(1!=2, 3, 4)  // 3 - if function in excel style
 ```
 
 
