@@ -42,11 +42,20 @@ class Token
     /**
      * Defines the type of a token.
      * Example token value of a token with this type:
-     * '+'
+     * '+-/|&'
      *
      * @const int
      */
     const TYPE_MATHCHARS = 3;
+
+    /**
+     * Defines the type of a token.
+     * Example token value of a token with this type:
+     * '$var'
+     *
+     * @const int
+     */
+    const TYPE_VARIABLE = 4;
 
     /**
      * The raw value of the token. Numbers are stored as string.
@@ -112,7 +121,7 @@ class Token
      */
     public function getAllTypes()
     {
-        return [self::TYPE_WORD, self::TYPE_NUMBER, self::TYPE_CHARACTER, self::TYPE_MATHCHARS];
+        return [self::TYPE_WORD, self::TYPE_NUMBER, self::TYPE_CHARACTER, self::TYPE_MATHCHARS, self::TYPE_VARIABLE];
     }
 
     /**

@@ -74,6 +74,7 @@ use ChrisKonnertz\StringCalc\Symbols\Concrete\Operators\ModuloOperator;
 use ChrisKonnertz\StringCalc\Symbols\Concrete\Operators\MultiplicationOperator;
 use ChrisKonnertz\StringCalc\Symbols\Concrete\Operators\SubtractionOperator;
 use ChrisKonnertz\StringCalc\Symbols\Concrete\Separator;
+use ChrisKonnertz\StringCalc\Symbols\Concrete\Variable;
 
 /**
  * This class has one simple job: It contains an array with the names
@@ -96,6 +97,7 @@ class SymbolRegistry
     {
         $symbols = [
             Number::class,
+            Variable::class,
 
             Separator::class,
 

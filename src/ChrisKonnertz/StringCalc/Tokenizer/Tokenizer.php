@@ -98,6 +98,9 @@ class Tokenizer
         if ($this->isLetter($char)) {
             $value = $this->readWord();
             $type = Token::TYPE_WORD;
+        } elseif ($this->isDollar($char)) {
+            $value = $this->readVariable();
+            $type = Token::TYPE_VARIABLE;
         } elseif ($this->isDigit($char) or $this->isPeriod($char)) {
             $value = $this->readNumber();
             $type = Token::TYPE_NUMBER;
@@ -208,6 +211,17 @@ class Tokenizer
     }
 
     /**
+     * Returns true, if a given character is a minus sign ('-').
+     *
+     * @param string|null $char A single character
+     * @return bool
+     */
+    protected function isDollar($char)
+    {
+        return ($char === '$');
+    }
+
+    /**
      * Returns true, if a given character is whitespace.
      * Notice: A null char is not seen as whitespace.
      *
@@ -245,6 +259,36 @@ class Tokenizer
         // Try to read the word
         while (($char = $this->inputStream->readCurrent()) !== null) {
             if ($this->isLetter($char)) {
+                $word .= $char;
+            } else {
+                break;
+            }
+
+            // Just move the cursor to the next position
+            $this->inputStream->readNext();
+        }
+
+        return $word;
+    }
+
+    /**
+     * Reads a variable. Assumes that the cursor of the input stream
+     * currently is positioned at the beginning of a word.
+     *
+     * @return string
+     */
+    protected function readVariable()
+    {
+        $word = '';
+
+        // Try to read the word
+        while (($char = $this->inputStream->readCurrent()) !== null) {
+            if (
+                (strlen($word) < 1 && $this->isDollar($char))
+                || (strlen($word) > 0
+                    && ($this->isLetter($char) || $this->isDigit($char))
+                )
+            ) {
                 $word .= $char;
             } else {
                 break;

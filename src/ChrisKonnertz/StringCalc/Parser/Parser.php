@@ -15,6 +15,7 @@ use ChrisKonnertz\StringCalc\Symbols\AbstractOpeningBracket;
 use ChrisKonnertz\StringCalc\Symbols\AbstractOperator;
 use ChrisKonnertz\StringCalc\Symbols\AbstractSeparator;
 use ChrisKonnertz\StringCalc\Symbols\Concrete\Number;
+use ChrisKonnertz\StringCalc\Symbols\Concrete\Variable;
 use ChrisKonnertz\StringCalc\Symbols\SymbolContainerInterface;
 use ChrisKonnertz\StringCalc\Tokenizer\Token;
 use Closure;
@@ -61,11 +62,14 @@ class Parser
      * These nodes define a syntax tree.
      *
      * @param Token[] $tokens
+     * @param array   $variables
      * @return ContainerNode
+     * @throws NotFoundException
+     * @throws ParserException
      */
-    public function parse(array $tokens)
+    public function parse(array $tokens, $variables = [])
     {
-        $symbolNodes = $this->detectSymbols($tokens);
+        $symbolNodes = $this->detectSymbols($tokens, $variables);
 
         $nodes = $this->createTreeByBrackets($symbolNodes);
 
@@ -83,11 +87,11 @@ class Parser
      * Creates a flat array of symbol nodes from tokens.
      *
      * @param Token[] $tokens
+     * @param array   $variables
      * @return SymbolNode[]
-     * @throws NotFoundException
      * @throws ParserException
      */
-    protected function detectSymbols(array $tokens)
+    protected function detectSymbols(array $tokens, $variables = [])
     {
         $symbolNodes = [];
 
@@ -112,6 +116,27 @@ class Parser
             } elseif ($type == Token::TYPE_NUMBER) {
                 // Notice: Numbers do not have an identifier
                 $symbol = $this->symbolContainer->findSubtypes(Number::class)[0];
+            } elseif ($type == Token::TYPE_VARIABLE) {
+                $identifier = $token->getValue();
+                $symbol = $this->symbolContainer->findVariable(Variable::class, $identifier);
+                if ($symbol === null) {
+                    $this->throwException(
+                        NotFoundException::class,
+                        'Error: Detected unknown or invalid string identifier.',
+                        $token->getPosition(),
+                        $identifier
+                    );
+                }
+                if( !isset($variables[$identifier])){
+                    $this->throwException(
+                        NotFoundException::class,
+                        'Error: value for identifier "'.$identifier.'" was not provided.',
+                        $token->getPosition(),
+                        $identifier
+                    );
+                }
+                /** @var Variable $symbol */
+                $symbol->setValue((float)$variables[$identifier]);
             } else { // Type Token::TYPE_CHARACTER:
                 $identifier = $token->getValue();
                 $symbol = $this->symbolContainer->find($identifier);

@@ -88,18 +88,19 @@ class StringCalc
      * Will return 0 if there is nothing to calculate.
      *
      * @param string $term
+     * @param array  $variables
      * @return float|int
      * @throws Exceptions\ContainerException
      * @throws Exceptions\NotFoundException
      */
-    public function calculate($term)
+    public function calculate($term, $variables = [])
     {
         $tokens = $this->tokenize($term);
         if (sizeof($tokens) == 0) {
             return 0;
         }
 
-        $rootNode = $this->parse($tokens);
+        $rootNode = $this->parse($tokens, $variables);
         if ($rootNode->isEmpty()) {
             return 0;
         }
@@ -144,9 +145,10 @@ class StringCalc
      *
      * @param Token[] $tokens
      *
+     * @param array   $variables
      * @return ContainerNode
      */
-    public function parse(array $tokens)
+    public function parse(array $tokens, $variables = [])
     {
         $parser = new Parser($this->symbolContainer);
 
@@ -154,7 +156,7 @@ class StringCalc
             $parser->setCustomGrammarChecker($this->customGrammarChecker);
         }
 
-        $rootNode = $parser->parse($tokens);
+        $rootNode = $parser->parse($tokens, $variables);
 
         return $rootNode;
     }

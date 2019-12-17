@@ -2,37 +2,13 @@
 require_once '../vendor/autoload.php';
 
 $termList       = [
-    ['0||1', 1],
-    ['0||-11', 1],
-    ['0||0', 0],
-    ['0&&1', 0],
-    ['0&&-11', 0],
-    ['1&&1', 1],
-    ['1&&-11', 1],
+    ['abs(2) + -1+$var+1', 12, ['$var'=>10]],
 
-    ['5==5', 1],
-    ['5==4', 0],
-    ['5!=5', 0],
-    ['5!=4', 1],
-    ['5>=5', 1],
-    ['5>=4', 1],
-    ['4>=5', 0],
-    ['5>5', 0],
-    ['5>4', 1],
-    ['4>5', 0],
-    ['5<=5', 1],
-    ['5<=4', 0],
-    ['4<=5', 1],
-    ['5<5', 0],
-    ['5<4', 0],
-    ['4<5', 1],
-    ['if(1,2,3)', 2],
-    ['if(0,2,3)', 3],
 ];
 $printTokenized = true;
-$printTree      = false;
+$printTree      = true;
 
-function calc($term, $expectedResult = null, $printTokenized = true, $printTree = false)
+function calc($term, $variables=[], $expectedResult = null, $printTokenized = true, $printTree = false)
 {
     if ($term !== null) {
         try {
@@ -48,15 +24,19 @@ function calc($term, $expectedResult = null, $printTokenized = true, $printTree 
             if ($printTree) {
 
                 echo "Structure: \n";
-                $rootNode = $stringCalc->parse($tokens);
+                $rootNode = $stringCalc->parse($tokens, $variables);
 
                 $rootNode->traverse(function ($node, $level) {
-                    echo str_repeat('__', $level);
+                    echo str_repeat('_', $level);
                     if ($node instanceof \ChrisKonnertz\StringCalc\Parser\Nodes\ContainerNode) {
                         echo " () \n";
                     }
                     if ($node instanceof \ChrisKonnertz\StringCalc\Parser\Nodes\SymbolNode) {
-                        echo " " . $node->getToken()->getValue() . "\n";
+                        if( $node->getSymbol() instanceof \ChrisKonnertz\StringCalc\Symbols\AbstractVariable){
+                            echo " " . $node->getToken()->getValue() . " (".$node->getSymbol()->getValue().")\n";
+                        }else{
+                            echo " " . $node->getToken()->getValue() . "\n";
+                        }
                     }
                     if ($node instanceof \ChrisKonnertz\StringCalc\Parser\Nodes\FunctionNode) {
                         echo " " . $node->getSymbolNode()->getToken()->getValue() . "\n";
@@ -65,7 +45,7 @@ function calc($term, $expectedResult = null, $printTokenized = true, $printTree 
                 echo "\n";
             }
 
-            $result = $stringCalc->calculate($term);
+            $result = $stringCalc->calculate($term, $variables);
 
             echo "Result: \n";
             echo $result . " (Type: " . gettype($result) . ") \n";
@@ -98,12 +78,13 @@ foreach ($termList as $termDef) {
     if( is_array( $termDef ) ){
         $term = isset($termDef[0])?$termDef[0]:'';
         $expectedResult = isset($termDef[1])?$termDef[1]:null;
+        $variables = isset($termDef[2])?$termDef[2]:[];
     }else{
         $term = $termDef;
     }
     echo "Term:\n";
     echo $term ."\n";
-    $result = calc($term, $expectedResult, $printTokenized, $printTree);
+    $result = calc($term, $variables, $expectedResult, $printTokenized, $printTree);
     echo "\n\n\n";
     if(!$result){
         break;

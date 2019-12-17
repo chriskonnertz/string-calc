@@ -96,9 +96,9 @@ abstract class AbstractSymbol
         // Use regular expression to search for characters that are digits
         // Regex is true when there are  0-n non-digits chars and then one digit
         // (it does not matter what is behind the digit)
-        if (preg_match('/(\D*)\d/', $identifier) === 1) {
-            throw new InvalidIdentifierException('Error: Identifier cannot contain any digits');
-        }
+//        if (preg_match('/$(\D*)\d/', $identifier) === 1) {
+//            throw new InvalidIdentifierException('Error: Identifier cannot contain any digits');
+//        }
 
         $this->validateIdentifierMore($identifier);
     }
