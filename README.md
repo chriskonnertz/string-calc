@@ -90,6 +90,11 @@ Comparison and logical operators and if function:
 if(1!=2, 3, 4)  // 4 - if function in excel style
 ```
 
+Variables:
+```
+$var1 + $var2
+$result = $stringCalc->calculate($term, ['$var1'=>1, '$var2'=>2]); // $result will contain 3
+```
 
 To see a list of all available types of mathematical symbols (parts of a term) follow this link:
 [Symbols/Concrete classes](src/ChrisKonnertz/StringCalc/Symbols/Concrete)
