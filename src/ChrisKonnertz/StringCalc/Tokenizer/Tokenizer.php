@@ -197,6 +197,17 @@ class Tokenizer
     }
 
     /**
+     * Returns true, if a given character is a exclamation sign ('!') for logical NOT.
+     *
+     * @param string|null $char A single character
+     * @return bool
+     */
+    protected function isExclamation($char)
+    {
+        return ($char === '!');
+    }
+
+    /**
      * Returns true, if a given character is whitespace.
      * Notice: A null char is not seen as whitespace.
      *
@@ -260,7 +271,7 @@ class Tokenizer
         // Try to read the word
         while (($char = $this->inputStream->readCurrent()) !== null) {
 
-            if($this->isMinus($char) && strlen($chars )>0){
+            if (($this->isMinus($char) || $this->isExclamation($char)) && strlen($chars) > 0) {
                 // fix for unary operator minus after other math chars
                 break;
             }

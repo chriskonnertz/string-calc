@@ -29,7 +29,7 @@ class LogicalAndOperator extends AbstractOperator
      */
     public function operate($leftNumber, $rightNumber)
     {
-        return (int)((bool)(int)$leftNumber && (bool)(int)$rightNumber);
+        return (int)((bool)$leftNumber && (bool)$rightNumber);
     }
 
 }
