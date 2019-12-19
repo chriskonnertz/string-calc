@@ -39,6 +39,16 @@ interface SymbolContainerInterface
     public function find($identifier);
 
     /**
+     * Returns the variable symbol for the given identifier.
+     * Returns null if none is found.
+     *
+     * @param string $parentTypeName
+     * @param string $identifier
+     * @return AbstractSymbol|null
+     */
+    public function findVariable($parentTypeName, $identifier);
+
+    /**
      * Returns all symbols that inherit from a given abstract
      * parent type (class): The parent type has to be an
      * AbstractSymbol.

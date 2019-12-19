@@ -14,6 +14,7 @@ use ChrisKonnertz\StringCalc\Symbols\AbstractFunction;
 use ChrisKonnertz\StringCalc\Symbols\AbstractNumber;
 use ChrisKonnertz\StringCalc\Symbols\AbstractOperator;
 use ChrisKonnertz\StringCalc\Symbols\AbstractSeparator;
+use ChrisKonnertz\StringCalc\Symbols\AbstractVariable;
 
 /**
  * The calculator has one important method: calculate()
@@ -209,6 +210,10 @@ class Calculator implements CalculatorInterface
             $number = 0 + $number;
         } elseif (is_a($symbol, AbstractConstant::class)) {
             /** @var AbstractConstant $symbol */
+
+            $number = $symbol->getValue();
+        } elseif (is_a($symbol, AbstractVariable::class)) {
+            /** @var AbstractVariable $symbol */
 
             $number = $symbol->getValue();
         } else {

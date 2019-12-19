@@ -6,6 +6,7 @@ use ChrisKonnertz\StringCalc\Exceptions\NotFoundException;
 use ChrisKonnertz\StringCalc\Exceptions\StringCalcException;
 use ChrisKonnertz\StringCalc\Support\StringHelperInterface;
 use ChrisKonnertz\StringCalc\Symbols\Concrete\Number;
+use ChrisKonnertz\StringCalc\Symbols\Concrete\Variable;
 
 /**
  * The symbol container manages an array with all symbol objects.
@@ -59,7 +60,9 @@ class SymbolContainer implements SymbolContainerInterface
         }
 
         foreach ($this->symbols as $symbol) {
-            if (sizeof($symbol->getIdentifiers()) == 0 and ! is_a($symbol, Number::class)) {
+            if (sizeof($symbol->getIdentifiers()) == 0
+                and ! (is_a($symbol, Number::class) || is_a($symbol, Variable::class))
+            ) {
                 throw new \LengthException('Error: AbstractSymbol does not have any identifiers');
             }
         }
@@ -164,6 +167,33 @@ class SymbolContainer implements SymbolContainerInterface
         }
 
         return null;
+    }
+
+    /**
+     * Returns the variable symbol for the given identifier.
+     * Returns null if none is found.
+     *
+     * @param string $parentTypeName
+     * @param string $identifier
+     * @return AbstractSymbol|null
+     */
+    public function findVariable($parentTypeName, $identifier)
+    {
+        $this->stringHelper->validate($identifier);
+
+        $symbols = [];
+
+        foreach ($this->symbols as $symbol) {
+            if (is_a($symbol, $parentTypeName)) {
+                $symbols[] = $symbol;
+            }
+        }
+        if( count($symbols) !== 1){
+            return null;
+        }
+        $symbol = clone $symbols[0];
+        $symbol->addIdentifier($identifier);
+        return $symbol;
     }
 
     /**

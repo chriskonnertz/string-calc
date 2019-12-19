@@ -171,6 +171,37 @@ class StringCalcTest extends \PHPUnit\Framework\TestCase
             ['5%5', 0],
             ['5%(-3)', 2],
             ['(-5)%(-3)', -2],
+
+            ['0||1', 1],
+            ['0||-11', 1],
+            ['0||0', 0],
+            ['0&&1', 0],
+            ['0&&-11', 0],
+            ['1&&1', 1],
+            ['1&&-11', 1],
+
+            ['!1', 0],
+            ['!0', 1],
+            ['1+!0', 2],
+            ['!0&&1', 1],
+            ['!0&&!1', 0],
+
+            ['5==5', 1],
+            ['5==4', 0],
+            ['5!=5', 0],
+            ['5!=4', 1],
+            ['5>=5', 1],
+            ['5>=4', 1],
+            ['4>=5', 0],
+            ['5>5', 0],
+            ['5>4', 1],
+            ['4>5', 0],
+            ['5<=5', 1],
+            ['5<=4', 0],
+            ['4<=5', 1],
+            ['5<5', 0],
+            ['5<4', 0],
+            ['4<5', 1],
         ];
 
         // Brackets
@@ -183,7 +214,11 @@ class StringCalcTest extends \PHPUnit\Framework\TestCase
             ['((1+2)*(3+4))', 21],
         ];
 
-        $this->doCalculations(array_merge($numbers, $operators, $brackets));
+        $variables = [
+            ['$var1+ -$var2', -1, ['$var1'=>1, '$var2'=>2]],
+            ['$var+1', 11, ['$var'=>10]],
+        ];
+        $this->doCalculations(array_merge($numbers, $operators, $brackets, $variables));
 
         // Constants
         $constants = [
@@ -226,6 +261,8 @@ class StringCalcTest extends \PHPUnit\Framework\TestCase
             ['floor(2.8)', 2],
             ['fMod(2.2,2.1)', 0.1],
             ['hypot(2,2)', 2.8284271247462],
+            ['if(1,2,3)', 2],
+            ['if(0,2,3)', 3],
             ['log(2)', 0.69314718055995],
             ['log(2,2)', 1],
             ['logOneP(2)', 1.0986122886681],
@@ -288,8 +325,9 @@ class StringCalcTest extends \PHPUnit\Framework\TestCase
         foreach ($calculations as $calculation) {
             $term           = $calculation[0];
             $expectedResult = $calculation[1];
+            $variables      = isset($calculation[2]) && is_array($calculation[2]) ? $calculation[2] : [];
 
-            $calculatedResult = $this->stringCalc->calculate($term);
+            $calculatedResult = $this->stringCalc->calculate($term, $variables);
 
             if (method_exists($this, 'assertEqualsWithDelta')) {
                 $this->assertEqualsWithDelta($calculatedResult, $expectedResult, $delta, 'Term: '.$term);

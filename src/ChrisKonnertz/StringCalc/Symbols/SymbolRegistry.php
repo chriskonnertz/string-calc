@@ -40,6 +40,7 @@ use ChrisKonnertz\StringCalc\Symbols\Concrete\Functions\FloorFunction;
 use ChrisKonnertz\StringCalc\Symbols\Concrete\Functions\FModFunction;
 use ChrisKonnertz\StringCalc\Symbols\Concrete\Functions\GetRandMaxFunction;
 use ChrisKonnertz\StringCalc\Symbols\Concrete\Functions\HypotFunction;
+use ChrisKonnertz\StringCalc\Symbols\Concrete\Functions\IfFunction;
 use ChrisKonnertz\StringCalc\Symbols\Concrete\Functions\LogFunction;
 use ChrisKonnertz\StringCalc\Symbols\Concrete\Functions\LogOnePFunction;
 use ChrisKonnertz\StringCalc\Symbols\Concrete\Functions\LogTenFunction;
@@ -58,12 +59,22 @@ use ChrisKonnertz\StringCalc\Symbols\Concrete\Functions\TanFunction;
 use ChrisKonnertz\StringCalc\Symbols\Concrete\Functions\TanHFunction;
 use ChrisKonnertz\StringCalc\Symbols\Concrete\Number;
 use ChrisKonnertz\StringCalc\Symbols\Concrete\Operators\AdditionOperator;
+use ChrisKonnertz\StringCalc\Symbols\Concrete\Operators\ComparisonEqOperator;
+use ChrisKonnertz\StringCalc\Symbols\Concrete\Operators\ComparisonGtEqOperator;
+use ChrisKonnertz\StringCalc\Symbols\Concrete\Operators\ComparisonGtOperator;
+use ChrisKonnertz\StringCalc\Symbols\Concrete\Operators\ComparisonLtEqOperator;
+use ChrisKonnertz\StringCalc\Symbols\Concrete\Operators\ComparisonLtOperator;
+use ChrisKonnertz\StringCalc\Symbols\Concrete\Operators\ComparisonNotEqOperator;
 use ChrisKonnertz\StringCalc\Symbols\Concrete\Operators\DivisionOperator;
 use ChrisKonnertz\StringCalc\Symbols\Concrete\Operators\ExponentiationOperator;
+use ChrisKonnertz\StringCalc\Symbols\Concrete\Operators\LogicalAndOperator;
+use ChrisKonnertz\StringCalc\Symbols\Concrete\Operators\LogicalNotOperator;
+use ChrisKonnertz\StringCalc\Symbols\Concrete\Operators\LogicalOrOperator;
 use ChrisKonnertz\StringCalc\Symbols\Concrete\Operators\ModuloOperator;
 use ChrisKonnertz\StringCalc\Symbols\Concrete\Operators\MultiplicationOperator;
 use ChrisKonnertz\StringCalc\Symbols\Concrete\Operators\SubtractionOperator;
 use ChrisKonnertz\StringCalc\Symbols\Concrete\Separator;
+use ChrisKonnertz\StringCalc\Symbols\Concrete\Variable;
 
 /**
  * This class has one simple job: It contains an array with the names
@@ -86,6 +97,7 @@ class SymbolRegistry
     {
         $symbols = [
             Number::class,
+            Variable::class,
 
             Separator::class,
 
@@ -111,8 +123,17 @@ class SymbolRegistry
             EulerConstant::class,
 
             AdditionOperator::class,
+            ComparisonEqOperator::class,
+            ComparisonGtEqOperator::class,
+            ComparisonGtOperator::class,
+            ComparisonLtEqOperator::class,
+            ComparisonLtOperator::class,
+            ComparisonNotEqOperator::class,
             DivisionOperator::class,
             ExponentiationOperator::class,
+            LogicalAndOperator::class,
+            LogicalNotOperator::class,
+            LogicalOrOperator::class,
             ModuloOperator::class,
             MultiplicationOperator::class,
             SubtractionOperator::class,
@@ -136,6 +157,7 @@ class SymbolRegistry
             FModFunction::class,
             GetRandMaxFunction::class,
             HypotFunction::class,
+            IfFunction::class,
             LogFunction::class,
             LogOnePFunction::class,
             LogTenFunction::class,

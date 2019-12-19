@@ -2,7 +2,6 @@
 
 namespace ChrisKonnertz\StringCalc\Tokenizer;
 
-use ChrisKonnertz\StringCalc\Exceptions\NotFoundException;
 use ChrisKonnertz\StringCalc\Exceptions\StringCalcException;
 use ChrisKonnertz\StringCalc\Support\StringHelperInterface;
 
@@ -29,6 +28,24 @@ class Tokenizer
     protected $stringHelper;
 
     /**
+     * @var int[]
+     */
+    protected $mathChars = [
+        33, // !
+        37, // %
+        38, // &
+        42, // *
+        43, // +
+        45, // -
+        47, // /
+        60, // <
+        61, // =
+        62, // >
+        94, // ^
+        124, // |
+    ];
+
+    /**
      * Tokenizer constructor.
      *
      * @param InputStreamInterface     $inputStream
@@ -45,6 +62,7 @@ class Tokenizer
      * Tokenize the term. Returns an array with the tokens.
      *
      * @return Token[]
+     * @throws StringCalcException
      */
     public function tokenize()
     {
@@ -63,7 +81,7 @@ class Tokenizer
      * Reads a token.
      *
      * @return Token|null
-     * @throws NotFoundException
+     * @throws StringCalcException
      */
     protected function readToken()
     {
@@ -80,9 +98,15 @@ class Tokenizer
         if ($this->isLetter($char)) {
             $value = $this->readWord();
             $type = Token::TYPE_WORD;
+        } elseif ($this->isDollar($char)) {
+            $value = $this->readVariable();
+            $type = Token::TYPE_VARIABLE;
         } elseif ($this->isDigit($char) or $this->isPeriod($char)) {
             $value = $this->readNumber();
             $type = Token::TYPE_NUMBER;
+        } elseif ($this->isMathChar($char)) {
+            $value = $this->readMathChars();
+            $type = Token::TYPE_MATHCHARS;
         } else {
             $value = $this->readChar();
             $type = Token::TYPE_CHARACTER;
@@ -145,6 +169,70 @@ class Tokenizer
     }
 
     /**
+     * Returns true, if a given character is a math char.
+     *
+     * @param string|null $char A single character
+     * @return bool
+     */
+    protected function isMathChar($char)
+    {
+        if ($char === null) {
+            return false;
+        }
+
+        // Notice: ord(null) will return 0.
+        // ord() does not work with utf-8 characters.
+        $ascii = ord($char);
+
+        // ASCII codes: 48 = '0', 57 = '9'
+        return (in_array($ascii, $this->mathChars));
+    }
+
+    /**
+     * Returns true, if a given character is a minus sign ('-').
+     *
+     * @param string|null $char A single character
+     * @return bool
+     */
+    protected function isMinus($char)
+    {
+        return ($char === '-');
+    }
+
+    /**
+     * Returns true, if a given character is a exclamation sign ('!') for logical NOT.
+     *
+     * @param string|null $char A single character
+     * @return bool
+     */
+    protected function isExclamation($char)
+    {
+        return ($char === '!');
+    }
+
+    /**
+     * Returns true, if a given character is a underscore sign ('_').
+     *
+     * @param string|null $char A single character
+     * @return bool
+     */
+    protected function isUnderscore($char)
+    {
+        return ($char === '_');
+    }
+
+    /**
+     * Returns true, if a given character is a minus sign ('-').
+     *
+     * @param string|null $char A single character
+     * @return bool
+     */
+    protected function isDollar($char)
+    {
+        return ($char === '$');
+    }
+
+    /**
      * Returns true, if a given character is whitespace.
      * Notice: A null char is not seen as whitespace.
      *
@@ -192,6 +280,73 @@ class Tokenizer
         }
 
         return $word;
+    }
+
+    /**
+     * Reads a variable. Assumes that the cursor of the input stream
+     * currently is positioned at the beginning of a word.
+     *
+     * @return string
+     */
+    protected function readVariable()
+    {
+        $word = '';
+
+        // Try to read the variable
+        // first char is dollar
+        // second char can be underscore or letter
+        // more characters can be underscore, letter or digit
+        while (($char = $this->inputStream->readCurrent()) !== null) {
+            if (
+                ($word === '' && $this->isDollar($char))
+                || (strlen($word) === 1
+                    && ($this->isLetter($char) || $this->isUnderscore($char))
+                )
+                || (strlen($word) > 1
+                    && ($this->isLetter($char) || $this->isDigit($char)|| $this->isUnderscore($char))
+                )
+            ) {
+                $word .= $char;
+            } else {
+                break;
+            }
+
+            // Just move the cursor to the next position
+            $this->inputStream->readNext();
+        }
+
+        return $word;
+    }
+
+    /**
+     * Reads a math chars that are together like '<=' or '||'.
+     * Assumes that the cursor of the input stream
+     * currently is positioned at the beginning of a word.
+     *
+     * @return string
+     */
+    protected function readMathChars()
+    {
+        $chars = '';
+
+        // Try to read the word
+        while (($char = $this->inputStream->readCurrent()) !== null) {
+
+            if (($this->isMinus($char) || $this->isExclamation($char)) && strlen($chars) > 0) {
+                // fix for unary operator minus after other math chars
+                break;
+            }
+            if ($this->isMathChar($char)) {
+                $chars .= $char;
+            } else {
+                break;
+            }
+
+            // Just move the cursor to the next position
+            $this->inputStream->readNext();
+        }
+
+        return $chars;
     }
 
     /**
