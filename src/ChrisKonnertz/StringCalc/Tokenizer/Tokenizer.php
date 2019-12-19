@@ -211,6 +211,17 @@ class Tokenizer
     }
 
     /**
+     * Returns true, if a given character is a underscore sign ('_').
+     *
+     * @param string|null $char A single character
+     * @return bool
+     */
+    protected function isUnderscore($char)
+    {
+        return ($char === '_');
+    }
+
+    /**
      * Returns true, if a given character is a minus sign ('-').
      *
      * @param string|null $char A single character
@@ -281,12 +292,18 @@ class Tokenizer
     {
         $word = '';
 
-        // Try to read the word
+        // Try to read the variable
+        // first char is dollar
+        // second char can be underscore or letter
+        // more characters can be underscore, letter or digit
         while (($char = $this->inputStream->readCurrent()) !== null) {
             if (
-                (strlen($word) < 1 && $this->isDollar($char))
-                || (strlen($word) > 0
-                    && ($this->isLetter($char) || $this->isDigit($char))
+                ($word === '' && $this->isDollar($char))
+                || (strlen($word) === 1
+                    && ($this->isLetter($char) || $this->isUnderscore($char))
+                )
+                || (strlen($word) > 1
+                    && ($this->isLetter($char) || $this->isDigit($char)|| $this->isUnderscore($char))
                 )
             ) {
                 $word .= $char;
