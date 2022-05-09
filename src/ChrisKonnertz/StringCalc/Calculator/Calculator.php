@@ -273,7 +273,7 @@ class Calculator implements CalculatorInterface
 
             // If the second-level precedence is the same, we have to ensure that the sorting algorithm does
             // insert the node / token that is left in the term before the node / token that is right.
-            // Therefore we cannot return 0 but compare the positions and return 1 / -1.
+            // Therefore, we cannot return 0 but compare the positions and return 1 / -1.
             if ($precedenceOne == $precedenceTwo) {
                 return ($nodeOne->getToken()->getPosition() < $nodeTwo->getToken()->getPosition()) ? -1 : 1;
             }

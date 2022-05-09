@@ -40,6 +40,7 @@ use ChrisKonnertz\StringCalc\Symbols\Concrete\Functions\FloorFunction;
 use ChrisKonnertz\StringCalc\Symbols\Concrete\Functions\FModFunction;
 use ChrisKonnertz\StringCalc\Symbols\Concrete\Functions\GetRandMaxFunction;
 use ChrisKonnertz\StringCalc\Symbols\Concrete\Functions\HypotFunction;
+use ChrisKonnertz\StringCalc\Symbols\Concrete\Functions\IntDivFunction;
 use ChrisKonnertz\StringCalc\Symbols\Concrete\Functions\LogFunction;
 use ChrisKonnertz\StringCalc\Symbols\Concrete\Functions\LogOnePFunction;
 use ChrisKonnertz\StringCalc\Symbols\Concrete\Functions\LogTenFunction;
@@ -136,6 +137,7 @@ class SymbolRegistry
             FModFunction::class,
             GetRandMaxFunction::class,
             HypotFunction::class,
+            IntDivFunction::class,
             LogFunction::class,
             LogOnePFunction::class,
             LogTenFunction::class,

@@ -1,11 +1,11 @@
-# StringCalc
+# StringCalc 2
 
 [![Build Status
 ](https://img.shields.io/travis/chriskonnertz/string-calc.svg?style=flat-square)](https://travis-ci.org/chriskonnertz/string-calc)
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](https://raw.githubusercontent.com/chriskonnertz/string-calc/master/LICENSE)
 [![Source](https://img.shields.io/badge/source-chriskonnertz%2Fstring--calc-blue.svg?style=flat-square)](https://github.com/chriskonnertz/string-calc)
 
-StringCalc is a PHP calculator library for mathematical terms (expressions) passed as strings. 
+StringCalc is a zero-dependency PHP calculator library for mathematical terms (expressions) passed as strings. 
 
 ## Installation
 
@@ -15,12 +15,7 @@ Through Composer:
 composer require chriskonnertz/string-calc
 ```
 
-From then on you may run `composer update` to get the latest version of this library.
-
-It is possible to use this library without using Composer but then it is necessary to register an 
-[autoloader function](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-0.md#example-implementation).
-
-> This library requires PHP 5.6 or higher.
+> This library requires PHP 8.0 or higher. For PHP 5.6 support, use StringCalc 1.
 
 ## Usage example
 
@@ -53,7 +48,7 @@ Example, we need an example! Here we go: `2*(pi-abs(-0.4))`
 This is a mathematical term following syntactical and grammatical rules that StringCalc understands. 
 Syntax and grammar of these terms are very similar to what you would write in PHP code. 
 To be more precise, there is an intersecting set of syntactical and grammatical rules. 
-There are some exceptions but usually you will be able to write terms for StringCalc 
+There are some exceptions, but usually you will be able to write terms for StringCalc 
 by pretending that you are writing PHP code. 
 
 ### Term examples
@@ -168,9 +163,9 @@ The constructor has one optional parameter named `$container` that implements th
 This is the service container used by StringCalc. 
 If no argument is passed, the constructor will create a new container object of type `Container\Container` on its own.
 The container interface ensures that the container implements the 
-[PSR-11 standard](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-11-container.md). Therefore you can
+[PSR-11 standard](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-11-container.md). Therefore, you can
 replace the default container with every other container that implements the PSR-11 standard, but you have to wrap it 
-in a wrapper class that makes it compatible to the `Container\Container` class. We recommend to avoid the extra afford 
+in a wrapper class that makes it compatible to the `Container\Container` class. We recommend avoiding the extra afford 
 and to extend the `Container\Container` class instead.
 
 ### calculate
@@ -190,8 +185,8 @@ try {
 }
 ```
 
-In the example an exception of class `StringCalcException` will be thrown, 
-because the `min` method has to be called with one parameter at least. Exceptions of the type `StringCalcException` 
+In the example an exception with class `StringCalcException` will be thrown, 
+because the `min` method has to be called with one parameter at least. Exceptions with the type `StringCalcException` 
 are usually thrown when grammar or syntax of a given term are invalid. They have two additional properties: `position` 
 is an integer telling you where the problem occurred in the term, and `subject` is a string that might contain 
 additional data, **especially raw user input that you should never print to a website without encoding it via `htmlentities()`!**
@@ -243,7 +238,7 @@ $rootNode->traverse(function($node, $level)
 ```
 
 This example code will visualize the syntax tree. It uses the `traverse(Closure $callback)` method to go through all
-nodes of the tree. The level of the node is visualised by indentation and the name of the class of the node 
+nodes of the tree. The level of the node is visualized by indentation and the name of the class of the node 
 object is printed to display the type of the node. A node implements the abstract `Parser\Nodes\AbstractNode` class.
 There are three types of nodes: Container nodes (representing what is inside brackets), function nodes (representing
 a mathematical function and its arguments) and symbol nodes that represent mathematical symbols of certain types
@@ -292,7 +287,7 @@ symbols. It has several methods such as `add()`, `remove()`, `size()` and `getAl
 ### getContainer
 
 The `getContainer()` method is a getter method that returns the service container. 
-Take a look at the notes about the constructor for more details. There is not setter method for the container, 
+Take a look at the notes about the constructor for more details. There is no setter method for the container, 
 you can only set it via the constructor.
 
 ## Types of symbols
@@ -338,7 +333,7 @@ It is basically a placeholder for concrete numbers in the term.
 
 There are two types of brackets in a term: Opening and closing brackets. There is no other typification. For example 
 there can be classes that implement support for parentheses `()` and square brackets `[]` 
-but they will be treated equally. Therefore this is a valid term even though it might not be valid 
+but they will be treated equally. Therefore, this is a valid term even though it might not be valid 
 from a mathematical point of view: `[1+)`
 
 For every opening brackets there must be a closing bracket and vice versa. Good usage examples:
@@ -401,13 +396,13 @@ Please be aware that operators are closely related to functions. Functions are a
 If an operator does not seem suitable for a purpose, a function might be an appropriate alternative.
 
 Operator classes implement the `operate($leftNumber, $rightNumber)` method. Its parameters represent the operands.
-It might be confusing that even if the operator is a unary operator its `operate` method needs to have offer
+It might be confusing that even if the operator is a unary operator its `operate` method needs to offer
 both parameters. The `$rightNumber` parameter will contain the operand of the unary operation while the left will 
 contain 0.
 
 ### Functions
 
-Functions in a term represent mathematical functions. Typically the textual representation of a function consists of 
+Functions in a term represent mathematical functions. Typically, the textual representation of a function consists of 
 two or more letters, for example: `min`
 
 Good usage examples of using functions:
@@ -512,9 +507,6 @@ Therefore - as a rule of thumb - please transfer your knowledge about mathematic
 in StringCalc. This is also true about PHP's problems with floating point precision. 
 For example `(0.1 + 0.7) * 10` is not 8 nor 8.0 but 7.9999999999999991118… in PHP in general and in StringCalc as well.
 
-* PHP's `intdiv` function is missing, because it is not supported by PHP 5.6. 
-In case you need it, you may want to take a look at [this implementation](https://github.com/chriskonnertz/string-calc/blob/ed7dda7ec9f36b35eec22d2af6c7fbac620bb382/src/ChrisKonnertz/StringCalc/Symbols/Concrete/Functions/IntDivFunction.php).
-
 * This class does not offer support for any other numeral system than the decimal numeral system. 
 It is not intended to provide such support so if you need support of other numeral systems 
 (such as the binary numeral system) this might not be the library of your choice.
@@ -531,5 +523,5 @@ look at the [implementation](src/ChrisKonnertz/StringCalc).
 * The code of this library is formatted according to the code style defined by the 
 [PSR-2](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-2-coding-style-guide.md) standard.
 
-* Status of this repository: _Maintained_. Create an [issue](https://github.com/chriskonnertz/string-calc/issues) 
+* Status of this repository: _Maintained_. Create an [issue](https://github.com/chriskonnertz/string-calc/issues), 
 and you will get a response, usually within 48 hours.

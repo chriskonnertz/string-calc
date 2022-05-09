@@ -5,14 +5,15 @@
      *
      * @param string $class Full qualified name of the class
      */
-    function miniAutoloader($class)
+    function miniAutoloader(string $class)
     {
+        $class = str_replace('\\', '/', $class);
         require __DIR__ . '/../src/' . $class . '.php';
     }
 
     spl_autoload_register('miniAutoloader');
 
-    $term = isset($_POST['term']) ? $_POST['term'] : null;
+    $term = $_POST['term'] ?? null;
 
 ?>
 <!DOCTYPE html>

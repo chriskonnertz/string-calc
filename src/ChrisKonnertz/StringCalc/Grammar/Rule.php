@@ -20,7 +20,7 @@ class Rule
 
     /**
      * This is the left side of the rule. We simplify rules by
-     * only allowing one nonterminal symbol on the left side of the rule.
+     * only allowing one non-terminal symbol on the left side of the rule.
      * We store its name in this property.
      *
      * @var string
@@ -48,7 +48,7 @@ class Rule
     }
 
     /**
-     * Getter for the name of the nonterminal symbol
+     * Getter for the name of the non-terminal symbol
      *
      * @return string
      */
@@ -58,7 +58,7 @@ class Rule
     }
 
     /**
-     * Setter for the name of the nonterminal symbol
+     * Setter for the name of the non-terminal symbol
      *
      * @param string $nonterminalSymbolName
      */
