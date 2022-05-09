@@ -501,6 +501,13 @@ function := functionBody openingBracket expression (argumentSeparator expression
 
 Remember that numbers are always positive! The term "-1" consists of a unary operator followed by a number.
 
+## Tests
+
+Run `composer install` from the StringCalc directory, then run the tests:
+```
+./vendor/phpunit/phpunit/phpunit
+```
+
 ## General notes
 
 * Internally this library uses PHP's mathematical constants, operators and functions to calculate the term. 
