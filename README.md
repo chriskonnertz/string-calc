@@ -107,6 +107,7 @@ exp
 expMOne
 floor
 fMod
+intVal
 hypot
 log
 logOneP
