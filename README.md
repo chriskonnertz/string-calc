@@ -163,7 +163,7 @@ This section describes the public methods of this class.
 
 The constructor has one optional parameter named `$container` that implements the `Container\ContainerInterface`. 
 This is the service container used by StringCalc. 
-If no argument is passed, the constructor will create a new container object of type `Container\Container` on its own.
+If no argument is passed, the constructor will create a new container object with the type `Container\Container` on its own.
 The container interface ensures that the container implements the 
 [PSR-11 standard](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-11-container.md). Therefore, you can
 replace the default container with every other container that implements the PSR-11 standard, but you have to wrap it 
@@ -173,9 +173,9 @@ and to extend the `Container\Container` class instead.
 ### calculate
 
 The `calculate()` method is the most important method of this class. 
-It expects one parameter of type string called `$term`.
-It returns a number of type float or int. We strongly recommend to wrap any calls of this method in a `try-catch`-block 
-and to write a `catch`-statement that catches all exceptions of type `Exceptions\StringCalcException`.
+It expects one parameter with the type string called `$term`.
+It returns a number with the type float or int. We strongly recommend wrapping any calls of this method in a `try-catch` block 
+and to write a `catch` statement that catches all exceptions with the type `Exceptions\StringCalcException`.
  
 ```php
 try {
@@ -197,7 +197,7 @@ additional data, **especially raw user input that you should never print to a we
 
 The `tokenize($term)` method tokenizes the passed term. It returns an array with the tokens. 
 Tokens are the parts of a term or to be more precise the mathematical symbols of a term. A token is an object
-that has the `Tokenizer\Token` class as its parent. It implements the `__toString()` method 
+that has the `Tokenizer\Token` class as its parent. It implements the `__toString()` method,
 so you can do something like this:
 
 ```php
@@ -210,7 +210,7 @@ foreach ($tokens as $token) {
 }
 ```
 
-This will print the tokens of the term aka a string representation the whole term. A token consists of tree properties: 
+This will print the tokens of the term aka a string representation the whole term. A token consists of three properties: 
 The value, the type and the position. The value is returned by the  `__toString()` method. The type is a constant 
 that represents one of these types: characters, words or numbers. 
 The position is the index of the value string in the term string. Tokens do not have a semantic meaning.
@@ -294,7 +294,7 @@ you can only set it via the constructor.
 
 ## Types of symbols
 
-A term consists of symbols that are of a specific type. This section lists all available symbol types.
+A term consists of symbols that have a specific type. This section lists all available symbol types.
 
 ### Numbers
 
@@ -322,7 +322,7 @@ Bad usage examples:
 Just for your information: From the tokenizer's point of view, numbers in a term are always positive. 
 This means that the tokenizer will split the term `-1` in two parts: `-` and `1`. 
 
-> Notice: The fractional part of a PHP float can only have a limited length. If a number in a term has a longer 
+> 💡 Notice: The fractional part of a PHP float can only have a limited length. If a number in a term has a longer 
 fractional part, the fractional part will be cut somewhere.
 
 #### Number implementation
@@ -338,7 +338,7 @@ there can be classes that implement support for parentheses `()` and square brac
 but they will be treated equally. Therefore, this is a valid term even though it might not be valid 
 from a mathematical point of view: `[1+)`
 
-For every opening brackets there must be a closing bracket and vice versa. Good usage examples:
+For every opening bracket there must be a closing bracket and vice versa. Good usage examples:
                                                                            
 ```
 (1+1)
@@ -399,8 +399,8 @@ If an operator does not seem suitable for a purpose, a function might be an appr
 
 Operator classes implement the `operate($leftNumber, $rightNumber)` method. Its parameters represent the operands.
 It might be confusing that even if the operator is a unary operator its `operate` method needs to offer
-both parameters. The `$rightNumber` parameter will contain the operand of the unary operation while the left will 
-contain 0.
+both parameters. The `$rightNumber` argument will be the operand of the unary operation while the left will 
+be 0.
 
 ### Functions
 
@@ -424,16 +424,13 @@ abs-1 // Missing brackets
 min(1,) // Missing argument
 ```
 
-> Attention: The comma character is used exclusively as a separator of function arguments. 
-It is never interpreted as a decimal mark! Example for the former: max(1,2)
-
 #### Function implementation
 
 The `Symbols\AbstractFunction` class is the base class for all functions. 
 There are several concrete functions that extend this class.
 
 Please be aware that operators are closely related to functions. Functions are at least as powerful as operators are.
-If an operator does not seem suitable for a purpose, a function might be an appropriate alternative.
+If an operator does not seem suitable for a purpose, a function should be an appropriate alternative.
 
 Function classes implement the `execute(array $arguments)` method. The arguments are passed as an array to this method. 
 The size of the arguments array can be 0-n. The implementation of this method is responsible to validate the number of 
@@ -445,11 +442,11 @@ if (sizeof($arguments) < 1) {
 }
 ```
 
-The items of the `$arguments` array will always be of type int or float. They will never be null.
+The items of the `$arguments` array will always have the type int or float. They will never be null.
 
 ### Separators
 
-A separator separates the arguments of a (mathematical) function. 
+A separator is used to separate the arguments of a (mathematical) function. 
 Out-of-the-box there is one separator symbol with one identifier: `,`
  
 Good usage examples:
@@ -469,7 +466,7 @@ max(1,,3) // Missing calculable expression between separators
 #### Separator implementation
 
 The `Symbols\AbstractSeparator` class is the base class for all separators. 
-There is only one concrete functions that extend this class: `Symbols\Concrete\Separator`
+There is only one concrete class that extends this class: `Symbols\Concrete\Separator`
 
 ## Grammar
 
@@ -477,7 +474,7 @@ This section deals with the grammar for terms that StringCalc can process.
 
 ### Grammar vs Implementation
 
-It is important that you notice that the implementations of the 
+It is important to notice that the implementations of the 
 parser (`Parser\Parser` class) and the calculator (`Calculator\Calculator` class) 
 do not mimic the production rules defined below exactly.
 So don't be irritated if you compare the actual implementation with the
@@ -516,8 +513,8 @@ Therefore - as a rule of thumb - please transfer your knowledge about mathematic
 in StringCalc. This is also true about PHP's problems with floating point precision. 
 For example `(0.1 + 0.7) * 10` is not 8 nor 8.0 but 7.9999999999999991118… in PHP in general and in StringCalc as well.
 
-* This class does not offer support for any other numeral system than the decimal numeral system. 
-It is not intended to provide such support so if you need support of other numeral systems 
+* This library does not offer support for any other numeral system than the decimal numeral system. 
+It is not intended to provide such support. Therefore, if you need support of other numeral systems 
 (such as the binary numeral system) this might not be the library of your choice.
  
 * Namespaces in this documentation are relative. For example the namespace `Exceptions\StringCalcException` refers to
@@ -533,4 +530,4 @@ look at the [implementation](src/ChrisKonnertz/StringCalc).
 [PSR-2](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-2-coding-style-guide.md) standard.
 
 * Status of this repository: _Maintained_. Create an [issue](https://github.com/chriskonnertz/string-calc/issues), 
-and you will get a response, usually within 48 hours.
+and you will get a response.
